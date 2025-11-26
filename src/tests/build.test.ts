@@ -92,6 +92,18 @@ describe('Output Data Validation', () => {
 		expect(data.assets).toBeDefined()
 		expect(data.oracles).toBeDefined()
 	})
+
+	test('starsmith.json is valid expansion for Starforged', () => {
+		const dataPath = path.join(ROOT, 'datasworn/starsmith/starsmith.json')
+		const data = JSON.parse(readFileSync(dataPath, 'utf-8'))
+
+		expect(data._id).toBe('starsmith')
+		expect(data.type).toBe('expansion')
+		expect(data.ruleset).toBe('starforged')
+		expect(data.oracles).toBeDefined()
+		// Starsmith is oracle-only expansion
+		expect(Object.keys(data.oracles).length).toBeGreaterThan(0)
+	})
 })
 
 describe('Schema Round-Trip Validation', () => {
@@ -353,6 +365,22 @@ describe('ID Consistency', () => {
 		expect(moveIds.length).toBeGreaterThan(0)
 		for (const moveId of moveIds) {
 			expect(moveId).toContain(':starforged/')
+		}
+	})
+
+	test('all _id values in starsmith.json contain expansion ID', () => {
+		const data = JSON.parse(
+			readFileSync(path.join(ROOT, 'datasworn/starsmith/starsmith.json'), 'utf-8')
+		)
+
+		expect(data._id).toBe('starsmith')
+		expect(data.type).toBe('expansion')
+
+		// Check that oracle _ids contain the expansion ID (format: type:starsmith/...)
+		const oracleIds = getAllIds(data.oracles)
+		expect(oracleIds.length).toBeGreaterThan(0)
+		for (const oracleId of oracleIds) {
+			expect(oracleId).toContain(':starsmith/')
 		}
 	})
 })

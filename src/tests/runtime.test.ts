@@ -64,6 +64,27 @@ describe('mergeExpansion', () => {
 		expect(merged.oracles).toBeDefined()
 	})
 
+	test('merges Starsmith into Starforged', () => {
+		const starforged = clone(loadRuleset('starforged'))
+		const starsmith = loadExpansion('starsmith')
+
+		// Count oracles before merge
+		const oraclesBefore = Object.keys(starforged.oracles).length
+
+		// Merge
+		const merged = mergeExpansion(starforged, starsmith)
+
+		// Verify merge returned the ruleset
+		expect(merged._id).toBe('starforged')
+
+		// Starsmith adds expanded oracles
+		const oraclesAfter = Object.keys(merged.oracles).length
+		expect(oraclesAfter).toBeGreaterThanOrEqual(oraclesBefore)
+
+		// Check that merged content is accessible
+		expect(merged.oracles).toBeDefined()
+	})
+
 	test('strict mode rejects mismatched expansion', () => {
 		const starforged = clone(loadRuleset('starforged'))
 		const delve = loadExpansion('delve') // Delve is for classic, not starforged
