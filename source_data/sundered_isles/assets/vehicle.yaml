@@ -282,3 +282,38 @@ assets:
             <<: *SupportVehicle.integrity
             max: 4
             value: 4
+  incidental_vehicle:
+    type: asset_collection
+    name: Incidental Vehicle Assets
+    color: &IncidentalVehicleAsset.color '#6b7a8f'
+    _source:
+      <<: *Source
+    contents:
+      sailing_ship:
+        name: Sailing Ship
+        type: asset
+        category: Incidental Vehicle
+        color: *IncidentalVehicleAsset.color
+        shared: true
+        options:
+          <<: *NameField
+        _source:
+          <<: *Source
+        abilities:
+        - enabled: true
+          text: |-
+            When you gain command of this ship, envision its nature and assign a max integrity (5, 4, or 3). If this is your primary ship, it has up to 5 hold. You and your allies use your hold value as supply when taking action or suffering a cost related to shipwide gear and provisions.
+
+            The ship cannot be marked as battered or cursed and cannot be enhanced with modules. If it is destroyed, sunk, lost, abandoned, or upgraded to FLAGSHIP status, discard this card.
+        controls:
+          integrity:
+            label: integrity
+            field_type: condition_meter
+            max: 5
+            value: 5
+            min: 0
+            moves:
+              suffer:
+                - move:starforged/suffer/withstand_damage
+              recover:
+                - move:starforged/recover/repair
