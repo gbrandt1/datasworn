@@ -8,7 +8,7 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/rsek/datasworn.git",
+		"url": "git+https://github.com/tbsvttr/datasworn.git",
 		"directory": "pkg/nodejs/@datasworn/ironsworn-classic-delve"
 	},
 	"keywords": [
@@ -30,7 +30,7 @@
 	},
 	"license": "(CC-BY-4.0 OR CC-BY-NC-4.0)",
 	"bugs": {
-		"url": "https://github.com/rsek/datasworn/issues"
+		"url": "https://github.com/tbsvttr/datasworn/issues"
 	},
 	"dependencies": {
 		"@datasworn/ironsworn-classic": "0.1.0"
