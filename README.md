@@ -77,7 +77,13 @@ Tags:
 
 ### Prerequisites
 
-- [Bun](https://bun.sh/) 1.3+ (required for development)
+- [Bun](https://bun.sh/) 1.3+ (required)
+- [jtd-codegen](https://github.com/jsontypedef/json-typedef-codegen) (optional, for multi-language types)
+
+```bash
+# Install jtd-codegen via Homebrew (macOS)
+brew install jsontypedef/jsontypedef/jtd-codegen
+```
 
 > **Note:** The published npm packages work with both Node.js and Bun. Bun is only required for building from source.
 
@@ -89,16 +95,21 @@ cd datasworn
 bun install
 ```
 
-### Build
+### Build Commands
 
-```bash
-bun run build          # Full build
-bun run build:schema   # Generate JSON schemas
-bun run build:json     # Build game data JSON
-bun run build:pkg      # Build npm packages
-bun run test           # Run tests
-bun run check          # TypeScript type check
-```
+| Command | Description | Requirements |
+|---------|-------------|--------------|
+| `bun run build` | Full build (all steps) | jtd-codegen |
+| `bun run build:schema` | Generate JSON schemas | - |
+| `bun run build:jtd` | Generate multi-language types | jtd-codegen |
+| `bun run build:dts` | Generate TypeScript types | - |
+| `bun run build:json` | Build game data JSON | - |
+| `bun run build:pkg` | Build npm packages | - |
+| `bun run test` | Run all tests | - |
+| `bun run test:build` | Run build validation tests | - |
+| `bun run check` | TypeScript type check | - |
+
+If you don't need multi-language type definitions (C#, Go, Java, Python, Ruby, Rust), you can skip `jtd-codegen` and run individual build commands instead of `bun run build`.
 
 ### Project Structure
 
