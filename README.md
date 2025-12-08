@@ -77,8 +77,8 @@ Tags:
 
 ### Prerequisites
 
-- [Bun](https://bun.sh/) runtime
-- Node.js 18+
+- [Bun](https://bun.sh/) 1.3+
+- Node.js 24+ (LTS)
 
 ### Setup
 
