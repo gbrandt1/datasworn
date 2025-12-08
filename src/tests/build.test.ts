@@ -120,6 +120,44 @@ describe('Output Data Validation', () => {
 		expect(Object.keys(data.moves).length).toBeGreaterThan(0)
 		expect(Object.keys(data.assets).length).toBeGreaterThan(0)
 	})
+
+	test('sundered_isles.json is valid expansion for Starforged', () => {
+		const dataPath = path.join(ROOT, 'datasworn/sundered_isles/sundered_isles.json')
+		const data = JSON.parse(readFileSync(dataPath, 'utf-8'))
+
+		expect(data._id).toBe('sundered_isles')
+		expect(data.type).toBe('expansion')
+		expect(data.ruleset).toBe('starforged')
+		// Sundered Isles has assets and oracles
+		expect(data.assets).toBeDefined()
+		expect(data.oracles).toBeDefined()
+		expect(Object.keys(data.assets).length).toBeGreaterThan(0)
+		expect(Object.keys(data.oracles).length).toBeGreaterThan(0)
+	})
+
+	test('sundered_isles.json has incidental_vehicle collection with sailing_ship', () => {
+		const dataPath = path.join(ROOT, 'datasworn/sundered_isles/sundered_isles.json')
+		const data = JSON.parse(readFileSync(dataPath, 'utf-8'))
+
+		// Check incidental_vehicle collection exists
+		expect(data.assets.incidental_vehicle).toBeDefined()
+		expect(data.assets.incidental_vehicle.type).toBe('asset_collection')
+		expect(data.assets.incidental_vehicle.name).toBe('Incidental Vehicle Assets')
+
+		// Check sailing_ship asset exists with correct properties
+		const sailingShip = data.assets.incidental_vehicle.contents.sailing_ship
+		expect(sailingShip).toBeDefined()
+		expect(sailingShip._id).toBe('asset:sundered_isles/incidental_vehicle/sailing_ship')
+		expect(sailingShip.name).toBe('Sailing Ship')
+		expect(sailingShip.category).toBe('Incidental Vehicle')
+		expect(sailingShip.shared).toBe(true)
+
+		// Check integrity control exists (without battered/cursed - that's intentional)
+		expect(sailingShip.controls.integrity).toBeDefined()
+		expect(sailingShip.controls.integrity.field_type).toBe('condition_meter')
+		expect(sailingShip.controls.integrity.max).toBe(5)
+		expect(sailingShip.controls.integrity.controls).toEqual({}) // No battered/cursed
+	})
 })
 
 describe('Schema Round-Trip Validation', () => {

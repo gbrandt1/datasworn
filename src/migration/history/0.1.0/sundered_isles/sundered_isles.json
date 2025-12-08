@@ -67485,6 +67485,79 @@
 				"license": "https://creativecommons.org/licenses/by-nc-sa/4.0",
 				"url": "https://ironswornrpg.com"
 			}
+		},
+		"incidental_vehicle": {
+			"_id": "asset_collection:sundered_isles/incidental_vehicle",
+			"type": "asset_collection",
+			"name": "Incidental Vehicle Assets",
+			"color": "#6b7a8f",
+			"contents": {
+				"sailing_ship": {
+					"_id": "asset:sundered_isles/incidental_vehicle/sailing_ship",
+					"type": "asset",
+					"name": "Sailing Ship",
+					"category": "Incidental Vehicle",
+					"color": "#6b7a8f",
+					"options": {
+						"name": {
+							"label": "name",
+							"field_type": "text",
+							"value": null
+						}
+					},
+					"count_as_impact": false,
+					"shared": true,
+					"abilities": [
+						{
+							"_id": "asset.ability:sundered_isles/incidental_vehicle/sailing_ship.0",
+							"enabled": true,
+							"options": {},
+							"text": "When you gain command of this ship, envision its nature and assign a max integrity (5, 4, or 3). If this is your primary ship, it has up to 5 hold. You and your allies use your hold value as supply when taking action or suffering a cost related to shipwide gear and provisions.\n\nThe ship cannot be marked as battered or cursed and cannot be enhanced with modules. If it is destroyed, sunk, lost, abandoned, or upgraded to FLAGSHIP status, discard this card.",
+							"controls": {},
+							"oracles": {},
+							"moves": {}
+						}
+					],
+					"controls": {
+						"integrity": {
+							"label": "integrity",
+							"field_type": "condition_meter",
+							"rollable": true,
+							"min": 0,
+							"max": 5,
+							"value": 5,
+							"controls": {},
+							"moves": {
+								"suffer": ["move:starforged/suffer/withstand_damage"],
+								"recover": ["move:starforged/recover/repair"]
+							}
+						}
+					},
+					"_source": {
+						"title": "Sundered Isles",
+						"authors": [
+							{
+								"name": "Shawn Tomkin"
+							}
+						],
+						"date": "2024-07-01",
+						"license": "https://creativecommons.org/licenses/by-nc-sa/4.0",
+						"url": "https://ironswornrpg.com"
+					}
+				}
+			},
+			"collections": {},
+			"_source": {
+				"title": "Sundered Isles",
+				"authors": [
+					{
+						"name": "Shawn Tomkin"
+					}
+				],
+				"date": "2024-07-01",
+				"license": "https://creativecommons.org/licenses/by-nc-sa/4.0",
+				"url": "https://ironswornrpg.com"
+			}
 		}
 	},
 	"atlas": {
