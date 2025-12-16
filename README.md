@@ -126,6 +126,7 @@ bun install
 | `bun run test` | Run all tests | Rust (optional) |
 | `bun run test:build` | Run build validation tests | Rust (optional) |
 | `bun run check` | TypeScript type check | - |
+| `bun run viewer` | Launch interactive data viewer | - |
 
 If you don't need multi-language type definitions (C#, Go, Java, Python, Ruby, Rust), you can skip `jtd-codegen` and run individual build commands instead of `bun run build`.
 
@@ -145,7 +146,9 @@ datasworn/
 ├── datasworn/         # Generated JSON output
 ├── json-typedef/      # Generated type definitions (multi-language)
 │   └── rust-test/     # Rust integration test project
-└── source_data/       # YAML source files
+├── source_data/       # YAML source files
+└── tools/
+    └── viewer/        # Interactive data browser
 ```
 
 ## Design Goals
