@@ -1,5 +1,6 @@
 /**
  * Viewer-specific type definitions
+ * Uses types from @datasworn/core where possible
  */
 
 import type { Datasworn } from '@datasworn/core'
@@ -7,22 +8,18 @@ import type { Datasworn } from '@datasworn/core'
 // Re-export Datasworn types for convenience
 export type { Datasworn }
 
-/** Oracle row with roll range */
-export interface OracleRow {
-	roll?: {
-		min: number
-		max: number
-	}
-	text?: string
-	text2?: string
-}
+// Use core types directly instead of custom interfaces
+export type OracleRow = Datasworn.OracleRollableRow
+export type EmbeddedOracle = Datasworn.EmbeddedOracleRollable
+export type DiceRange = Datasworn.DiceRange
 
-/** Embedded oracle data */
-export interface EmbeddedOracle {
-	name?: string
-	dice?: string
-	rows?: OracleRow[]
-}
+/** Collection types */
+export type CollectionType =
+	| Datasworn.MoveCategory
+	| Datasworn.AssetCollection
+	| Datasworn.OracleCollection
+	| Datasworn.NpcCollection
+	| Datasworn.AtlasCollection
 
 /** Datasworn item types */
 export type DataswornType =
@@ -37,14 +34,6 @@ export type DataswornType =
 	| 'oracle_collection'
 	| 'npc_collection'
 	| 'atlas_collection'
-
-/** Collection types */
-export type CollectionType =
-	| Datasworn.MoveCategory
-	| Datasworn.AssetCollection
-	| Datasworn.OracleCollection
-	| Datasworn.NpcCollection
-	| Datasworn.AtlasCollection
 
 /** Check if an item is a specific Datasworn type */
 export function hasType(item: unknown, type: DataswornType): boolean {

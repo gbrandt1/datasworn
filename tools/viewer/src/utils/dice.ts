@@ -2,14 +2,11 @@
  * Dice rolling utilities
  */
 
+import type { DiceRange } from '../types'
+
 export interface DiceNotation {
 	count: number
 	sides: number
-}
-
-export interface RollRange {
-	min: number
-	max: number
 }
 
 /** Parse dice notation like "1d100", "1d6", "2d10" */
@@ -35,7 +32,7 @@ export function rollDice(notation: string): number {
 }
 
 /** Check if a roll is within a range */
-export function isInRange(roll: number, range: RollRange): boolean {
+export function isInRange(roll: number, range: DiceRange): boolean {
 	return roll >= range.min && roll <= range.max
 }
 
@@ -45,7 +42,7 @@ export function isMatch(roll: number): boolean {
 }
 
 /** Format a roll range for display */
-export function formatRollRange(range: RollRange): string {
+export function formatRollRange(range: DiceRange): string {
 	if (range.min === range.max) {
 		return String(range.min)
 	}
