@@ -39,10 +39,9 @@ def test_datasworn():
 
         _id = rules_package.field_id
         print(f"\n{_id}: {type(rules_package)} {rules_package.type}")
-
         print(rules_package)
 
-        if rules_package.type == Type.ruleset:
-            # rules_package_dict = rules_package.model_dump()
-            # datasworn_tree[_id] = Ruleset(**rules_package_dict.model_dump() {"type": "ruleset"})
-            print(datasworn_tree[_id])
+        # if rules_package.type == Type.ruleset:
+        # rules_package_dict = rules_package.model_dump()
+        # datasworn_tree[_id] = Ruleset(**rules_package_dict.model_dump() {"type": "ruleset"})
+        # print(datasworn_tree[_id])
