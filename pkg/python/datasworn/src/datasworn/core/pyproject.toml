@@ -1,15 +1,11 @@
 [project]
 name = "datasworn-core"
 version = "0.1.0"
-description = "Add your description here"
+description = "Pydantic models of Ironsworn: Starforged Datasworn data."
 readme = "README.md"
-authors = [
-    { name = "Gerhard Brandt", email = "gbrandt@cern.ch" }
-]
+authors = [{ name = "Gerhard Brandt", email = "gbrandt@cern.ch" }]
 requires-python = ">=3.14"
-dependencies = [
-    "pydantic[email]>=2.12.5",
-]
+dependencies = ["pydantic[email]>=2.12.5"]
 
 [tool.uv.build-backend]
 module-name = "datasworn.core"

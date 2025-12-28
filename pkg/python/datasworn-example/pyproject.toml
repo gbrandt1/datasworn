@@ -1,0 +1,28 @@
+[project]
+name = "datasworn-example"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "datasworn-classic",
+    "datasworn-community-content-ancient-wonders",
+    "datasworn-community-content-fe-runners",
+    "datasworn-community-content-starsmith",
+    "datasworn-core",
+    "datasworn-delve",
+    "datasworn-starforged",
+    "datasworn-sundered-isles",
+    "orjson>=3.11.5",
+    "rich>=14.2.0",
+]
+
+[tool.uv.sources]
+datasworn-classic = { path = "../datasworn/src/datasworn/classic" }
+datasworn-core = { path = "../datasworn/src/datasworn/core" }
+datasworn-delve = { path = "../datasworn/src/datasworn/delve" }
+datasworn-starforged = { path = "../datasworn/src/datasworn/starforged" }
+datasworn-sundered-isles = { path = "../datasworn/src/datasworn/sundered_isles" }
+datasworn-community-content-ancient-wonders = { path = "../datasworn-community-content/src/datasworn-community-content/ancient-wonders" }
+datasworn-community-content-fe-runners = { path = "../datasworn-community-content/src/datasworn-community-content/fe-runners" }
+datasworn-community-content-starsmith = { path = "../datasworn-community-content/src/datasworn-community-content/starsmith" }
