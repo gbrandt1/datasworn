@@ -30,5 +30,5 @@ def test_datasworn():
     for rules_package in RULES_PACKAGES:
         rules_package = load_rules_package(rules_package)
 
-        _id = rules_package.field_id
+        _id = rules_package.id
         print(f"{_id}: {type(rules_package)} {rules_package.type}")

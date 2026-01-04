@@ -18,11 +18,11 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-datasworn-classic = { path = "../datasworn/src/datasworn/classic" }
-datasworn-core = { path = "../datasworn/src/datasworn/core" }
-datasworn-delve = { path = "../datasworn/src/datasworn/delve" }
-datasworn-starforged = { path = "../datasworn/src/datasworn/starforged" }
-datasworn-sundered-isles = { path = "../datasworn/src/datasworn/sundered_isles" }
-datasworn-community-content-ancient-wonders = { path = "../datasworn-community-content/src/datasworn-community-content/ancient-wonders" }
-datasworn-community-content-fe-runners = { path = "../datasworn-community-content/src/datasworn-community-content/fe-runners" }
-datasworn-community-content-starsmith = { path = "../datasworn-community-content/src/datasworn-community-content/starsmith" }
+datasworn-classic = { path = "../datasworn/src/datasworn/classic", editable = true }
+datasworn-core = { path = "../datasworn/src/datasworn/core", editable = true }
+datasworn-delve = { path = "../datasworn/src/datasworn/delve", editable = true }
+datasworn-starforged = { path = "../datasworn/src/datasworn/starforged", editable = true }
+datasworn-sundered-isles = { path = "../datasworn/src/datasworn/sundered_isles", editable = true }
+datasworn-community-content-ancient-wonders = { path = "../datasworn-community-content/src/datasworn-community-content/ancient-wonders", editable = true }
+datasworn-community-content-fe-runners = { path = "../datasworn-community-content/src/datasworn-community-content/fe-runners", editable = true }
+datasworn-community-content-starsmith = { path = "../datasworn-community-content/src/datasworn-community-content/starsmith", editable = true }

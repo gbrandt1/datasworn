@@ -5246,8 +5246,7 @@
 						"$ref": "#/definitions/AuthorInfo"
 					}
 				},
-				"date": {
-					"pattern": "[0-9]{4}-((0[0-9])|(1[0-2]))-(([0-2][0-9])|(3[0-1]))",
+				"date": {					
 					"format": "date",
 					"remarks": "You may prefer to deserialize this as a Date object.",
 					"description": "The date of the source documents's last update, formatted YYYY-MM-DD. Required because it's used to determine whether the data needs updating.",
@@ -9027,8 +9026,7 @@
 						"$ref": "#/definitions/AuthorInfo"
 					}
 				},
-				"date": {
-					"pattern": "[0-9]{4}-((0[0-9])|(1[0-2]))-(([0-2][0-9])|(3[0-1]))",
+				"date": {					
 					"format": "date",
 					"remarks": "You may prefer to deserialize this as a Date object.",
 					"description": "The date of the source documents's last update, formatted YYYY-MM-DD. Required because it's used to determine whether the data needs updating.",
@@ -9888,7 +9886,6 @@
 					}
 				},
 				"date": {
-					"pattern": "[0-9]{4}-((0[0-9])|(1[0-2]))-(([0-2][0-9])|(3[0-1]))",
 					"format": "date",
 					"remarks": "You may prefer to deserialize this as a Date object.",
 					"description": "The date of the source documents's last update, formatted YYYY-MM-DD. Required because it's used to determine whether the data needs updating.",

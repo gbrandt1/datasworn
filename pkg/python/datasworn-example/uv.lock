@@ -14,27 +14,27 @@ wheels = [
 [[package]]
 name = "datasworn-classic"
 version = "0.1.0"
-source = { directory = "../datasworn/src/datasworn/classic" }
+source = { editable = "../datasworn/src/datasworn/classic" }
 
 [[package]]
 name = "datasworn-community-content-ancient-wonders"
 version = "0.1.0"
-source = { directory = "../datasworn-community-content/src/datasworn-community-content/ancient-wonders" }
+source = { editable = "../datasworn-community-content/src/datasworn-community-content/ancient-wonders" }
 
 [[package]]
 name = "datasworn-community-content-fe-runners"
 version = "0.1.0"
-source = { directory = "../datasworn-community-content/src/datasworn-community-content/fe-runners" }
+source = { editable = "../datasworn-community-content/src/datasworn-community-content/fe-runners" }
 
 [[package]]
 name = "datasworn-community-content-starsmith"
 version = "0.1.0"
-source = { directory = "../datasworn-community-content/src/datasworn-community-content/starsmith" }
+source = { editable = "../datasworn-community-content/src/datasworn-community-content/starsmith" }
 
 [[package]]
 name = "datasworn-core"
 version = "0.1.0"
-source = { directory = "../datasworn/src/datasworn/core" }
+source = { editable = "../datasworn/src/datasworn/core" }
 dependencies = [
     { name = "pydantic", extra = ["email"] },
 ]
@@ -45,7 +45,7 @@ requires-dist = [{ name = "pydantic", extras = ["email"], specifier = ">=2.12.5"
 [[package]]
 name = "datasworn-delve"
 version = "0.1.0"
-source = { directory = "../datasworn/src/datasworn/delve" }
+source = { editable = "../datasworn/src/datasworn/delve" }
 
 [[package]]
 name = "datasworn-example"
@@ -66,14 +66,14 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "datasworn-classic", directory = "../datasworn/src/datasworn/classic" },
-    { name = "datasworn-community-content-ancient-wonders", directory = "../datasworn-community-content/src/datasworn-community-content/ancient-wonders" },
-    { name = "datasworn-community-content-fe-runners", directory = "../datasworn-community-content/src/datasworn-community-content/fe-runners" },
-    { name = "datasworn-community-content-starsmith", directory = "../datasworn-community-content/src/datasworn-community-content/starsmith" },
-    { name = "datasworn-core", directory = "../datasworn/src/datasworn/core" },
-    { name = "datasworn-delve", directory = "../datasworn/src/datasworn/delve" },
-    { name = "datasworn-starforged", directory = "../datasworn/src/datasworn/starforged" },
-    { name = "datasworn-sundered-isles", directory = "../datasworn/src/datasworn/sundered_isles" },
+    { name = "datasworn-classic", editable = "../datasworn/src/datasworn/classic" },
+    { name = "datasworn-community-content-ancient-wonders", editable = "../datasworn-community-content/src/datasworn-community-content/ancient-wonders" },
+    { name = "datasworn-community-content-fe-runners", editable = "../datasworn-community-content/src/datasworn-community-content/fe-runners" },
+    { name = "datasworn-community-content-starsmith", editable = "../datasworn-community-content/src/datasworn-community-content/starsmith" },
+    { name = "datasworn-core", editable = "../datasworn/src/datasworn/core" },
+    { name = "datasworn-delve", editable = "../datasworn/src/datasworn/delve" },
+    { name = "datasworn-starforged", editable = "../datasworn/src/datasworn/starforged" },
+    { name = "datasworn-sundered-isles", editable = "../datasworn/src/datasworn/sundered_isles" },
     { name = "orjson", specifier = ">=3.11.5" },
     { name = "rich", specifier = ">=14.2.0" },
 ]
@@ -81,12 +81,12 @@ requires-dist = [
 [[package]]
 name = "datasworn-starforged"
 version = "0.1.0"
-source = { directory = "../datasworn/src/datasworn/starforged" }
+source = { editable = "../datasworn/src/datasworn/starforged" }
 
 [[package]]
 name = "datasworn-sundered-isles"
 version = "0.1.0"
-source = { directory = "../datasworn/src/datasworn/sundered_isles" }
+source = { editable = "../datasworn/src/datasworn/sundered_isles" }
 
 [[package]]
 name = "dnspython"

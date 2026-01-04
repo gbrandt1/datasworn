@@ -16,3 +16,4 @@ Reproduce some of the functionality provided by the JavaScript core package?
 - [ ] fix lists in Delve
 - [ ] check all items included (allow = extra?)
 - [ ] check defaults provided even for missing items (avoid `hasattr` checks later)
+- [ ] alias 'field_id' to '_id'

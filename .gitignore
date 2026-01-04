@@ -21,6 +21,7 @@ haxesworn
 **/.venv
 .mypy_cache
 **/.coverage
+.python-version
 
 # Local PDFs (not for distribution)
 pdfs/

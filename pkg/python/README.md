@@ -1,8 +1,7 @@
 
 # Datasworn and Datasworn Community Content Python Projects
 
-This directory contains two Python projects for Datasworn and Datasworn Community Content
-organized using [`uv` workspaces](https://docs.astral.sh/uv/concepts/projects/workspaces/).
+This directory contains two Python projects for Datasworn and Datasworn Community Content organized using [`uv` workspaces](https://docs.astral.sh/uv/concepts/projects/workspaces/).
 
 ## Installation
 
@@ -21,20 +20,22 @@ uv add "git+https://github.com/gbrandt1/datasworn.git#subdirectory=pkg/python/da
 
 ## Building
 
-! Building does not work out-of-the-box yet and the generated models require some manual fixes !
+/!\ Building does not work out-of-the-box yet and the generated models require some manual fixes /!\
 
-The build script in the root directory of the repositoryis used to
+Please install [`uv`](https://docs.astral.sh/uv/) to work with this repository.
 
-- copy the JSON files
+The `build.py` script in the root directory of the repository is used to
+
+- copy the datasworn output JSON files.
 - generate the Pydantic models for the `core` package from the JSON schema provided by Datasworn.
 
 To run the build script:
 
 ```bash
-uv run build.py
+./build.py
 ```
 
-The build script is self-contained using [inline script metadata](https://packaging.python.org/en/latest/specifications/inline-script-metadata/#inline-script-metadata).
+The build script is self-contained (apart from requiring `uv`) using [inline script metadata](https://packaging.python.org/en/latest/specifications/inline-script-metadata/#inline-script-metadata).
 
 ## Testing
 
@@ -51,28 +52,34 @@ The tests should demonstrate 100% coverage.
 
 Pydantic Models:
 
-- core
+- `datasworn-core` core functionality (only Pydantic models for now).
 
 JSON-only packages:
 
-- Ironsworn Classic
-- Ironsworn Delve
-- Starforged
-- Sundered Isles
+| Package | Rulebook
+|---|---
+| `datasworn-classic` | Ironsworn
+| `datasworn-delve` | Ironsworn: Delve
+| `datasworn-starforged` | Ironsworn: Starforged
+| `datasworn-sundered-isles` | Sundered Isles
+
+For convenience the top-level `datasworn` package can be installed which depends on all the above packages.
 
 ## Datasworn Community Content Python Project
 
 JSON-only packages:
 
-- Ancient Wonders
-- FE runners
-- Starsmith
+| Package | Rulebook
+|---|---
+| `datasworn-community-content-ancient-wonders` | Ancient Wonders
+| `datasworn-community-content-fe-runners` | FE runners
+| `datasworn-community-content-starsmith` | Starsmith
   
 ## Licensing
 
-Python projects use the MIT license.
+These Datasworn Python projects in `pkg/python` by -southpole- use the MIT license.
 
-Datasworn package content (the typings and JSON schema) and internal tooling use the MIT license.
+Datasworn package content (the typings and JSON schema) and internal tooling (by rsek and tbsvttr) use the MIT license.
 
 Textual and image content (in other words, the actual content from the rulebooks as described in JSON, Markdown, and other files) is CC-BY-4.0 or CC-BY-NC-4.0.
 

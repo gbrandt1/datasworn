@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "A Python library for Ironsworn: Delve data."
 readme = "README.md"
 authors = [{ name = "Gerhard Brandt", email = "gbrandt@cern.ch" }]
-requires-python = ">=3.14"
+requires-python = ">=3.12"
 dependencies = []
 
 [tool.uv.build-backend]
