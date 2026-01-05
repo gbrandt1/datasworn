@@ -13,6 +13,7 @@
 
 import argparse
 import enum
+import json
 import logging
 import re
 import shutil
@@ -23,6 +24,19 @@ from pathlib import Path
 from typing import Any
 
 import tomllib
+from datamodel_code_generator import (
+    DataModelType,
+    Formatter,
+    InputFileType,
+    PythonVersion,
+    YamlValue,
+    # UnionMode,
+    generate,
+)
+from datamodel_code_generator.config import JSONSchemaParserConfig
+from datamodel_code_generator.model import get_data_model_types
+from datamodel_code_generator.model.pydantic_v2 import UnionMode
+from datamodel_code_generator.parser.jsonschema import JsonSchemaParser
 from rich import print
 from rich.logging import RichHandler
 from rich.syntax import Syntax
@@ -110,10 +124,52 @@ def copy_json(args):
         # build_content_package(pkg_config)
 
 
+def fix_schema(path: Path):
+    def _parse_allof(node) -> list[Any]:
+        result = []
+        for i, subnode in enumerate(node):
+            then = subnode.get("then")
+            if then:
+                result.append(then)
+            else:
+                result.append(subnode)
+        return result
+
+    def _parse(node) -> Any:
+        match node:
+            case list():
+                result = []
+                for i, subnode in enumerate(node):
+                    result.append(_parse(subnode))
+            case {"allOf": subnode}:
+                result = {"oneOf": _parse_allof(subnode)}
+                log.info(f"Converted allOf to oneOf with {len(subnode)} subnodes")
+            case dict():
+                result = {}
+                for key, subnode in node.items():
+                    result[key] = _parse(subnode)
+                result.pop("pattern", None)
+                result.pop("description", None)
+                result.pop("examples", None)
+                result.pop("minimum", None)
+                result.pop("multipleOf", None)
+                result.pop("$schema", None)
+            case _:
+                result = node
+        return result
+
+    with path.open("r", encoding="utf-8") as f:
+        schema = json.loads(f.read())
+        output = Path(path.parent / "datasworn-fix.schema.json")
+        output.write_text(json.dumps(_parse(schema)))
+        return output
+
+
 def build_core_package(args):
     log.info("Generating Pydantic models...")
 
     json_schema = ROOT_OUTPUT / "datasworn.schema.json"
+    # json_schema = Path(Path(__file__).parent / "datasworn-fix.schema.json")
     output = (
         PKG_ROOT
         / "datasworn"
@@ -126,33 +182,37 @@ def build_core_package(args):
         / "models.py"
     )
 
-    from datamodel_code_generator import (
-        DataModelType,
-        Formatter,
-        InputFileType,
-        PythonVersion,
-        # UnionMode,
-        generate,
+    data_model_types = get_data_model_types(
+        DataModelType.PydanticV2BaseModel,
+        PythonVersion.PY_312,
     )
-    from datamodel_code_generator.model.pydantic_v2 import UnionMode
+    print(data_model_types)
 
-    result = generate(
+    parser_config = JSONSchemaParserConfig(
+        # --- JSON Schema Parser Options--------------------------------------------------
+        data_model_type=data_model_types.data_model,
+        data_model_root_type=data_model_types.root_model,
+        data_model_field_type=data_model_types.field_model,
+        data_type_manager_type=data_model_types.data_type_manager,
+        dump_resolve_reference_action=data_model_types.dump_resolve_reference_action,
+        # result = generate(
         # --- Base Options --------------------------------------------------------------
-        json_schema,
-        input_file_type=InputFileType.JsonSchema,
+        # json_schema,
+        # input_file_type=InputFileType.JsonSchema,
         # --- Model Customization --------------------------------------------------------
         collapse_reuse_models=True,
         # collapse_root_models=True,
-        collapse_root_models_name_strategy="parent",
+        # collapse_root_models_name_strategy="parent",
         keep_model_order=True,
         # naming_strategy="parent-prefixed",
-        output_model_type=DataModelType.PydanticV2BaseModel,
+        # output_model_type=DataModelType.PydanticV2BaseModel,
         reuse_model=True,
-        # reuse_scope="tree",
-        strict_nullable=True,
+        # skip_root_model=True,
+        # strict_nullable=True,
         target_pydantic_version="2.11",
         target_python_version=PythonVersion.PY_312,
-        # union_mode=UnionMode.smart,  # UnionMode.left_to_right,
+        # union_mode=UnionMode.smart,
+        # union_mode=UnionMode.left_to_right,
         # use_default=True,
         # use_default_factory_for_optional_nested_models=True,
         use_generic_base_class=True,
@@ -164,25 +224,25 @@ def build_core_package(args):
         # default_values - override from JSON file
         extra_fields="allow",
         field_constraints=True,
-        field_include_all_keys=True,
-        field_type_collision_strategy="rename-type",
+        # field_include_all_keys=True, # makes file huge by including everything
+        # field_type_collision_strategy="rename-type",
         # remove_special_field_name_prefix=True,
         set_default_enum_member=True,
         snake_case_field=True,
-        # special_field_name_prefix="special",
+        special_field_name_prefix="",
         use_attribute_docstrings=True,
-        use_enum_values_in_discriminator=True,
+        # use_enum_values_in_discriminator=True,
         use_field_description=True,
-        use_field_description_example=True,
+        # use_field_description_example=True,
         # use_inline_field_description=True,
         use_schema_description=True,
         use_title_as_name=True,
         # --- Typing Customization --------------------------------------------------------
         # allof_class_hierarchy="always",
-        # allof_merge_mode="none",
+        allof_merge_mode="none",
         enum_field_as_literal="all",
         # enum_field_as_literal_map --- override from JSON file
-        ignore_enum_constraints=True,
+        # ignore_enum_constraints=True,
         # output_datetime_class
         # strict_types=True,
         # type_overrides={
@@ -193,7 +253,7 @@ def build_core_package(args):
         # "DelveSiteDomain.dangers": "list[Danger]",
         # },
         use_generic_container_types=True,
-        use_root_model_type_alias=True,
+        # use_root_model_type_alias=True, # does not respect constraints
         use_specialized_enum=True,
         use_standard_collections=True,
         use_tuple_for_fixed_items=True,
@@ -201,8 +261,8 @@ def build_core_package(args):
         use_unique_items_as_set=True,
         # --- Template Customization ------------------------------------------------------
         # disable_appending_item_suffix=True,
-        enable_command_header=True,
-        enable_version_header=True,
+        # enable_command_header=True,
+        # enable_version_header=True,
         formatters=[Formatter.RUFF_FORMAT, Formatter.RUFF_CHECK],
         treat_dot_as_module=False,
         # validators={
@@ -221,6 +281,16 @@ def build_core_package(args):
         # module_split_mode="recursive",
         # debug=True,
     )
+
+    schema = fix_schema(json_schema)
+    log.info(f"Fixed schema written to {schema}")
+    parser = JsonSchemaParser(
+        schema,
+        config=parser_config,
+        # data_model_types=data_model_types,
+    )
+
+    result = parser.parse()
 
     # remaining problems to fix up manually:
     #  - DelveSite.denizens = Denizens # should be list[Denizens]
