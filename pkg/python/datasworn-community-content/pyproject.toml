@@ -4,12 +4,11 @@ version = "0.1.0"
 description = "Datasworn Community Content: A Python library for Ironsworn: Starforged community content."
 readme = "README.md"
 authors = [{ name = "Gerhard Brandt", email = "gbrandt@cern.ch" }]
-requires-python = ">=3.14"
+requires-python = ">=3.12"
 dependencies = [
     "datasworn-community-content-ancient-wonders",
     "datasworn-community-content-fe-runners",
     "datasworn-community-content-starsmith",
-    "datasworn-core",
 ]
 
 [tool.uv]
@@ -24,7 +23,6 @@ members = [
 ]
 
 [tool.uv.sources]
-datasworn-core = { path = "../datasworn/src/datasworn/core" }
 datasworn-community-content-ancient-wonders = { workspace = true }
 datasworn-community-content-fe-runners = { workspace = true }
 datasworn-community-content-starsmith = { workspace = true }
