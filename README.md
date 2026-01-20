@@ -16,7 +16,9 @@ For the original Datasworn JSON files, see the [`legacy` branch](https://github.
 
 ## Installation
 
-### JavaScript / TypeScript
+### JavaScript / TypeScript (from npm)
+
+> **Note:** The official npm packages are outdated and missing schema changes from 2024. See [Using this Fork](#using-this-fork) below for how to use the latest version.
 
 ```bash
 npm install @datasworn/core
@@ -24,6 +26,37 @@ npm install @datasworn/starforged
 npm install @datasworn/ironsworn-classic
 npm install @datasworn/ironsworn-classic-delve
 ```
+
+### Using this Fork
+
+The official npm packages haven't been updated since before rsek's last commits. This fork includes schema changes that make JSON files incompatible with the old npm validator. To use this fork in your project instead:
+
+#### npm
+
+```json
+{
+  "dependencies": {
+    "@datasworn/core": "github:tbsvttr/datasworn#main&path:pkg/nodejs/@datasworn/core"
+  }
+}
+```
+
+#### pnpm
+
+```json
+{
+  "dependencies": {
+    "@datasworn/core": "github:tbsvttr/datasworn/pkg/nodejs/@datasworn/core"
+  }
+}
+```
+
+Available packages in `pkg/nodejs/`:
+
+- `@datasworn/core` - TypeScript typings and JSON schema
+- `@datasworn/starforged` - Starforged data
+- `@datasworn/ironsworn-classic` - Classic Ironsworn data (includes Lodestar moves)
+- `@datasworn/ironsworn-classic-delve` - Delve expansion data
 
 ### Python
 
