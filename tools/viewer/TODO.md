@@ -107,5 +107,5 @@ rules:
 
 ## Dependencies
 
-- [ ] **Evaluate `jtd`** - Last updated 2021, consider alternatives or fork
-- [ ] **Evaluate `json-schema`** - Last updated 2021, consider alternatives
+- [x] **Evaluate `jtd`** - Official RFC 8927 implementation, stable spec, no security issues - keeping as-is
+- [x] **Evaluate `json-schema`** - Replaced unofficial package with `@types/json-schema`
