@@ -54,6 +54,10 @@
 			"types": "./index.d.ts",
 			"default": "./index.js"
 		},
+		"./ids": {
+			"types": "./ids.d.ts",
+			"default": "./ids.js"
+		},
 		"./json/starforged.json": "./json/starforged.json"
 	}
 }

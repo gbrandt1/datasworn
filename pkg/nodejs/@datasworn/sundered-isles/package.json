@@ -53,6 +53,10 @@
 			"types": "./index.d.ts",
 			"default": "./index.js"
 		},
+		"./ids": {
+			"types": "./ids.d.ts",
+			"default": "./ids.js"
+		},
 		"./json/sundered_isles.json": "./json/sundered_isles.json"
 	}
 }
