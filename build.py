@@ -22,6 +22,7 @@ from datamodel_code_generator import (
     DataModelType,
     InputFileType,
     PythonVersion,
+    TargetPydanticVersion,
     generate,
 )
 from rich import print
@@ -129,15 +130,21 @@ def build_core_package(args):
         input_file_type=InputFileType.JsonSchema,
         output_model_type=DataModelType.PydanticV2BaseModel,
         # output=output,
+        extra_fields="allow",
+        # allow_population_by_field_name=True,
         use_standard_collections=True,
+        use_generic_base_class=True,
         field_constraints=True,
         use_annotated=True,
-        target_python_version=PythonVersion.PY_313,
+        field_extra_keys=set("rollable"),
+        target_python_version=PythonVersion.PY_312,
+        target_pydantic_version=TargetPydanticVersion.V2_11,
         # Optimization: collapse simple RootModel types into type aliases
         # This eliminates the need for .root access on string/primitive types
         collapse_root_models=True,
         # Use X | Y union syntax instead of Union[X, Y]
         use_union_operator=True,
+        remove_special_field_name_prefix=True,
     )
 
     if args.dry_run:
