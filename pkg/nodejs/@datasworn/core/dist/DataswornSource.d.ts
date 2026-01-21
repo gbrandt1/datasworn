@@ -24,16 +24,18 @@ export type ActionRollMethod = "miss" | "weak_hit" | "strong_hit" | "player_choi
 /**
  * Represents any kind of non-wildcard ID, including IDs of embedded objects.
  */
-export type AnyId = AtlasEntryId | NpcId | NpcVariantId | OracleRollableId | AssetAbilityOracleRollableId | MoveOracleRollableId | TruthOptionOracleRollableId | OracleRollableRowId | AssetAbilityOracleRollableRowId | MoveOracleRollableRowId | TruthOptionOracleRollableRowId | AssetId | AssetAbilityId | AssetAbilityMoveId | MoveId | AssetAbilityMoveConditionId | MoveConditionId | AtlasCollectionId | NpcCollectionId | OracleCollectionId | AssetCollectionId | MoveCategoryId | DelveSiteId | DelveSiteDenizenId | DelveSiteDomainId | DelveSiteDomainFeatureId | DelveSiteThemeFeatureId | DelveSiteDomainDangerId | DelveSiteThemeDangerId | DelveSiteThemeId | RarityId | TruthId | TruthOptionId;
+export type AnyId = AtlasEntryId | NpcId | NpcVariantId | OracleRollableId | AssetAbilityOracleRollableId | MoveOracleRollableId | TruthOptionOracleRollableId | OracleRollableRowId | AssetAbilityOracleRollableRowId | MoveOracleRollableRowId | TruthOptionOracleRollableRowId | AssetId | AssetAbilityId | AssetAbilityMoveId | MoveId | AssetAbilityMoveConditionId | MoveConditionId | AssetAbilityMoveOutcomeId | MoveOutcomeId | AtlasCollectionId | NpcCollectionId | OracleCollectionId | AssetCollectionId | MoveCategoryId | DelveSiteId | DelveSiteDenizenId | DelveSiteDomainId | DelveSiteDomainFeatureId | DelveSiteThemeFeatureId | DelveSiteDomainDangerId | DelveSiteThemeDangerId | DelveSiteThemeId | RarityId | TruthId | TruthOptionId;
 /**
  * Represents any kind of wildcard ID, including IDs of embedded objects.
  */
-export type AnyIdWildcard = AtlasEntryIdWildcard | NpcIdWildcard | NpcVariantIdWildcard | OracleRollableIdWildcard | AssetAbilityOracleRollableIdWildcard | MoveOracleRollableIdWildcard | TruthOptionOracleRollableIdWildcard | OracleRollableRowIdWildcard | AssetAbilityOracleRollableRowIdWildcard | MoveOracleRollableRowIdWildcard | TruthOptionOracleRollableRowIdWildcard | AssetIdWildcard | AssetAbilityIdWildcard | AssetAbilityMoveIdWildcard | MoveIdWildcard | AssetAbilityMoveConditionIdWildcard | MoveConditionIdWildcard | AtlasCollectionIdWildcard | NpcCollectionIdWildcard | OracleCollectionIdWildcard | AssetCollectionIdWildcard | MoveCategoryIdWildcard | DelveSiteIdWildcard | DelveSiteDenizenIdWildcard | DelveSiteDomainIdWildcard | DelveSiteDomainFeatureIdWildcard | DelveSiteThemeFeatureIdWildcard | DelveSiteDomainDangerIdWildcard | DelveSiteThemeDangerIdWildcard | DelveSiteThemeIdWildcard | RarityIdWildcard | TruthIdWildcard | TruthOptionIdWildcard;
+export type AnyIdWildcard = AtlasEntryIdWildcard | NpcIdWildcard | NpcVariantIdWildcard | OracleRollableIdWildcard | AssetAbilityOracleRollableIdWildcard | MoveOracleRollableIdWildcard | TruthOptionOracleRollableIdWildcard | OracleRollableRowIdWildcard | AssetAbilityOracleRollableRowIdWildcard | MoveOracleRollableRowIdWildcard | TruthOptionOracleRollableRowIdWildcard | AssetIdWildcard | AssetAbilityIdWildcard | AssetAbilityMoveIdWildcard | MoveIdWildcard | AssetAbilityMoveConditionIdWildcard | MoveConditionIdWildcard | AssetAbilityMoveOutcomeIdWildcard | MoveOutcomeIdWildcard | AtlasCollectionIdWildcard | NpcCollectionIdWildcard | OracleCollectionIdWildcard | AssetCollectionIdWildcard | MoveCategoryIdWildcard | DelveSiteIdWildcard | DelveSiteDenizenIdWildcard | DelveSiteDomainIdWildcard | DelveSiteDomainFeatureIdWildcard | DelveSiteThemeFeatureIdWildcard | DelveSiteDomainDangerIdWildcard | DelveSiteThemeDangerIdWildcard | DelveSiteThemeIdWildcard | RarityIdWildcard | TruthIdWildcard | TruthOptionIdWildcard;
 export type AnyMove = Move | EmbeddedMove;
 export type AnyMoveConditionId = AssetAbilityMoveConditionId | MoveConditionId;
 export type AnyMoveConditionIdWildcard = AssetAbilityMoveConditionIdWildcard | MoveConditionIdWildcard;
 export type AnyMoveId = MoveId | AssetAbilityMoveId;
 export type AnyMoveIdWildcard = MoveIdWildcard | AssetAbilityMoveIdWildcard;
+export type AnyMoveOutcomeId = AssetAbilityMoveOutcomeId | MoveOutcomeId;
+export type AnyMoveOutcomeIdWildcard = AssetAbilityMoveOutcomeIdWildcard | MoveOutcomeIdWildcard;
 export type AnyOracleRollable = OracleRollable | EmbeddedOracleRollable;
 export type AnyOracleRollableId = OracleRollableId | AssetAbilityOracleRollableId | TruthOptionOracleRollableId | MoveOracleRollableId;
 export type AnyOracleRollableIdWildcard = OracleRollableIdWildcard | AssetAbilityOracleRollableIdWildcard | TruthOptionOracleRollableIdWildcard | MoveOracleRollableIdWildcard;
@@ -215,6 +217,20 @@ export type AssetAbilityMoveId = string;
  * ```
  */
 export type AssetAbilityMoveIdWildcard = string;
+/**
+ * A unique ID representing an AssetAbilityMoveOutcome object.
+ * @pattern ```javascript
+ * /^asset\.ability\.move\.outcome:([a-z][a-z0-9_]*(?:\/[a-z][a-z0-9_]*){2,5})\.(\d+)\.([a-z][a-z0-9_]*|\*)\.([a-z][a-z0-9_]*|\*)$/
+ * ```
+ */
+export type AssetAbilityMoveOutcomeId = string;
+/**
+ * A wildcarded AssetAbilityMoveOutcomeId that can be used to match multiple AssetAbilityMoveOutcome objects.
+ * @pattern ```javascript
+ * /^asset\.ability\.move\.outcome:((?:[a-z][a-z0-9_]*|\*)(?:\/(?:[a-z][a-z0-9_]*|\*|\*\*)){2,5})\.(\d+|\*)\.([a-z][a-z0-9_]*|\*)\.([a-z][a-z0-9_]*|\*)$/
+ * ```
+ */
+export type AssetAbilityMoveOutcomeIdWildcard = string;
 /**
  * @remarks Deserialize as a discriminated union/polymorphic object type, using the `field_type` property as a discriminator.
  */
@@ -2139,7 +2155,7 @@ export interface EmbeddedSpecialTrackMove {
     type: "move";
     roll_type: "special_track";
 }
-export type EmbedOnlyType = "ability" | "condition" | "option" | "row" | "feature" | "danger" | "denizen" | "variant";
+export type EmbedOnlyType = "ability" | "condition" | "outcome" | "option" | "row" | "feature" | "danger" | "denizen" | "variant";
 /**
  * This type is a placeholder and may see signficant changes in v0.2.0.
  * @experimental
@@ -2650,9 +2666,24 @@ export type MoveOracleRollableRowId = string;
  */
 export type MoveOracleRollableRowIdWildcard = string;
 export interface MoveOutcome {
+    _id?: AnyMoveOutcomeId;
     text: MarkdownString;
     oracle_rolls?: OracleRoll[];
 }
+/**
+ * A unique ID representing a MoveOutcome object.
+ * @pattern ```javascript
+ * /^move\.outcome:([a-z][a-z0-9_]*(?:\/[a-z][a-z0-9_]*){2,5})\.([a-z][a-z0-9_]*|\*)$/
+ * ```
+ */
+export type MoveOutcomeId = string;
+/**
+ * A wildcarded MoveOutcomeId that can be used to match multiple MoveOutcome objects.
+ * @pattern ```javascript
+ * /^move\.outcome:((?:[a-z][a-z0-9_]*|\*)(?:\/(?:[a-z][a-z0-9_]*|\*|\*\*)){2,5})\.([a-z][a-z0-9_]*|\*)$/
+ * ```
+ */
+export type MoveOutcomeIdWildcard = string;
 /**
  * A standalone localized description for each move outcome (miss, weak hit, or strong hit). This is for for e.g. VTT implementations, where it's often useful to display only the rules text relevant to a roll result.
  *

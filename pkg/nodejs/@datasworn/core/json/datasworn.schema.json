@@ -74,6 +74,12 @@
 					"$ref": "#/definitions/MoveConditionId"
 				},
 				{
+					"$ref": "#/definitions/AssetAbilityMoveOutcomeId"
+				},
+				{
+					"$ref": "#/definitions/MoveOutcomeId"
+				},
+				{
 					"$ref": "#/definitions/AtlasCollectionId"
 				},
 				{
@@ -179,6 +185,12 @@
 					"$ref": "#/definitions/MoveConditionIdWildcard"
 				},
 				{
+					"$ref": "#/definitions/AssetAbilityMoveOutcomeIdWildcard"
+				},
+				{
+					"$ref": "#/definitions/MoveOutcomeIdWildcard"
+				},
+				{
 					"$ref": "#/definitions/AtlasCollectionIdWildcard"
 				},
 				{
@@ -280,6 +292,28 @@
 				},
 				{
 					"$ref": "#/definitions/AssetAbilityMoveIdWildcard"
+				}
+			]
+		},
+		"AnyMoveOutcomeId": {
+			"title": "AnyMoveOutcomeId",
+			"anyOf": [
+				{
+					"$ref": "#/definitions/AssetAbilityMoveOutcomeId"
+				},
+				{
+					"$ref": "#/definitions/MoveOutcomeId"
+				}
+			]
+		},
+		"AnyMoveOutcomeIdWildcard": {
+			"title": "AnyMoveOutcomeIdWildcard",
+			"anyOf": [
+				{
+					"$ref": "#/definitions/AssetAbilityMoveOutcomeIdWildcard"
+				},
+				{
+					"$ref": "#/definitions/MoveOutcomeIdWildcard"
 				}
 			]
 		},
@@ -690,6 +724,18 @@
 			"title": "AssetAbilityMoveIdWildcard",
 			"description": "A wildcarded AssetAbilityMoveId that can be used to match multiple AssetAbilityMove objects.",
 			"pattern": "^asset\\.ability\\.move:((?:[a-z][a-z0-9_]*|\\*)(?:\\/(?:[a-z][a-z0-9_]*|\\*|\\*\\*)){2,5})\\.(\\d+|\\*)\\.([a-z][a-z0-9_]*|\\*)$",
+			"type": "string"
+		},
+		"AssetAbilityMoveOutcomeId": {
+			"title": "AssetAbilityMoveOutcomeId",
+			"description": "A unique ID representing an AssetAbilityMoveOutcome object.",
+			"pattern": "^asset\\.ability\\.move\\.outcome:([a-z][a-z0-9_]*(?:\\/[a-z][a-z0-9_]*){2,5})\\.(\\d+)\\.([a-z][a-z0-9_]*|\\*)\\.([a-z][a-z0-9_]*|\\*)$",
+			"type": "string"
+		},
+		"AssetAbilityMoveOutcomeIdWildcard": {
+			"title": "AssetAbilityMoveOutcomeIdWildcard",
+			"description": "A wildcarded AssetAbilityMoveOutcomeId that can be used to match multiple AssetAbilityMoveOutcome objects.",
+			"pattern": "^asset\\.ability\\.move\\.outcome:((?:[a-z][a-z0-9_]*|\\*)(?:\\/(?:[a-z][a-z0-9_]*|\\*|\\*\\*)){2,5})\\.(\\d+|\\*)\\.([a-z][a-z0-9_]*|\\*)\\.([a-z][a-z0-9_]*|\\*)$",
 			"type": "string"
 		},
 		"AssetAbilityOptionField": {
@@ -5229,6 +5275,7 @@
 			"enum": [
 				"ability",
 				"condition",
+				"outcome",
 				"option",
 				"row",
 				"feature",
@@ -6188,6 +6235,9 @@
 			"title": "MoveOutcome",
 			"type": "object",
 			"properties": {
+				"_id": {
+					"$ref": "#/definitions/AnyMoveOutcomeId"
+				},
 				"text": {
 					"$ref": "#/definitions/MarkdownString"
 				},
@@ -6199,8 +6249,21 @@
 				}
 			},
 			"required": [
+				"_id",
 				"text"
 			]
+		},
+		"MoveOutcomeId": {
+			"title": "MoveOutcomeId",
+			"description": "A unique ID representing a MoveOutcome object.",
+			"pattern": "^move\\.outcome:([a-z][a-z0-9_]*(?:\\/[a-z][a-z0-9_]*){2,5})\\.([a-z][a-z0-9_]*|\\*)$",
+			"type": "string"
+		},
+		"MoveOutcomeIdWildcard": {
+			"title": "MoveOutcomeIdWildcard",
+			"description": "A wildcarded MoveOutcomeId that can be used to match multiple MoveOutcome objects.",
+			"pattern": "^move\\.outcome:((?:[a-z][a-z0-9_]*|\\*)(?:\\/(?:[a-z][a-z0-9_]*|\\*|\\*\\*)){2,5})\\.([a-z][a-z0-9_]*|\\*)$",
+			"type": "string"
 		},
 		"MoveOutcomes": {
 			"title": "MoveOutcomes",
@@ -10340,6 +10403,8 @@
 										"#/definitions/AnyMoveConditionIdWildcard",
 										"#/definitions/AnyMoveId",
 										"#/definitions/AnyMoveIdWildcard",
+										"#/definitions/AnyMoveOutcomeId",
+										"#/definitions/AnyMoveOutcomeIdWildcard",
 										"#/definitions/AnyOracleRollableId",
 										"#/definitions/AnyOracleRollableIdWildcard",
 										"#/definitions/AnyOracleRollableRowId",
@@ -10350,6 +10415,8 @@
 										"#/definitions/AssetAbilityMoveConditionIdWildcard",
 										"#/definitions/AssetAbilityMoveId",
 										"#/definitions/AssetAbilityMoveIdWildcard",
+										"#/definitions/AssetAbilityMoveOutcomeId",
+										"#/definitions/AssetAbilityMoveOutcomeIdWildcard",
 										"#/definitions/AssetAbilityOracleRollableId",
 										"#/definitions/AssetAbilityOracleRollableIdWildcard",
 										"#/definitions/AssetAbilityOracleRollableRowId",
@@ -10406,6 +10473,8 @@
 										"#/definitions/MoveOracleRollableIdWildcard",
 										"#/definitions/MoveOracleRollableRowId",
 										"#/definitions/MoveOracleRollableRowIdWildcard",
+										"#/definitions/MoveOutcomeId",
+										"#/definitions/MoveOutcomeIdWildcard",
 										"#/definitions/MoveRollType",
 										"#/definitions/NonCollectableType",
 										"#/definitions/NpcCollectionId",

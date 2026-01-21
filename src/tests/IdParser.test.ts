@@ -69,3 +69,82 @@ describe('Condition ID parsing', () => {
 		}
 	})
 })
+
+describe('Outcome ID parsing', () => {
+	// Get all outcome IDs from the index
+	const outcomeIds = Array.from(index.keys()).filter((id) =>
+		id.includes('.outcome:')
+	)
+
+	test('outcome IDs exist in the data', () => {
+		expect(outcomeIds.length).toBeGreaterThan(0)
+	})
+
+	test('move outcome IDs have correct format', () => {
+		const moveOutcomeIds = outcomeIds.filter((id) =>
+			id.startsWith('move.outcome:')
+		)
+		expect(moveOutcomeIds.length).toBeGreaterThan(0)
+
+		for (const id of moveOutcomeIds) {
+			// Format: move.outcome:package/path/move_key.outcome_type
+			expect(id).toMatch(/^move\.outcome:[a-z_]+\/[a-z_/]+\.(strong_hit|weak_hit|miss)$/)
+		}
+	})
+
+	test('embedded move outcome IDs have correct format', () => {
+		const embeddedOutcomeIds = outcomeIds.filter((id) =>
+			id.includes('ability.move.outcome:')
+		)
+
+		// These exist in asset abilities that define custom moves
+		if (embeddedOutcomeIds.length > 0) {
+			for (const id of embeddedOutcomeIds) {
+				// Format: asset.ability.move.outcome:package/path/asset_key.ability_index.move_key.outcome_type
+				expect(id).toMatch(
+					/^asset\.ability\.move\.outcome:[a-z_]+\/[a-z_/]+\.\d+\.[a-z_]+\.(strong_hit|weak_hit|miss)$/
+				)
+			}
+		}
+	})
+
+	test('outcome IDs resolve to objects with _id property', () => {
+		for (const id of outcomeIds.slice(0, 10)) {
+			// Test first 10 for speed
+			const parsed = IdParser.get(id)
+			expect(parsed._id).toBe(id)
+		}
+	})
+
+	test('outcome objects have expected properties', () => {
+		const sampleId = outcomeIds[0]
+		if (sampleId) {
+			const outcome = IdParser.get(sampleId)
+			expect(outcome).toHaveProperty('_id')
+			expect(outcome).toHaveProperty('text')
+		}
+	})
+
+	test('each move has three outcomes (strong_hit, weak_hit, miss)', () => {
+		const moveOutcomeIds = outcomeIds.filter((id) =>
+			id.startsWith('move.outcome:')
+		)
+
+		// Group by move ID (everything before the last dot)
+		const byMove = new Map<string, string[]>()
+		for (const id of moveOutcomeIds) {
+			const moveId = id.substring(0, id.lastIndexOf('.'))
+			if (!byMove.has(moveId)) byMove.set(moveId, [])
+			byMove.get(moveId)!.push(id)
+		}
+
+		// Each move should have exactly 3 outcomes
+		for (const [moveId, outcomes] of byMove) {
+			expect(outcomes.length).toBe(3)
+			const outcomeTypes = outcomes.map(id => id.substring(id.lastIndexOf('.') + 1))
+			expect(outcomeTypes).toContain('strong_hit')
+			expect(outcomeTypes).toContain('weak_hit')
+			expect(outcomeTypes).toContain('miss')
+		}
+	})
+})

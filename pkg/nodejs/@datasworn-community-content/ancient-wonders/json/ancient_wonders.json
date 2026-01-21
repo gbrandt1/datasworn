@@ -61666,12 +61666,15 @@
 					"text": "__When you rest and recover at an improvised, temporary, or make-shift refuge__, roll +supply.\n\nOn a __strong hit__, your provisions are enough to adequately sustain you, your allies, and your special companions; each may choose one.\n\n  * [Heal](move:starforged/recover/heal) and take an automatic strong hit.\n  * [Hearten](move:starforged/recover/hearten) and take an automatic strong hit.\n  * [Repair](move:starforged/recover/repair) and take an automatic strong hit (in the field or underway).\n\nOn a __weak hit__, as above, but resources or time are wasted; [Sacrifice Resources](move:starforged/suffer/sacrifice_resources) (-1) or [Lose Momentum](move:starforged/suffer/lose_momentum) (-2).\n\nOn a __miss__, you take no respite. [Pay the Price](move:starforged/fate/pay_the_price).",
 					"outcomes": {
 						"strong_hit": {
+							"_id": "move.outcome:ancient_wonders/making_camp/hunker_down.strong_hit",
 							"text": "On a __strong hit__, your provisions are enough to adequately sustain you, your allies, and your special companions; each may choose one.\n\n  * [Heal](move:starforged/recover/heal) and take an automatic strong hit.\n  * [Hearten](move:starforged/recover/hearten) and take an automatic strong hit.\n  * [Repair](move:starforged/recover/repair) and take an automatic strong hit (in the field or underway)."
 						},
 						"weak_hit": {
+							"_id": "move.outcome:ancient_wonders/making_camp/hunker_down.weak_hit",
 							"text": "On a __weak hit__, as above, but resources or time are wasted; [Sacrifice Resources](move:starforged/suffer/sacrifice_resources) (-1) or [Lose Momentum](move:starforged/suffer/lose_momentum) (-2)."
 						},
 						"miss": {
+							"_id": "move.outcome:ancient_wonders/making_camp/hunker_down.miss",
 							"text": "On a __miss__, you take no respite. [Pay the Price](move:starforged/fate/pay_the_price)."
 						}
 					},
@@ -61712,12 +61715,15 @@
 					"text": "__When you secure an area while on an expedition__, after doing any of the following...\n\n  * overcoming a critical obstacle\n  * gaining meaningful insight\n  * defeating a notable foe\n\n...envision how you can make this a perpetual safe place to rest. Then, roll +wits.\n\nOn a __strong hit__, you make a reliable haven. Name it and mark the progress box in which this haven is being established.\n\nThen, when you...\n\n  * [Hunker Down](move:ancient_wonders/making_camp/hunker_down) in this haven: Add +2 and choose an additional option on a hit.\n  * [Undertake an Expedition](move:starforged/exploration/undertake_an_expedition) from this haven: Add +1 and take +1 momentum on a hit.\n  * Go to the haven by...\n    * Returning to it in the middle of an expedition: Clear all progress after the haven\n    * Starting a new expedition route: [Set a Course](move:starforged/exploration/set_a_course) and add +2\n\nOn a __weak hit__, as above, but making this haven causes a delay or setback. Choose one.\n\n  * [Lose Momentum](move:starforged/suffer/lose_momentum) (-3).\n  * Clear one progress box and mark the haven appropriately.\n\nOn a __miss__, this place is cursed. You find no comfort in it. [Pay the Price](move:starforged/fate/pay_the_price).",
 					"outcomes": {
 						"strong_hit": {
+							"_id": "move.outcome:ancient_wonders/making_camp/establish_a_haven.strong_hit",
 							"text": "On a __strong hit__, you make a reliable haven. Name it and mark the progress box in which this haven is being established.\n\nThen, when you...\n\n  * [Hunker Down](move:ancient_wonders/making_camp/hunker_down) in this haven: Add +2 and choose an additional option on a hit.\n  * [Undertake an Expedition](move:starforged/exploration/undertake_an_expedition) from this haven: Add +1 and take +1 momentum on a hit.\n  * Go to the haven by...\n    * Returning to it in the middle of an expedition: Clear all progress after the haven\n    * Starting a new expedition route: [Set a Course](move:starforged/exploration/set_a_course) and add +2"
 						},
 						"weak_hit": {
+							"_id": "move.outcome:ancient_wonders/making_camp/establish_a_haven.weak_hit",
 							"text": "On a __weak hit__, as above, but making this haven causes a delay or setback. Choose one.\n\n  * [Lose Momentum](move:starforged/suffer/lose_momentum) (-3).\n  * Clear one progress box and mark the haven appropriately."
 						},
 						"miss": {
+							"_id": "move.outcome:ancient_wonders/making_camp/establish_a_haven.miss",
 							"text": "On a __miss__, this place is cursed. You find no comfort in it. [Pay the Price](move:starforged/fate/pay_the_price)."
 						}
 					},
@@ -61790,12 +61796,15 @@
 					"text": "__When you search in a community, physical or digital, to find an asset, service, or someone interested in what you offer__, envision your approach and roll. If you...\n\n  * Bargain across potential traders: Roll +heart\n  * Assess the offers: Roll +wits\n\nIf you are performing the search in a dense and technologically advanced population, add +1. If you share a bond, add another +1.\n\nOn a __strong hit__, you find what you are looking for at a fair deal. If you...\n\n  * [Resupply](move:starforged/recover/resupply) now, add +2\n  * [Exchange Wealth](move:ancient_wonders/exchanging_wealth/exchange_wealth), you have access to upmarket assets and services\n\nOn a __weak hit__, the search did not go as well as expected. If you...\n\n  * [Resupply](move:starforged/recover/resupply) now, add +1\n  * [Exchange Wealth](move:ancient_wonders/exchanging_wealth/exchange_wealth), you have access to upmarket assets and services but with some extra time; [Lose Momentum](move:starforged/suffer/lose_momentum) (-1).\n\nOn a __miss__, you are out of luck; what you're looking for is not available and the situation worsens. [Pay the Price](move:starforged/fate/pay_the_price).",
 					"outcomes": {
 						"strong_hit": {
+							"_id": "move.outcome:ancient_wonders/exchanging_wealth/browse_the_market.strong_hit",
 							"text": "On a __strong hit__, you find what you are looking for at a fair deal. If you...\n\n  * [Resupply](move:starforged/recover/resupply) now, add +2\n  * [Exchange Wealth](move:ancient_wonders/exchanging_wealth/exchange_wealth), you have access to upmarket assets and services"
 						},
 						"weak_hit": {
+							"_id": "move.outcome:ancient_wonders/exchanging_wealth/browse_the_market.weak_hit",
 							"text": "On a __weak hit__, the search did not go as well as expected. If you...\n\n  * [Resupply](move:starforged/recover/resupply) now, add +1\n  * [Exchange Wealth](move:ancient_wonders/exchanging_wealth/exchange_wealth), you have access to upmarket assets and services but with some extra time; [Lose Momentum](move:starforged/suffer/lose_momentum) (-1)."
 						},
 						"miss": {
+							"_id": "move.outcome:ancient_wonders/exchanging_wealth/browse_the_market.miss",
 							"text": "On a __miss__, you are out of luck; what you're looking for is not available and the situation worsens. [Pay the Price](move:starforged/fate/pay_the_price)."
 						}
 					},
@@ -61951,12 +61960,15 @@
 					"text": "__When you use your downtime to profit or acquire something of worth__, envision the labor. If your work mainly consists of...\n\n  * Exerting physical grace or using your dexterity: Roll +edge\n  * Working with people or using your charisma: Roll +heart\n  * Exercising force or using your brawn: Roll +iron\n  * Duping people or using your guile: Roll +shadow\n  * Deciphering truths or using your intelligence: Roll +wits\n\nOn a __hit__, your work efficiency allows you to save for your adventures. Add +1 on your next move (not a progress move).\n\nOn a __strong hit__, mark progress. On a __strong hit with a match__, mark progress twice.\n\nOn a __weak hit__, mark progress and fill a clock segment. If you fill a profit progress track, you may set another and continue marking progress.\n\nOn a __miss__, you encounter setbacks during your routine and do not save; fill a clock segment. On a __miss with a match__, fill two segments instead.",
 					"outcomes": {
 						"strong_hit": {
+							"_id": "move.outcome:ancient_wonders/taking_a_hiatus/work_the_field.strong_hit",
 							"text": "On a __strong hit__, mark progress."
 						},
 						"weak_hit": {
+							"_id": "move.outcome:ancient_wonders/taking_a_hiatus/work_the_field.weak_hit",
 							"text": "On a __weak hit__, mark progress and fill a clock segment."
 						},
 						"miss": {
+							"_id": "move.outcome:ancient_wonders/taking_a_hiatus/work_the_field.miss",
 							"text": "On a __miss__, you encounter setbacks during your routine and do not save; fill a clock segment. On a __miss with a match__, fill two segments instead."
 						}
 					},
@@ -62042,12 +62054,15 @@
 					"text": "__When you leverage your downtime to develop your abilities, improve your resources, gain a reward, or boost your influence__, envision the challenges you overcome to acquire or improve assets for your campaign. If you focus on...\n\n  * Training for your quest: Roll +edge or +iron\n  * Fostering your reputation for your bonds: Roll +heart or +shadow\n  * Researching lore for your discoveries: Roll +wits\n\nOn a __strong hit__, mark one tick on the appropriate legacy track. On a __strong hit with a match__, mark two ticks instead.\n\nOn a __weak hit__, as above, mark progress and fill a clock segment.\n\nOn a __miss__, fill a clock segment. On a __miss with a match__, fill two segments instead.",
 					"outcomes": {
 						"strong_hit": {
+							"_id": "move.outcome:ancient_wonders/taking_a_hiatus/work_your_legacy.strong_hit",
 							"text": "On a __strong hit__, mark one tick on the appropriate legacy track. On a __strong hit with a match__, mark two ticks instead."
 						},
 						"weak_hit": {
+							"_id": "move.outcome:ancient_wonders/taking_a_hiatus/work_your_legacy.weak_hit",
 							"text": "On a __weak hit__, as above, mark progress and fill a clock segment."
 						},
 						"miss": {
+							"_id": "move.outcome:ancient_wonders/taking_a_hiatus/work_your_legacy.miss",
 							"text": "On a __miss__, fill a clock segment. On a __miss with a match__, fill two segments instead."
 						}
 					},
@@ -62091,12 +62106,15 @@
 					"text": "__When you take note of the fruits of your labor__, roll the challenge dice and compare to your progress.\n\nOn a __hit__, envision and record a ledger item with a wealth value per the hiatus duration and hit result.\n\n| Hiatus Duration | On a Strong Hit | On a Weak Hit |\n|---|---|---|\n| Half a season | 3 value | 2 value |\n| A full season | 5 value | 3 value |\n\nOn a __strong hit with a match__, record an additional ledger item with a value equivalent to a weak hit.\n\nOn a __miss__, the result of your labors do not translate into anything of value, and you become aware of some unanticipated complication or realization. [Pay the Price](move:starforged/fate/pay_the_price).",
 					"outcomes": {
 						"strong_hit": {
+							"_id": "move.outcome:ancient_wonders/taking_a_hiatus/measure_profit.strong_hit",
 							"text": "On a __strong hit__, envision and record a ledger item with a wealth value per the hiatus duration and hit result.\n\n| Hiatus Duration | On a Strong Hit |\n|---|---|\n| Half a season | 3 value |\n| A full season | 5 value |"
 						},
 						"weak_hit": {
+							"_id": "move.outcome:ancient_wonders/taking_a_hiatus/measure_profit.weak_hit",
 							"text": "On a __weak hit__, envision and record a ledger item with a wealth value per the hiatus duration and hit result.\n\n| Hiatus Duration | On a Weak Hit |\n|---|---|\n| Half a season | 2 value |\n| A full season | 3 value |"
 						},
 						"miss": {
+							"_id": "move.outcome:ancient_wonders/taking_a_hiatus/measure_profit.miss",
 							"text": "On a __miss__, the result of your labors do not translate into anything of value, and you become aware of some unanticipated complication or realization. [Pay the Price](move:starforged/fate/pay_the_price)."
 						}
 					},
@@ -62211,12 +62229,15 @@
 					"text": "__When you spend time reflecting on your hardships and missteps__, and your failure track is +6 or greater, roll your challenge dice and compare to your progress.\n\nOn a __strong hit__, you commit to a dramatic change. Mark one box on your quests legacy track, clear all progress on the failure track, and choose one.\n\n  * Change course: Discard a single asset, take 2 experience for each marked ability, and [Advance](move:ancient_wonders/reworking_your_legacy/advance) to spend this experience on new assets or upgrades. Unused experience is discarded.\n  * Make it right: [Swear an Iron Vow](move:starforged/quest/swear_an_iron_vow) and reroll any dice.\n  * Ready your next steps: Take +3 momentum.\n\nOn a __weak hit__, you learn from your mistakes. Mark two ticks on your quests legacy track and clear all progress on the failure track.\n\nOn a __miss__, you've learned the wrong lessons. Mark 1 tick on your quests legacy track and clear all progress on the failure track. Then, envision how you set off on an ill-fated path.",
 					"outcomes": {
 						"strong_hit": {
+							"_id": "move.outcome:ancient_wonders/failing_forward/learn_from_your_failures.strong_hit",
 							"text": "On a __strong hit__, you commit to a dramatic change. Mark one box on your quests legacy track, clear all progress on the failure track, and choose one.\n\n  * Change course: Discard a single asset, take 2 experience for each marked ability, and [Advance](move:ancient_wonders/reworking_your_legacy/advance) to spend this experience on new assets or upgrades. Unused experience is discarded.\n  * Make it right: [Swear an Iron Vow](move:starforged/quest/swear_an_iron_vow) and reroll any dice.\n  * Ready your next steps: Take +3 momentum."
 						},
 						"weak_hit": {
+							"_id": "move.outcome:ancient_wonders/failing_forward/learn_from_your_failures.weak_hit",
 							"text": "On a __weak hit__, you learn from your mistakes. Mark two ticks on your quests legacy track and clear all progress on the failure track."
 						},
 						"miss": {
+							"_id": "move.outcome:ancient_wonders/failing_forward/learn_from_your_failures.miss",
 							"text": "On a __miss__, you've learned the wrong lessons. Mark 1 tick on your quests legacy track and clear all progress on the failure track. Then, envision how you set off on an ill-fated path."
 						}
 					},
@@ -62333,12 +62354,15 @@
 					"text": "__When you retire from your life as Ironsworn, or succumb to death or desolation__, you may create a new character in your established setting. If you do, roll the challenge dice and compare to each of the former character's legacy tracks: quests, bonds, and discoveries (one roll per track).\n\nFor each __strong hit__, choose one from below, or one from the weak hit or miss options.\n\n  * Follow their path: Take one path or companion asset (regular or special) from the former character (at no cost), including any marked abilities.\n  * Share a connection: Take one connection from the former character, including any accrued progress or bond benefits.\n  * Accept an inheritance: Take the former character's command vehicle and one module or support vehicle (at no cost), including any marked abilities.\n\nFor each __weak hit__, choose one from below, or one from the miss options.\n\n  * See it through: Choose one of the former character's unfinished quests, and [Swear an Iron Vow](move:starforged/quest/swear_an_iron_vow) (with an automatic strong hit) to see it done. You may immediately mark up to half their earned progress (round down) on this quest.\n  * Rebuild a connection: Name one of the former character's connections, and envision how time or circumstances have changed them in a dramatic way. When you [Make a Connection](move:starforged/connection/make_a_connection) with them, take an automatic strong hit and mark two ticks on your bonds legacy track.\n  * Explore familiar ground: Name a location that was meaningful to the former character. When you first visit that place, envision how it has changed or is endangered. Then, mark two ticks on your discoveries legacy track.\n\nFor each __miss__, choose one.\n\n  * Deal with the aftermath: Envision how one of your former character's foes has gained power or influence.\n  * Switch loyalties: Envision how you begin in opposition to your former character's beliefs, goals, or allegiances.\n  * Open Pandora's Box: Envision how an advancement or discovery has unleashed unexpectedly dire consequences.",
 					"outcomes": {
 						"strong_hit": {
+							"_id": "move.outcome:ancient_wonders/reworking_your_legacy/continue_a_legacy.strong_hit",
 							"text": "For each __strong hit__, choose one from below, or one from the weak hit or miss options.\n\n  * Follow their path: Take one path or companion asset (regular or special) from the former character (at no cost), including any marked abilities.\n  * Share a connection: Take one connection from the former character, including any accrued progress or bond benefits.\n  * Accept an inheritance: Take the former character's command vehicle and one module or support vehicle (at no cost), including any marked abilities."
 						},
 						"weak_hit": {
+							"_id": "move.outcome:ancient_wonders/reworking_your_legacy/continue_a_legacy.weak_hit",
 							"text": "For each __weak hit__, choose one from below, or one from the miss options.\n\n  * See it through: Choose one of the former character's unfinished quests, and [Swear an Iron Vow](move:starforged/quest/swear_an_iron_vow) (with an automatic strong hit) to see it done. You may immediately mark up to half their earned progress (round down) on this quest.\n  * Rebuild a connection: Name one of the former character's connections, and envision how time or circumstances have changed them in a dramatic way. When you [Make a Connection](move:starforged/connection/make_a_connection) with them, take an automatic strong hit and mark two ticks on your bonds legacy track.\n  * Explore familiar ground: Name a location that was meaningful to the former character. When you first visit that place, envision how it has changed or is endangered. Then, mark two ticks on your discoveries legacy track."
 						},
 						"miss": {
+							"_id": "move.outcome:ancient_wonders/reworking_your_legacy/continue_a_legacy.miss",
 							"text": "For each __miss__, choose one.\n\n  * Deal with the aftermath: Envision how one of your former character's foes has gained power or influence.\n  * Switch loyalties: Envision how you begin in opposition to your former character's beliefs, goals, or allegiances.\n  * Open Pandora's Box: Envision how an advancement or discovery has unleashed unexpectedly dire consequences."
 						}
 					},

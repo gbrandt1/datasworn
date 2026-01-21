@@ -236,6 +236,7 @@ Every Datasworn object has a unique `_id` property for referencing. ID formats:
 | Asset | `asset:starforged/path/empath` |
 | Asset Ability | `asset.ability:starforged/path/empath.0` |
 | Trigger Condition | `move.condition:starforged/adventure/face_danger.0` |
+| Move Outcome | `move.outcome:starforged/adventure/face_danger.strong_hit` |
 | Embedded Move | `asset.ability.move:starforged/path/archer.0.craft_projectiles` |
 | Oracle Row | `oracle_rollable.row:starforged/core/action.1-2` |
 

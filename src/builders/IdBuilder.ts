@@ -775,6 +775,29 @@ ids.AnyMoveConditionIdWildcard = Type.Union(
 )
 // @ts-expect-error
 
+ids.AnyMoveOutcomeId = Type.Union(
+	Object.values(ids)
+		.filter((schema) => schema.$id?.endsWith('OutcomeId') && !schema.$id?.endsWith('IdWildcard'))
+		.map((schema) => Type.Ref(schema.$id as string)),
+	{
+		$id: 'AnyMoveOutcomeId',
+		[JsonTypeDef]: { schema: JtdType.String() }
+	}
+)
+// @ts-expect-error
+
+ids.AnyMoveOutcomeIdWildcard = Type.Union(
+	Object.values(ids)
+		.flat()
+		.filter((schema) => schema.$id?.endsWith('OutcomeIdWildcard'))
+		.map((schema) => Type.Ref(schema.$id as string)),
+	{
+		$id: 'AnyMoveOutcomeIdWildcard',
+		[JsonTypeDef]: { schema: JtdType.String() }
+	}
+)
+// @ts-expect-error
+
 ids.AnyId = Type.Union(
 	Object.values(ids)
 		.flat()
