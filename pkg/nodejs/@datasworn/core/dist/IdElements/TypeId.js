@@ -65,6 +65,7 @@ var TypeId;
     TypeId.EmbedOnly = [
         'ability',
         'condition',
+        'outcome',
         'option',
         'row',
         'feature',
@@ -77,6 +78,7 @@ var TypeId;
         'move',
         'ability',
         'condition',
+        'outcome',
         'option',
         'row',
         'feature',
@@ -89,7 +91,7 @@ var TypeId;
         ability: ['move', 'oracle_rollable'],
         truth: ['option'],
         option: ['oracle_rollable'],
-        move: ['condition', 'oracle_rollable'],
+        move: ['condition', 'outcome', 'oracle_rollable'],
         oracle_rollable: ['row'],
         delve_site: ['denizen'],
         delve_site_domain: ['feature', 'danger'],
@@ -99,7 +101,7 @@ var TypeId;
     /** Types that can be an embed of an embed. */
     TypeId.EmbeddableInEmbeddedTypeMap = {
         ability: ['oracle_rollable', 'move'],
-        move: ['condition'],
+        move: ['condition', 'outcome'],
         option: ['oracle_rollable'],
         oracle_rollable: ['row'],
     };
@@ -155,6 +157,7 @@ var TypeId;
     TypeId.EmbeddedPropertyKeys = {
         ability: 'abilities',
         condition: 'trigger.conditions',
+        outcome: 'outcomes',
         option: 'options',
         row: 'rows',
         feature: 'features',
@@ -168,6 +171,7 @@ var TypeId;
     const EmbeddedPropertyType = {
         abilities: 'array',
         'trigger.conditions': 'array',
+        outcomes: 'dictionary',
         dangers: 'array',
         denizens: 'array',
         features: 'array',
@@ -202,6 +206,7 @@ var TypeId;
         'truth',
         'ability',
         'condition',
+        'outcome',
         'option',
         'row',
         'feature',

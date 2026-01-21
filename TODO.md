@@ -7,6 +7,9 @@
 - [x] **Move trigger conditions** - Added in v0.0.6
   - Format: `move.condition:starforged/adventure/face_danger.0`
   - Embedded: `asset.ability.move.condition:starforged/path/archer.0.craft_projectiles.0`
+- [x] **Move outcomes** - Added in v0.0.7
+  - Format: `move.outcome:starforged/adventure/face_danger.strong_hit`
+  - Embedded: `asset.ability.move.outcome:starforged/path/archer.0.craft_projectiles.weak_hit`
 
 ### Remaining
 
@@ -101,11 +104,9 @@ Feedback from southpole regarding converter-generated data.
 - [ ] Add `_index` fields or restructure YAML to match book ordering
 - [ ] Reorganize `planets_expanded` into hierarchical collections
 - [ ] Add datasworn: links for all cross-references:
-  - [x] Core oracle references (_Action_, _Theme_, _Focus_, _Descriptor_)
-  - [ ] Page number references (convert to oracle IDs)
-  - [ ] `>Oracle` syntax references
-  - [ ] Planet class references
-  - [ ] Starforged/Sundered Isles references ("SI, pg 250" etc.)
+  - [x] Starforged oracle references (80 links added - Action, Theme, Focus, Descriptor, Planet, Creature, Settlement, Starship, Derelict, Precursor Vault)
+  - [ ] Internal Ancient Wonders `>Oracle` syntax (~500 refs like `>Ecumenopolis`)
+  - [ ] Starforged/Sundered Isles page references ("SI, pg 250" etc.)
 
 ---
 
