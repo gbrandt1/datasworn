@@ -22,6 +22,13 @@ import { ancient_wonders } from '../../pkg/nodejs/@datasworn-community-content/a
 import { fe_runners } from '../../pkg/nodejs/@datasworn-community-content/fe-runners/index.js'
 import { starsmith } from '../../pkg/nodejs/@datasworn-community-content/starsmith/index.js'
 
+// Import ID constants for type-safe ID references
+import {
+	MoveIds,
+	OracleIds,
+	AssetIds
+} from '../../pkg/nodejs/@datasworn/starforged/ids.js'
+
 // Type-safe usage - no assertions needed!
 // TypeScript knows the exact types from the .d.ts files
 
@@ -65,4 +72,30 @@ console.log(`- ${starsmith._id}: ${starsmith.title} (ruleset: ${starsmith.rulese
 
 console.log(`\nTotal sources: ${BUILTIN_SOURCES.length}`)
 
-export { BUILTIN_SOURCES }
+// Demonstrate ID constants usage
+// These provide full auto-complete in IDE and literal string types
+console.log('\n--- ID Constants Demo ---')
+
+// MoveIds give you fully typed ID strings
+const faceDangerId = MoveIds.adventure.face_danger
+// Type: "move:starforged/adventure/face_danger" (literal type!)
+console.log(`Face Danger ID: ${faceDangerId}`)
+
+// OracleIds work with nested structures
+const actionOracleId = OracleIds.core.action
+const givenNameOracleId = OracleIds.character.name.given_name
+console.log(`Action Oracle ID: ${actionOracleId}`)
+console.log(`Given Name Oracle ID: ${givenNameOracleId}`)
+
+// AssetIds for companions, paths, etc.
+const bansheeId = AssetIds.companion.banshee
+const starshipId = AssetIds.command_vehicle.starship
+console.log(`Banshee Asset ID: ${bansheeId}`)
+console.log(`Starship Asset ID: ${starshipId}`)
+
+// The types are literal strings, so this works with IdParser.get()
+// and any function that expects specific ID types
+type StarforgedMoveId = typeof MoveIds[keyof typeof MoveIds][keyof typeof MoveIds[keyof typeof MoveIds]]
+// This creates a union type of all move IDs
+
+export { BUILTIN_SOURCES, MoveIds, OracleIds, AssetIds }

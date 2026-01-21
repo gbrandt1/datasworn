@@ -52,6 +52,10 @@
 			"types": "./index.d.ts",
 			"default": "./index.js"
 		},
+		"./ids": {
+			"types": "./ids.d.ts",
+			"default": "./ids.js"
+		},
 		"./json/ancient_wonders.json": "./json/ancient_wonders.json"
 	}
 }
