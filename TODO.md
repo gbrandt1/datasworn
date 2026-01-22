@@ -95,23 +95,24 @@ Feedback from southpole regarding converter-generated data.
 
 1. **Missing Focus Table** - May need core "Focus" oracle or verify `splinter_focus`
 2. **Table Ordering** - Tables not in book order (alphabetical vs physical book structure)
-3. **Missing Planet Hierarchy** - Flat structure instead of nested collections per planet type
-4. **Missing Links** - Need `datasworn:` protocol links for cross-references
+3. ~~**Missing Planet Hierarchy**~~ - ✅ Fixed: 20 planet type collections created
+4. ~~**Missing Links**~~ - ✅ Fixed: 326 planet world links added
 
 ### Tasks
 
 - [ ] Add "broken" impact to item assets (requested by kat)
 - [ ] Identify and add missing Focus oracle (or verify it's `splinter_focus`)
 - [ ] Add `_index` fields or restructure YAML to match book ordering
-- [ ] Reorganize `planets_expanded` into hierarchical collections
-  - ~150 oracles need grouping by planet type (desert_world, jungle_world, etc.)
-  - Manual YAML work required due to anchors/aliases that don't survive round-tripping
-  - Creates collections like `planets_expanded/desert_world/biome` for proper linking
-- [ ] Add datasworn: links for all cross-references:
-  - [x] Starforged oracle references (80 links added - Action, Theme, Focus, Descriptor, Planet, Creature, Settlement, Starship, Derelict, Precursor Vault)
-  - [x] HTML entity decode: `&gt;` → `>` (515 refs now display cleanly)
-  - [ ] Internal Ancient Wonders `>Oracle` syntax (~500 refs) - blocked by reorganization above
-  - [ ] Starforged/Sundered Isles page references ("SI, pg 250" etc.)
+- [x] Reorganize `planets_expanded` into hierarchical collections
+  - ~262 oracles grouped into 20 planet type collections
+  - Creates IDs like `oracle_collection:ancient_wonders/planets_expanded/desert_world`
+  - Script: `scripts/reorganize-planets.ts`
+- [x] Add datasworn: links for planet world references
+  - [x] Starforged oracle references (80 links - Action, Theme, Focus, Descriptor, Planet, etc.)
+  - [x] HTML entity decode: `&gt;` → `>` (515 refs)
+  - [x] Planet world links: `>Desert World; pg 50` → `[Desert World](datasworn:...)` (326 refs)
+  - [x] Biome references: `>Badlands (Desert World); pg 50` → linked format
+  - [ ] Starforged/Sundered Isles page references ("SI, pg 250" etc.) - lower priority
 
 ---
 
