@@ -98,7 +98,9 @@ JSON schemas and data are in the [datasworn](datasworn) directory.
 | `sundered_isles` | *Starforged: Sundered Isles* expansion | Shawn Tomkin |
 | `starsmith` | Starsmith Expanded Oracles | [Eric Bright](https://playeveryrole.com/) |
 | `fe_runners` | Fe-Runners cyberpunk expansion | [Craig Smith](https://zombiecraig.itch.io/) |
-| `ancient_wonders` | Ancient Wonders expansion (oracles, assets, moves) | [Ludic Pen](https://www.ludicpen.com/) |
+| `ancient_wonders` | Ancient Wonders expansion (oracles, assets, moves)* | [Ludic Pen](https://www.ludicpen.com/) |
+
+*\* Included with permission from Ludic Pen*
 
 ## Fork Status
 

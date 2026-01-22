@@ -100,6 +100,7 @@ Feedback from southpole regarding converter-generated data.
 
 ### Tasks
 
+- [ ] Add "broken" impact to item assets (requested by kat)
 - [ ] Identify and add missing Focus oracle (or verify it's `splinter_focus`)
 - [ ] Add `_index` fields or restructure YAML to match book ordering
 - [ ] Reorganize `planets_expanded` into hierarchical collections
