@@ -116,6 +116,33 @@ Feedback from southpole regarding converter-generated data.
 
 ---
 
+## Starsmith / Ironsmith Expansions
+
+### Starsmith (for Starforged) - by Eric Bright
+
+Currently only includes **Expanded Oracles** (~9,800 oracle entries).
+
+Missing content:
+
+- [ ] **New Assets** - 32 assets across all categories
+- [ ] **Mecha Mercs** - Modular giant robot system with 4 chassis types
+
+Source: [playeveryrole.com/starsmith-products](https://playeveryrole.com/starsmith-products/)
+
+### Ironsmith (for Classic Ironsworn) - by Eric Bright
+
+Not in Datasworn yet. Content includes:
+
+- [ ] Oracles, Assets, Moves
+- [ ] Site/Delve Themes, Domains, Foes
+- [ ] Mythology flavor packs (Japanese, Indian, African, South American, Norse)
+
+FoundryVTT module available: [jendave/ironsmith-compendiums](https://github.com/jendave/ironsmith-compendiums)
+
+License: CC-BY-4.0
+
+---
+
 ## Dependencies (Resolved)
 
 - [x] Evaluate `jtd` - Official RFC 8927 implementation, stable spec
