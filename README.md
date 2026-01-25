@@ -16,7 +16,9 @@ For the original Datasworn JSON files, see the [`legacy` branch](https://github.
 
 ## Installation
 
-### JavaScript / TypeScript
+### JavaScript / TypeScript (from npm)
+
+> **Note:** The official npm packages are outdated and missing schema changes from 2024. See [Using this Fork](#using-this-fork) below for how to use the latest version.
 
 ```bash
 npm install @datasworn/core
@@ -25,9 +27,55 @@ npm install @datasworn/ironsworn-classic
 npm install @datasworn/ironsworn-classic-delve
 ```
 
+### Using this Fork
+
+The official npm packages haven't been updated since before rsek's last commits. This fork includes schema changes that make JSON files incompatible with the old npm validator. To use this fork in your project instead:
+
+#### npm
+
+```json
+{
+  "dependencies": {
+    "@datasworn/core": "github:tbsvttr/datasworn#main&path:pkg/nodejs/@datasworn/core"
+  }
+}
+```
+
+#### pnpm
+
+```json
+{
+  "dependencies": {
+    "@datasworn/core": "github:tbsvttr/datasworn/pkg/nodejs/@datasworn/core"
+  }
+}
+```
+
+Available packages in `pkg/nodejs/`:
+
+- `@datasworn/core` - TypeScript typings and JSON schema
+- `@datasworn/starforged` - Starforged data
+- `@datasworn/ironsworn-classic` - Classic Ironsworn data
+- `@datasworn/ironsworn-classic-delve` - Delve expansion data
+- `@datasworn/ironsworn-classic-lodestar` - Lodestar expansion data (moves only)
+
+### Python
+
+Pydantic V2 packages with full type safety:
+
+```bash
+uv add datasworn-core datasworn-starforged
+```
+
+Available packages: `datasworn-core`, `datasworn-classic`, `datasworn-delve`, `datasworn-starforged`, `datasworn-sundered-isles`
+
+Community content: `datasworn-community-content-starsmith`, `datasworn-community-content-ancient-wonders`, `datasworn-community-content-fe-runners`
+
+See [pkg/python/README.md](pkg/python/README.md) for details.
+
 ### Other Languages
 
-Type definitions for C#, Go, Java, Python, Ruby, and Rust are available in the [json-typedef](json-typedef) directory, generated from [JSON TypeDef](https://jsontypedef.com) schemas.
+Type definitions for C#, Go, Java, Ruby, and Rust are available in the [json-typedef](json-typedef) directory, generated from [JSON TypeDef](https://jsontypedef.com) schemas.
 
 ### Raw JSON
 
@@ -40,6 +88,7 @@ JSON schemas and data are in the [datasworn](datasworn) directory.
 | [`@datasworn/core`](https://www.npmjs.com/package/@datasworn/core) | TypeScript typings and JSON schema |
 | [`@datasworn/ironsworn-classic`](https://www.npmjs.com/package/@datasworn/ironsworn-classic) | Original *Ironsworn* rulebook data |
 | [`@datasworn/ironsworn-classic-delve`](https://www.npmjs.com/package/@datasworn/ironsworn-classic-delve) | *Ironsworn: Delve* expansion data |
+| [`@datasworn/ironsworn-classic-lodestar`](https://www.npmjs.com/package/@datasworn/ironsworn-classic-lodestar) | *Ironsworn: Lodestar* expansion data (moves only) |
 | [`@datasworn/starforged`](https://www.npmjs.com/package/@datasworn/starforged) | *Ironsworn: Starforged* data, SVG icons, WEBP images |
 
 ### Community Content (not published to npm)
@@ -49,7 +98,13 @@ JSON schemas and data are in the [datasworn](datasworn) directory.
 | `sundered_isles` | *Starforged: Sundered Isles* expansion | Shawn Tomkin |
 | `starsmith` | Starsmith Expanded Oracles | [Eric Bright](https://playeveryrole.com/) |
 | `fe_runners` | Fe-Runners cyberpunk expansion | [Craig Smith](https://zombiecraig.itch.io/) |
+<<<<<<< HEAD
 | `ancient_wonders` | Ancient Wonders expansion (oracles, assets, moves) | [Ludic Pen](https://www.ludicpen.com/) |
+=======
+| `ancient_wonders` | Ancient Wonders expansion (oracles, assets, moves)* | [Ludic Pen](https://www.ludicpen.com/) |
+
+*\* Included with permission from Ludic Pen*
+>>>>>>> upstream/main
 
 ## Fork Status
 
@@ -64,7 +119,13 @@ This fork continues active development while the original repository is inactive
 | Fe-Runners (cyberpunk expansion) | Added |
 | Sundered Isles expansion | Added |
 | Ancient Wonders expansion | Added |
+<<<<<<< HEAD
+=======
+| Lodestar moves (Ironsworn Classic) | Added |
+| Python/Pydantic packages | Added |
+>>>>>>> upstream/main
 | Rust/JTD type generation ([#78](https://github.com/rsek/datasworn/issues/78)) | Fixed |
+| Trigger condition IDs | Added (v0.0.6) |
 
 ### Upstream Compatibility
 
@@ -136,6 +197,24 @@ If you don't need multi-language type definitions (C#, Go, Java, Python, Ruby, R
 
 The test suite includes Rust integration tests that verify the generated types can deserialize all JSON data. These tests are automatically skipped if `cargo` is not installed.
 
+### JSON Type Definition (JTD)
+
+The `json-typedef/datasworn.jtd.json` schema is auto-generated from TypeBox definitions in `src/schema/`. TypeBox schemas use `[JsonTypeDef]` annotations to control JTD output:
+
+```typescript
+date: Type.String({
+    format: 'date',
+    [JsonTypeDef]: { schema: JtdType.String() },
+})
+```
+
+The build process:
+
+1. `bun run build:jtd` runs `src/scripts/json-typedef/index.ts`
+2. TypeBox schemas are converted to JTD format via `toJtdRoot()`
+3. Output is written to `json-typedef/datasworn.jtd.json`
+4. `jtd-codegen` then generates types for Go, Rust, Python, Java, C#, Ruby
+
 ### Project Structure
 
 ```text
@@ -146,7 +225,9 @@ datasworn/
 │   ├── scripts/       # Build scripts
 │   ├── tests/         # Test suite
 │   └── types/         # Generated TypeScript types
-├── pkg/nodejs/        # npm package sources
+├── pkg/
+│   ├── nodejs/        # npm package sources
+│   └── python/        # Python/Pydantic packages
 ├── datasworn/         # Generated JSON output
 ├── json-typedef/      # Generated type definitions (multi-language)
 │   └── rust-test/     # Rust integration test project
@@ -155,6 +236,23 @@ datasworn/
     └── viewer/        # Interactive data browser
 ```
 
+## ID System
+
+Every Datasworn object has a unique `_id` property for referencing. ID formats:
+
+| Type | Example |
+| ---- | ------- |
+| Move | `move:starforged/adventure/face_danger` |
+| Oracle | `oracle_rollable:starforged/core/action` |
+| Asset | `asset:starforged/path/empath` |
+| Asset Ability | `asset.ability:starforged/path/empath.0` |
+| Trigger Condition | `move.condition:starforged/adventure/face_danger.0` |
+| Move Outcome | `move.outcome:starforged/adventure/face_danger.strong_hit` |
+| Embedded Move | `asset.ability.move:starforged/path/archer.0.craft_projectiles` |
+| Oracle Row | `oracle_rollable.row:starforged/core/action.1-2` |
+
+The `IdParser` class in `@datasworn/core` provides utilities for parsing, validating, and looking up objects by ID. See [pkg/nodejs/@datasworn/core/README.md](pkg/nodejs/@datasworn/core/README.md) for usage.
+
 ## Design Goals
 
 - Language-agnostic JSON schema as source of truth
@@ -162,6 +260,7 @@ datasworn/
 - Type definitions for multiple languages
 - Interchange format for homebrew/3rd party content
 - Localization-friendly structure
+- Every object addressable via unique ID
 
 ## Licensing
 

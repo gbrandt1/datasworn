@@ -297,6 +297,20 @@ assets:
         category: Item - Weapon
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          uses:
+            label: uses
+            field_type: condition_meter
+            min: 0
+            max: 4
+            value: 2
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -313,6 +327,24 @@ assets:
         category: Item - Weapon
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          uses:
+            label: uses
+            field_type: condition_meter
+            min: 1
+            max: 4
+            value: 4
+          consumed:
+            label: consumed
+            field_type: checkbox
+            is_impact: true
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -334,6 +366,24 @@ assets:
         category: Item - Weapon
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          uses:
+            label: uses
+            field_type: condition_meter
+            min: 1
+            max: 4
+            value: 2
+          consumed:
+            label: consumed
+            field_type: checkbox
+            is_impact: true
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -355,6 +405,18 @@ assets:
         category: Item - Weapon
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+          marred:
+            label: marred
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -375,6 +437,14 @@ assets:
         category: Item - Weapon
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -407,6 +477,20 @@ assets:
         category: Item - Consumable
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          uses:
+            label: uses
+            field_type: condition_meter
+            min: 0
+            max: 5
+            value: 3
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -421,6 +505,24 @@ assets:
         category: Item - Consumable
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          uses:
+            label: uses
+            field_type: condition_meter
+            min: 1
+            max: 3
+            value: 3
+          consumed:
+            label: consumed
+            field_type: checkbox
+            is_impact: true
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -442,6 +544,24 @@ assets:
         category: Item - Consumable
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          uses:
+            label: uses
+            field_type: condition_meter
+            min: 1
+            max: 3
+            value: 3
+          consumed:
+            label: consumed
+            field_type: checkbox
+            is_impact: true
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -463,6 +583,24 @@ assets:
         category: Item - Consumable
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          uses:
+            label: uses
+            field_type: condition_meter
+            min: 1
+            max: 3
+            value: 3
+          consumed:
+            label: consumed
+            field_type: checkbox
+            is_impact: true
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -500,6 +638,24 @@ assets:
         category: Item - Consumable
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          uses:
+            label: uses
+            field_type: condition_meter
+            min: 1
+            max: 6
+            value: 4
+          consumed:
+            label: consumed
+            field_type: checkbox
+            is_impact: true
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -522,6 +678,20 @@ assets:
         category: Item - Tool
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          uses:
+            label: uses
+            field_type: condition_meter
+            min: 0
+            max: 5
+            value: 3
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -538,6 +708,14 @@ assets:
         category: Item - Tool
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -554,6 +732,20 @@ assets:
         category: Item - Tool
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          uses:
+            label: uses
+            field_type: condition_meter
+            min: 0
+            max: 5
+            value: 5
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -570,6 +762,20 @@ assets:
         category: Item - Tool
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          uses:
+            label: uses
+            field_type: condition_meter
+            min: 0
+            max: 3
+            value: 3
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -586,6 +792,14 @@ assets:
         category: Item - Tool
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -600,6 +814,20 @@ assets:
         category: Item - Tool
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          uses:
+            label: uses
+            field_type: condition_meter
+            min: 0
+            max: 4
+            value: 4
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -620,6 +848,20 @@ assets:
         category: Item - Apparel
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          uses:
+            label: uses
+            field_type: condition_meter
+            min: 0
+            max: 5
+            value: 3
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -636,6 +878,20 @@ assets:
         category: Item - Apparel
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          uses:
+            label: uses
+            field_type: condition_meter
+            min: 0
+            max: 3
+            value: 3
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -652,6 +908,14 @@ assets:
         category: Item - Apparel
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -666,6 +930,20 @@ assets:
         category: Item - Apparel
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        controls:
+          uses:
+            label: uses
+            field_type: condition_meter
+            min: 0
+            max: 3
+            value: 2
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
@@ -686,16 +964,46 @@ assets:
         category: Item - Anomaly
         _source:
           <<: *Source
+<<<<<<< HEAD
+=======
+        options:
+          name:
+            label: name
+            field_type: text
+          material:
+            label: material
+            field_type: text
+          shape:
+            label: shape
+            field_type: text
+          focuses:
+            label: focus(es)
+            field_type: text
+        controls:
+          broken:
+            label: broken
+            field_type: checkbox
+            is_impact: true
+          major:
+            label: Major Bonus
+            field_type: checkbox
+          minor:
+            label: Minor Bonus
+            field_type: checkbox          
+>>>>>>> upstream/main
         abilities:
         - enabled: true
           text: |-
             When you make a move using the focus, decide before rolling if you are leveraging the splinter's power. If you do, envision how the splinter influences your action. Then, use its bonus. If you roll a 6 on your action die, the splinter vanishes; after resolving the move, discard it.
+<<<<<<< HEAD
         - text: |-
             Bonus(es):
         - text: |-
             <ul><li>Major</li></ul>
         - text: |-
             <ul><li>Minor</li></ul>
+=======
+>>>>>>> upstream/main
   path:
     name: Path
     type: asset_collection
@@ -711,7 +1019,11 @@ assets:
         abilities:
         - enabled: true
           text: |-
+<<<<<<< HEAD
             When you Undertake an Expedition or Establish a Haven in a ruin, add +1. When you @UUID[Compendium.ancient-wonders.ancientwondersmoves.Item.fvxIsI6u73hkrK6J]{Hunker Down} in these locations, you may choose two options on a hit instead of one. If the ruin is alien, take +1 momentum on a hit when making these moves.
+=======
+            When you Undertake an Expedition or Establish a Haven in a ruin, add +1. When you Hunker Down in these locations, you may choose two options on a hit instead of one. If the ruin is alien, take +1 momentum on a hit when making these moves.
+>>>>>>> upstream/main
         - text: |-
             When you Resupply in an abandoned ship or structure and score a hit, you leverage your practical experience scavenging these locations; take +1 supply and +1 momentum. When you Make a Discovery, you capitalize on your findings; mark one box on your discoveries legacy track instead of marking 2 ticks.
         - text: |-

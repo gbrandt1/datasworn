@@ -10,3 +10,7 @@ export { renderAtlasEntry } from './AtlasRenderer'
 export { renderTruth } from './TruthRenderer'
 export { renderCollection } from './CollectionRenderer'
 export { renderGeneric } from './GenericRenderer'
+<<<<<<< HEAD
+=======
+export { renderDelveSite, renderDelveSiteTheme, renderDelveSiteDomain } from './DelveRenderer'
+>>>>>>> upstream/main

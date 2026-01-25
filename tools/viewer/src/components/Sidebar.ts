@@ -1,10 +1,42 @@
 import { state } from '../state'
 import { getRulesetDisplayName } from '../utils/loader'
 import { searchItems, type SearchResult } from '../utils/search'
+<<<<<<< HEAD
 import { createTree } from './Tree'
 import { escapeHtml } from '../utils/html'
 import { formatType } from '../utils/formatting'
 
+=======
+import { createTree, expandAllNodes, collapseAllNodes, setTreeFilter, type TreeFilter } from './Tree'
+import { escapeHtml } from '../utils/html'
+import { formatType } from '../utils/formatting'
+
+function getTheme(): 'dark' | 'light' {
+	return (localStorage.getItem('theme') as 'dark' | 'light') || 'dark'
+}
+
+function setTheme(theme: 'dark' | 'light'): void {
+	localStorage.setItem('theme', theme)
+	if (theme === 'light') {
+		document.documentElement.setAttribute('data-theme', 'light')
+	} else {
+		document.documentElement.removeAttribute('data-theme')
+	}
+}
+
+function getFilter(): TreeFilter {
+	return (localStorage.getItem('treeFilter') as TreeFilter) || 'all'
+}
+
+function setFilter(filter: TreeFilter): void {
+	localStorage.setItem('treeFilter', filter)
+	setTreeFilter(filter)
+}
+
+// Initialize theme on load
+setTheme(getTheme())
+
+>>>>>>> upstream/main
 export function createSidebar(container: HTMLElement): void {
 	const sidebar = document.createElement('div')
 	sidebar.className = 'sidebar'
@@ -22,6 +54,20 @@ export function createSidebar(container: HTMLElement): void {
 			<input type="text" id="search-input" placeholder="Search... (press /)" autocomplete="off" />
 			<button id="search-clear" class="search-clear" aria-label="Clear search">×</button>
 		</div>
+<<<<<<< HEAD
+=======
+		<div class="sidebar-toolbar">
+			<button id="expand-all" class="toolbar-btn" title="Expand all">▼ Expand</button>
+			<button id="collapse-all" class="toolbar-btn" title="Collapse all">▶ Collapse</button>
+			<button id="theme-toggle" class="toolbar-btn" title="Toggle theme">☀ Light</button>
+		</div>
+		<div class="filter-toolbar">
+			<button class="filter-btn active" data-filter="all" title="Show all">All</button>
+			<button class="filter-btn" data-filter="moves" title="Show moves only">⚔️ Moves</button>
+			<button class="filter-btn" data-filter="assets" title="Show assets only">🎴 Assets</button>
+			<button class="filter-btn" data-filter="oracles" title="Show oracles only">🎲 Oracles</button>
+		</div>
+>>>>>>> upstream/main
 	`
 	sidebar.appendChild(header)
 
@@ -51,6 +97,58 @@ export function createSidebar(container: HTMLElement): void {
 	// Tree is created inside tree container
 	createTree(treeContainer)
 
+<<<<<<< HEAD
+=======
+	// Toolbar buttons
+	const expandAllBtn = header.querySelector('#expand-all') as HTMLButtonElement
+	const collapseAllBtn = header.querySelector('#collapse-all') as HTMLButtonElement
+	const themeToggleBtn = header.querySelector('#theme-toggle') as HTMLButtonElement
+
+	expandAllBtn.addEventListener('click', () => {
+		expandAllNodes(treeContainer)
+	})
+
+	collapseAllBtn.addEventListener('click', () => {
+		collapseAllNodes(treeContainer)
+	})
+
+	// Update theme button text based on current theme
+	const updateThemeButton = () => {
+		const isDark = getTheme() === 'dark'
+		themeToggleBtn.textContent = isDark ? '☀ Light' : '🌙 Dark'
+	}
+	updateThemeButton()
+
+	themeToggleBtn.addEventListener('click', () => {
+		const newTheme = getTheme() === 'dark' ? 'light' : 'dark'
+		setTheme(newTheme)
+		updateThemeButton()
+	})
+
+	// Filter buttons
+	const filterButtons = header.querySelectorAll('.filter-btn') as NodeListOf<HTMLButtonElement>
+
+	const updateFilterButtons = (activeFilter: TreeFilter) => {
+		filterButtons.forEach((btn) => {
+			const btnFilter = btn.dataset.filter as TreeFilter
+			btn.classList.toggle('active', btnFilter === activeFilter)
+		})
+	}
+
+	// Initialize filter from localStorage
+	const initialFilter = getFilter()
+	updateFilterButtons(initialFilter)
+	setFilter(initialFilter)
+
+	filterButtons.forEach((btn) => {
+		btn.addEventListener('click', () => {
+			const filter = btn.dataset.filter as TreeFilter
+			setFilter(filter)
+			updateFilterButtons(filter)
+		})
+	})
+
+>>>>>>> upstream/main
 	let searchTimeout: ReturnType<typeof setTimeout> | null = null
 
 	searchInput.addEventListener('input', () => {

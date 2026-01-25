@@ -6,6 +6,9 @@ namespace Datasworn
 {
     public class TriggerNoRollCondition
     {
+        [JsonPropertyName("_id")]
+        public AnyMoveConditionId Id { get; set; }
+
         [JsonPropertyName("by")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public TriggerBy? By { get; set; }

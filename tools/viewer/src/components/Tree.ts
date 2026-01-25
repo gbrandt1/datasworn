@@ -9,7 +9,27 @@ interface TreeNodeData {
 	children?: TreeNodeData[]
 }
 
+<<<<<<< HEAD
 const CATEGORY_ORDER = ['moves', 'assets', 'oracles', 'rules', 'truths', 'atlas', 'npcs']
+=======
+export type TreeFilter = 'all' | 'moves' | 'assets' | 'oracles'
+
+let currentFilter: TreeFilter = 'all'
+let treeContainerRef: HTMLElement | null = null
+
+const CATEGORY_ORDER = [
+	'moves', 'assets', 'oracles', 'rules', 'truths', 'atlas', 'npcs',
+	'delve_sites', 'site_themes', 'site_domains', 'rarities'
+]
+
+// Map filter types to category keys
+const FILTER_CATEGORIES: Record<TreeFilter, string[]> = {
+	all: CATEGORY_ORDER,
+	moves: ['moves'],
+	assets: ['assets'],
+	oracles: ['oracles']
+}
+>>>>>>> upstream/main
 const ICONS: Record<string, string> = {
 	moves: '⚔️',
 	assets: '🎴',
@@ -18,20 +38,63 @@ const ICONS: Record<string, string> = {
 	truths: '📜',
 	atlas: '🗺️',
 	npcs: '👤',
+<<<<<<< HEAD
+=======
+	delve_sites: '🏚️',
+	site_themes: '🎭',
+	site_domains: '🏛️',
+	rarities: '✨',
+>>>>>>> upstream/main
 	move_category: '📁',
 	move: '⚔️',
 	asset_collection: '📁',
 	asset: '🎴',
 	oracle_collection: '📁',
 	oracle_rollable: '🎲',
+<<<<<<< HEAD
 	default: '📄'
 }
 
+=======
+	delve_site: '🏚️',
+	delve_site_theme: '🎭',
+	delve_site_domain: '🏛️',
+	default: '📄'
+}
+
+export function setTreeFilter(filter: TreeFilter): void {
+	currentFilter = filter
+	rebuildTree()
+}
+
+function rebuildTree(): void {
+	if (!treeContainerRef) return
+
+	const ruleset = state.getCurrentRuleset()
+	if (!ruleset) {
+		treeContainerRef.innerHTML = '<div class="loading">Select a ruleset</div>'
+		return
+	}
+
+	treeContainerRef.innerHTML = ''
+	const nodes = buildTreeNodes(ruleset)
+	for (const node of nodes) {
+		treeContainerRef.appendChild(createTreeNode(node, [node.key]))
+	}
+}
+
+>>>>>>> upstream/main
 export function createTree(container: HTMLElement): void {
 	const treeContainer = document.createElement('div')
 	treeContainer.className = 'tree-container'
 	container.appendChild(treeContainer)
 
+<<<<<<< HEAD
+=======
+	// Store reference for filter updates
+	treeContainerRef = treeContainer
+
+>>>>>>> upstream/main
 	let currentRulesetId: string | null = null
 
 	// Listen for navigation events to expand tree to the target path
@@ -47,6 +110,7 @@ export function createTree(container: HTMLElement): void {
 		}
 		currentRulesetId = s.currentRuleset
 
+<<<<<<< HEAD
 		const ruleset = state.getCurrentRuleset()
 		if (!ruleset) {
 			treeContainer.innerHTML = '<div class="loading">Select a ruleset</div>'
@@ -58,6 +122,9 @@ export function createTree(container: HTMLElement): void {
 		for (const node of nodes) {
 			treeContainer.appendChild(createTreeNode(node, [node.key]))
 		}
+=======
+		rebuildTree()
+>>>>>>> upstream/main
 	})
 }
 
@@ -105,6 +172,11 @@ function buildTreeNodes(data: RulesPackage): TreeNodeData[] {
 	const nodes: TreeNodeData[] = []
 
 	// Access RulesPackage properties - cast needed for iteration
+<<<<<<< HEAD
+=======
+	// Include Delve-specific categories (delve_sites, site_themes, site_domains, rarities)
+	const dataObj = data as unknown as Record<string, unknown>
+>>>>>>> upstream/main
 	const categories: [string, unknown][] = [
 		['moves', data.moves],
 		['assets', data.assets],
@@ -112,11 +184,29 @@ function buildTreeNodes(data: RulesPackage): TreeNodeData[] {
 		['rules', data.rules],
 		['truths', data.truths],
 		['atlas', data.atlas],
+<<<<<<< HEAD
 		['npcs', data.npcs]
 	]
 
 	// Add categories in order
 	for (const key of CATEGORY_ORDER) {
+=======
+		['npcs', data.npcs],
+		['delve_sites', dataObj.delve_sites],
+		['site_themes', dataObj.site_themes],
+		['site_domains', dataObj.site_domains],
+		['rarities', dataObj.rarities]
+	]
+
+	// Get categories to show based on filter
+	const visibleCategories = FILTER_CATEGORIES[currentFilter]
+
+	// Add categories in order
+	for (const key of CATEGORY_ORDER) {
+		// Skip categories not matching the filter
+		if (!visibleCategories.includes(key)) continue
+
+>>>>>>> upstream/main
 		const entry = categories.find(([k]) => k === key)
 		const value = entry?.[1]
 		if (value && typeof value === 'object') {
@@ -241,3 +331,24 @@ function formatLabel(key: string): string {
 function getIcon(type: string): string {
 	return ICONS[type] || ICONS.default
 }
+<<<<<<< HEAD
+=======
+
+export function expandAllNodes(container: HTMLElement): void {
+	container.querySelectorAll('.tree-toggle:not(.empty)').forEach((toggle) => {
+		toggle.classList.add('expanded')
+	})
+	container.querySelectorAll('.tree-children').forEach((children) => {
+		children.classList.remove('collapsed')
+	})
+}
+
+export function collapseAllNodes(container: HTMLElement): void {
+	container.querySelectorAll('.tree-toggle').forEach((toggle) => {
+		toggle.classList.remove('expanded')
+	})
+	container.querySelectorAll('.tree-children').forEach((children) => {
+		children.classList.add('collapsed')
+	})
+}
+>>>>>>> upstream/main

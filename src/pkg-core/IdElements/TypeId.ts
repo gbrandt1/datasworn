@@ -85,6 +85,8 @@ namespace TypeId {
 	export type EmbeddablePrimary = (typeof EmbeddablePrimary)[number]
 	export const EmbedOnly = [
 		'ability',
+		'condition',
+		'outcome',
 		'option',
 		'row',
 		'feature',
@@ -97,6 +99,8 @@ namespace TypeId {
 		'oracle_rollable',
 		'move',
 		'ability',
+		'condition',
+		'outcome',
 		'option',
 		'row',
 		'feature',
@@ -111,7 +115,7 @@ namespace TypeId {
 		ability: ['move', 'oracle_rollable'],
 		truth: ['option'],
 		option: ['oracle_rollable'],
-		move: ['oracle_rollable'],
+		move: ['condition', 'outcome', 'oracle_rollable'],
 		oracle_rollable: ['row'],
 		delve_site: ['denizen'],
 		delve_site_domain: ['feature', 'danger'],
@@ -126,7 +130,7 @@ namespace TypeId {
 	/** Types that can be an embed of an embed. */
 	export const EmbeddableInEmbeddedTypeMap = {
 		ability: ['oracle_rollable', 'move'],
-		move: [],
+		move: ['condition', 'outcome'],
 		option: ['oracle_rollable'],
 		oracle_rollable: ['row'],
 	} as const satisfies {
@@ -202,6 +206,8 @@ namespace TypeId {
 
 	export const EmbeddedPropertyKeys = {
 		ability: 'abilities',
+		condition: 'trigger.conditions',
+		outcome: 'outcomes',
 		option: 'options',
 		row: 'rows',
 		feature: 'features',
@@ -215,6 +221,8 @@ namespace TypeId {
 	// i think it comes down to whether the type has a required `name` property to generate a key from.
 	const EmbeddedPropertyType = {
 		abilities: 'array',
+		'trigger.conditions': 'array',
+		outcomes: 'dictionary',
 		dangers: 'array',
 		denizens: 'array',
 		features: 'array',
@@ -259,6 +267,8 @@ namespace TypeId {
 		'rarity',
 		'truth',
 		'ability',
+		'condition',
+		'outcome',
 		'option',
 		'row',
 		'feature',

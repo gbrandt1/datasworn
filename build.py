@@ -5,7 +5,11 @@
 # readme = "README.md"
 # requires-python = ">=3.14"
 # dependencies = [
+<<<<<<< HEAD
 #     "datamodel-code-generator[http]>=0.49.0",
+=======
+#     "datamodel-code-generator[http]>=0.53.0",
+>>>>>>> upstream/main
 #     "rich>=14.2.0",
 # ]
 # ///
@@ -41,13 +45,23 @@ VERSION = "0.1.0"
 PKG_SCOPE_OFFICIAL = "datasworn"
 PKG_SCOPE_COMMUNITY = "datasworn-community-content"
 
+<<<<<<< HEAD
+=======
+# Keys are JSON source names (with underscores)
+# pkg_dir is the Python package directory name (with hyphens for community packages)
+>>>>>>> upstream/main
 PKG_CONFIG = {
     "classic": {"scope": PKG_SCOPE_OFFICIAL},
     "delve": {"scope": PKG_SCOPE_OFFICIAL},
     "starforged": {"scope": PKG_SCOPE_OFFICIAL},
     "sundered_isles": {"scope": PKG_SCOPE_OFFICIAL},
+<<<<<<< HEAD
     "ancient_wonders": {"scope": PKG_SCOPE_COMMUNITY},
     "fe_runners": {"scope": PKG_SCOPE_COMMUNITY},
+=======
+    "ancient_wonders": {"scope": PKG_SCOPE_COMMUNITY, "pkg_dir": "ancient-wonders"},
+    "fe_runners": {"scope": PKG_SCOPE_COMMUNITY, "pkg_dir": "fe-runners"},
+>>>>>>> upstream/main
     "starsmith": {"scope": PKG_SCOPE_COMMUNITY},
 }
 
@@ -79,7 +93,13 @@ def copy_json(args):
         pkg_config = PKG_CONFIG[pkg]
         scope = pkg_config["scope"]
         sscope = snake(scope)
+<<<<<<< HEAD
         pkg_root = PKG_ROOT / scope / "src" / scope / pkg / "src" / sscope / pkg
+=======
+        # Use pkg_dir if specified, otherwise use the key name
+        pkg_dir = pkg_config.get("pkg_dir", pkg)
+        pkg_root = PKG_ROOT / scope / "src" / scope / pkg_dir / "src" / sscope / snake(pkg_dir)
+>>>>>>> upstream/main
         pkg_json_dest = pkg_root / "json"
         json_src = ROOT_OUTPUT / pkg / f"{pkg}.json"
 
@@ -125,13 +145,26 @@ def build_core_package(args):
         input_file_type=InputFileType.JsonSchema,
         output_model_type=DataModelType.PydanticV2BaseModel,
         # output=output,
+<<<<<<< HEAD
         # extra_fields="allow",
+=======
+>>>>>>> upstream/main
         use_standard_collections=True,
         field_constraints=True,
         use_annotated=True,
         target_python_version=PythonVersion.PY_313,
+<<<<<<< HEAD
         # disable_future_imports=True,
         # use_pendulum=True,
+=======
+        # Optimization: collapse simple RootModel types into type aliases
+        # This eliminates the need for .root access on string/primitive types
+        collapse_root_models=True,
+        # Use X | Y union syntax instead of Union[X, Y]
+        use_union_operator=True,
+        # Remove field_ prefix from reserved names (_id -> id, _type -> type)
+        remove_special_field_name_prefix=True,
+>>>>>>> upstream/main
     )
 
     if args.dry_run:

@@ -7,6 +7,7 @@ import {
 import * as Text from '../common/Text.js'
 import type { TOracleRoll } from '../common/Rolls.js'
 import { UnionEnumFromRecord } from '../utils/UnionEnumFromRecord.js'
+import * as Utils from '../Utils.js'
 
 enum Outcome {
 	Miss = 'miss',
@@ -97,6 +98,7 @@ export type ProgressRollMethod = Static<typeof ProgressRollMethod>
 
 export const MoveOutcome = Type.Object(
 	{
+		_id: Utils.Computed(Type.Ref('AnyMoveOutcomeId')),
 		text: Type.Ref(Text.MarkdownString, {
 			// pattern: /On a __(strong hit|weak hit|miss)__/.source,
 			// type: 'string'

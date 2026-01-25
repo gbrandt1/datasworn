@@ -1,3 +1,35 @@
+### Version 0.0.7
+
+#### New Features
+
+- **Move outcome IDs**: Move outcomes (strong_hit, weak_hit, miss) now have unique `_id` properties
+  - Regular move outcomes: `move.outcome:starforged/adventure/face_danger.strong_hit`
+  - Embedded move outcomes in asset abilities: `asset.ability.move.outcome:starforged/path/archer.0.craft_projectiles.weak_hit`
+  - Requested by southpole for DSL where entire reference material is addressable
+  - ~528 outcome objects across all rulesets (176 moves × 3 outcomes)
+
+#### Schema Changes
+
+- Added `outcome` as an embedded type in the TypeId system
+- Added `AnyMoveOutcomeId` and `AnyMoveOutcomeIdWildcard` ID types
+- MoveOutcome objects now include a required `_id` field
+
+### Version 0.0.6
+
+#### New Features
+
+- **Trigger condition IDs**: Move trigger conditions now have unique `_id` properties, enabling 1:1 mapping of all Datasworn objects
+  - Regular move conditions: `move.condition:starforged/adventure/face_danger.0`
+  - Embedded move conditions in asset abilities: `asset.ability.move.condition:starforged/path/archer.0.craft_projectiles.0`
+  - This addresses the need for tools like Iron Vault to reference individual trigger conditions
+
+#### Schema Changes
+
+- Added `condition` as an embedded type in the TypeId system
+- Added `AnyMoveConditionId` and `AnyMoveConditionIdWildcard` ID types
+- Trigger conditions in moves now include a required `_id` field
+- Enhancement conditions (in `enhance_moves`) do not receive IDs as they are nested within asset abilities
+
 ### Version 0.0.5
 
 - get version const from tools package

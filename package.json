@@ -11,6 +11,7 @@
     "pkg/nodejs/@datasworn/core",
     "pkg/nodejs/@datasworn/ironsworn-classic",
     "pkg/nodejs/@datasworn/ironsworn-classic-delve",
+    "pkg/nodejs/@datasworn/ironsworn-classic-lodestar",
     "pkg/nodejs/@datasworn/starforged",
     "pkg/nodejs/@datasworn/sundered-isles"
   ],
@@ -61,7 +62,10 @@
     "@types/json-schema": "^7.0.15",
     "@types/lodash-es": "^4.17.12",
     "esbuild": "^0.27.2",
+<<<<<<< HEAD
     "json-schema": "^0.4.0",
+=======
+>>>>>>> upstream/main
     "release-it": "^19.1.0",
     "tsconfig-paths": "^4.2.0",
     "type-fest": "^5.3.1",

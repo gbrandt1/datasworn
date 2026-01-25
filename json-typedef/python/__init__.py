@@ -427,6 +427,28 @@ class AnyIDWildcard:
         return _to_json_data(self.value)
 
 @dataclass
+class AnyMoveConditionID:
+    value: 'str'
+
+    @classmethod
+    def from_json_data(cls, data: Any) -> 'AnyMoveConditionID':
+        return cls(_from_json_data(str, data))
+
+    def to_json_data(self) -> Any:
+        return _to_json_data(self.value)
+
+@dataclass
+class AnyMoveConditionIDWildcard:
+    value: 'str'
+
+    @classmethod
+    def from_json_data(cls, data: Any) -> 'AnyMoveConditionIDWildcard':
+        return cls(_from_json_data(str, data))
+
+    def to_json_data(self) -> Any:
+        return _to_json_data(self.value)
+
+@dataclass
 class AnyMoveID:
     value: 'str'
 
@@ -443,6 +465,28 @@ class AnyMoveIDWildcard:
 
     @classmethod
     def from_json_data(cls, data: Any) -> 'AnyMoveIDWildcard':
+        return cls(_from_json_data(str, data))
+
+    def to_json_data(self) -> Any:
+        return _to_json_data(self.value)
+
+@dataclass
+class AnyMoveOutcomeID:
+    value: 'str'
+
+    @classmethod
+    def from_json_data(cls, data: Any) -> 'AnyMoveOutcomeID':
+        return cls(_from_json_data(str, data))
+
+    def to_json_data(self) -> Any:
+        return _to_json_data(self.value)
+
+@dataclass
+class AnyMoveOutcomeIDWildcard:
+    value: 'str'
+
+    @classmethod
+    def from_json_data(cls, data: Any) -> 'AnyMoveOutcomeIDWildcard':
         return cls(_from_json_data(str, data))
 
     def to_json_data(self) -> Any:
@@ -976,6 +1020,37 @@ class AssetAbilityIDWildcard:
         return _to_json_data(self.value)
 
 @dataclass
+class AssetAbilityMoveConditionID:
+    """
+    A unique ID representing an AssetAbilityMoveCondition object.
+    """
+
+    value: 'str'
+
+    @classmethod
+    def from_json_data(cls, data: Any) -> 'AssetAbilityMoveConditionID':
+        return cls(_from_json_data(str, data))
+
+    def to_json_data(self) -> Any:
+        return _to_json_data(self.value)
+
+@dataclass
+class AssetAbilityMoveConditionIDWildcard:
+    """
+    A wildcarded AssetAbilityMoveConditionId that can be used to match multiple
+    AssetAbilityMoveCondition objects.
+    """
+
+    value: 'str'
+
+    @classmethod
+    def from_json_data(cls, data: Any) -> 'AssetAbilityMoveConditionIDWildcard':
+        return cls(_from_json_data(str, data))
+
+    def to_json_data(self) -> Any:
+        return _to_json_data(self.value)
+
+@dataclass
 class AssetAbilityMoveID:
     """
     A unique ID representing an AssetAbilityMove object.
@@ -1001,6 +1076,37 @@ class AssetAbilityMoveIDWildcard:
 
     @classmethod
     def from_json_data(cls, data: Any) -> 'AssetAbilityMoveIDWildcard':
+        return cls(_from_json_data(str, data))
+
+    def to_json_data(self) -> Any:
+        return _to_json_data(self.value)
+
+@dataclass
+class AssetAbilityMoveOutcomeID:
+    """
+    A unique ID representing an AssetAbilityMoveOutcome object.
+    """
+
+    value: 'str'
+
+    @classmethod
+    def from_json_data(cls, data: Any) -> 'AssetAbilityMoveOutcomeID':
+        return cls(_from_json_data(str, data))
+
+    def to_json_data(self) -> Any:
+        return _to_json_data(self.value)
+
+@dataclass
+class AssetAbilityMoveOutcomeIDWildcard:
+    """
+    A wildcarded AssetAbilityMoveOutcomeId that can be used to match multiple
+    AssetAbilityMoveOutcome objects.
+    """
+
+    value: 'str'
+
+    @classmethod
+    def from_json_data(cls, data: Any) -> 'AssetAbilityMoveOutcomeIDWildcard':
         return cls(_from_json_data(str, data))
 
     def to_json_data(self) -> Any:
@@ -4373,10 +4479,12 @@ class Email:
 
 class EmbedOnlyType(Enum):
     ABILITY = "ability"
+    CONDITION = "condition"
     DANGER = "danger"
     DENIZEN = "denizen"
     FEATURE = "feature"
     OPTION = "option"
+    OUTCOME = "outcome"
     ROW = "row"
     VARIANT = "variant"
     @classmethod
@@ -8317,6 +8425,37 @@ class MoveCategoryIDWildcard:
         return _to_json_data(self.value)
 
 @dataclass
+class MoveConditionID:
+    """
+    A unique ID representing a MoveCondition object.
+    """
+
+    value: 'str'
+
+    @classmethod
+    def from_json_data(cls, data: Any) -> 'MoveConditionID':
+        return cls(_from_json_data(str, data))
+
+    def to_json_data(self) -> Any:
+        return _to_json_data(self.value)
+
+@dataclass
+class MoveConditionIDWildcard:
+    """
+    A wildcarded MoveConditionId that can be used to match multiple
+    MoveCondition objects.
+    """
+
+    value: 'str'
+
+    @classmethod
+    def from_json_data(cls, data: Any) -> 'MoveConditionIDWildcard':
+        return cls(_from_json_data(str, data))
+
+    def to_json_data(self) -> Any:
+        return _to_json_data(self.value)
+
+@dataclass
 class MoveEnhancement:
     roll_type: 'str'
 
@@ -8716,22 +8855,56 @@ class MoveOracleRollableRowIDWildcard:
 
 @dataclass
 class MoveOutcome:
+    id: 'AnyMoveOutcomeID'
     text: 'MarkdownString'
     oracle_rolls: 'Optional[List[OracleRoll]]'
 
     @classmethod
     def from_json_data(cls, data: Any) -> 'MoveOutcome':
         return cls(
+            _from_json_data(AnyMoveOutcomeID, data.get("_id")),
             _from_json_data(MarkdownString, data.get("text")),
             _from_json_data(Optional[List[OracleRoll]], data.get("oracle_rolls")),
         )
 
     def to_json_data(self) -> Any:
         data: Dict[str, Any] = {}
+        data["_id"] = _to_json_data(self.id)
         data["text"] = _to_json_data(self.text)
         if self.oracle_rolls is not None:
              data["oracle_rolls"] = _to_json_data(self.oracle_rolls)
         return data
+
+@dataclass
+class MoveOutcomeID:
+    """
+    A unique ID representing a MoveOutcome object.
+    """
+
+    value: 'str'
+
+    @classmethod
+    def from_json_data(cls, data: Any) -> 'MoveOutcomeID':
+        return cls(_from_json_data(str, data))
+
+    def to_json_data(self) -> Any:
+        return _to_json_data(self.value)
+
+@dataclass
+class MoveOutcomeIDWildcard:
+    """
+    A wildcarded MoveOutcomeId that can be used to match multiple MoveOutcome
+    objects.
+    """
+
+    value: 'str'
+
+    @classmethod
+    def from_json_data(cls, data: Any) -> 'MoveOutcomeIDWildcard':
+        return cls(_from_json_data(str, data))
+
+    def to_json_data(self) -> Any:
+        return _to_json_data(self.value)
 
 @dataclass
 class MoveOutcomes:
@@ -15785,6 +15958,7 @@ class TaggableNodeType(Enum):
     ASSET_COLLECTION = "asset_collection"
     ATLAS_COLLECTION = "atlas_collection"
     ATLAS_ENTRY = "atlas_entry"
+    CONDITION = "condition"
     CONDITION_METER = "condition_meter"
     DANGER = "danger"
     DELVE_SITE = "delve_site"
@@ -15800,6 +15974,7 @@ class TaggableNodeType(Enum):
     OPTION = "option"
     ORACLE_COLLECTION = "oracle_collection"
     ORACLE_ROLLABLE = "oracle_rollable"
+    OUTCOME = "outcome"
     RARITY = "rarity"
     ROW = "row"
     SPECIAL_TRACK = "special_track"
@@ -15905,6 +16080,7 @@ class TriggerActionRoll:
 
 @dataclass
 class TriggerActionRollCondition:
+    id: 'AnyMoveConditionID'
     method: 'ActionRollMethod'
     roll_options: 'List[RollableValue]'
     """
@@ -15921,6 +16097,7 @@ class TriggerActionRollCondition:
     @classmethod
     def from_json_data(cls, data: Any) -> 'TriggerActionRollCondition':
         return cls(
+            _from_json_data(AnyMoveConditionID, data.get("_id")),
             _from_json_data(ActionRollMethod, data.get("method")),
             _from_json_data(List[RollableValue], data.get("roll_options")),
             _from_json_data(Optional[TriggerBy], data.get("by")),
@@ -15929,6 +16106,7 @@ class TriggerActionRollCondition:
 
     def to_json_data(self) -> Any:
         data: Dict[str, Any] = {}
+        data["_id"] = _to_json_data(self.id)
         data["method"] = _to_json_data(self.method)
         data["roll_options"] = _to_json_data(self.roll_options)
         if self.by is not None:
@@ -16060,6 +16238,7 @@ class TriggerNoRoll:
 
 @dataclass
 class TriggerNoRollCondition:
+    id: 'AnyMoveConditionID'
     by: 'Optional[TriggerBy]'
     text: 'Optional[MarkdownString]'
     """
@@ -16069,6 +16248,32 @@ class TriggerNoRollCondition:
 
     @classmethod
     def from_json_data(cls, data: Any) -> 'TriggerNoRollCondition':
+        return cls(
+            _from_json_data(AnyMoveConditionID, data.get("_id")),
+            _from_json_data(Optional[TriggerBy], data.get("by")),
+            _from_json_data(Optional[MarkdownString], data.get("text")),
+        )
+
+    def to_json_data(self) -> Any:
+        data: Dict[str, Any] = {}
+        data["_id"] = _to_json_data(self.id)
+        if self.by is not None:
+             data["by"] = _to_json_data(self.by)
+        if self.text is not None:
+             data["text"] = _to_json_data(self.text)
+        return data
+
+@dataclass
+class TriggerNoRollConditionEnhancement:
+    by: 'Optional[TriggerBy]'
+    text: 'Optional[MarkdownString]'
+    """
+    A markdown string of any trigger text specific to this trigger condition.
+    """
+
+
+    @classmethod
+    def from_json_data(cls, data: Any) -> 'TriggerNoRollConditionEnhancement':
         return cls(
             _from_json_data(Optional[TriggerBy], data.get("by")),
             _from_json_data(Optional[MarkdownString], data.get("text")),
@@ -16088,7 +16293,7 @@ class TriggerNoRollEnhancement:
     Describes changes/additions made to the enhanced move's trigger conditions.
     """
 
-    conditions: 'List[TriggerNoRollCondition]'
+    conditions: 'List[TriggerNoRollConditionEnhancement]'
     """
     Trigger conditions added to the enhanced move.
     """
@@ -16097,7 +16302,7 @@ class TriggerNoRollEnhancement:
     @classmethod
     def from_json_data(cls, data: Any) -> 'TriggerNoRollEnhancement':
         return cls(
-            _from_json_data(List[TriggerNoRollCondition], data.get("conditions")),
+            _from_json_data(List[TriggerNoRollConditionEnhancement], data.get("conditions")),
         )
 
     def to_json_data(self) -> Any:
@@ -16136,6 +16341,7 @@ class TriggerProgressRoll:
 
 @dataclass
 class TriggerProgressRollCondition:
+    id: 'AnyMoveConditionID'
     method: 'ProgressRollMethod'
     roll_options: 'List[ProgressRollOption]'
     """
@@ -16152,6 +16358,7 @@ class TriggerProgressRollCondition:
     @classmethod
     def from_json_data(cls, data: Any) -> 'TriggerProgressRollCondition':
         return cls(
+            _from_json_data(AnyMoveConditionID, data.get("_id")),
             _from_json_data(ProgressRollMethod, data.get("method")),
             _from_json_data(List[ProgressRollOption], data.get("roll_options")),
             _from_json_data(Optional[TriggerBy], data.get("by")),
@@ -16160,6 +16367,7 @@ class TriggerProgressRollCondition:
 
     def to_json_data(self) -> Any:
         data: Dict[str, Any] = {}
+        data["_id"] = _to_json_data(self.id)
         data["method"] = _to_json_data(self.method)
         data["roll_options"] = _to_json_data(self.roll_options)
         if self.by is not None:
@@ -16256,6 +16464,7 @@ class TriggerSpecialTrack:
 
 @dataclass
 class TriggerSpecialTrackCondition:
+    id: 'AnyMoveConditionID'
     method: 'SpecialTrackRollMethod'
     roll_options: 'List[TriggerSpecialTrackConditionOption]'
     """
@@ -16272,6 +16481,7 @@ class TriggerSpecialTrackCondition:
     @classmethod
     def from_json_data(cls, data: Any) -> 'TriggerSpecialTrackCondition':
         return cls(
+            _from_json_data(AnyMoveConditionID, data.get("_id")),
             _from_json_data(SpecialTrackRollMethod, data.get("method")),
             _from_json_data(List[TriggerSpecialTrackConditionOption], data.get("roll_options")),
             _from_json_data(Optional[TriggerBy], data.get("by")),
@@ -16280,6 +16490,7 @@ class TriggerSpecialTrackCondition:
 
     def to_json_data(self) -> Any:
         data: Dict[str, Any] = {}
+        data["_id"] = _to_json_data(self.id)
         data["method"] = _to_json_data(self.method)
         data["roll_options"] = _to_json_data(self.roll_options)
         if self.by is not None:

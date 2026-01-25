@@ -11,10 +11,34 @@ import {
 import Log from '../../utils/Log.js'
 import { emptyDir } from '../../utils/readWrite.js'
 import { Glob } from 'bun'
+import {
+	generateIdConstantsJs,
+	generateIdConstantsDts
+} from './generateIdConstants.js'
+import type { Datasworn } from '../../../pkg-core/index.js'
+
+/** Generate the index.js content for a content package */
+function generateIndexJs(id: string, jsonFileName: string): string {
+	return `export { default } from './json/${jsonFileName}.json' with { type: 'json' };
+export { default as ${id} } from './json/${jsonFileName}.json' with { type: 'json' };
+`
+}
+
+/** Generate the index.d.ts content for a content package */
+function generateIndexDts(id: string, type: 'ruleset' | 'expansion'): string {
+	const dataswornType = type === 'ruleset' ? 'Ruleset' : 'Expansion'
+	return `import type { Datasworn } from '@datasworn/core';
+
+declare const data: Datasworn.${dataswornType};
+export default data;
+export { data as ${id} };
+`
+}
 
 /** Assemble a NodeJS package from a {@link RulesPackageConfig} using data in {@link ROOT_OUTPUT} */
 export async function buildContentPackage({
 	id,
+	type,
 	pkg,
 	paths,
 }: RulesPackageConfig) {
@@ -41,6 +65,28 @@ export async function buildContentPackage({
 				Object.assign(packageDotJson, packageUpdate)
 				packageDotJson.version = VERSION
 
+				// Add typed exports configuration
+				packageDotJson.type = 'module'
+				packageDotJson.main = 'index.js'
+				packageDotJson.types = 'index.d.ts'
+				packageDotJson.exports = {
+					'.': {
+						types: './index.d.ts',
+						default: './index.js'
+					},
+					'./ids': {
+						types: './ids.d.ts',
+						default: './ids.js'
+					},
+					[`./json/${id}.json`]: `./json/${id}.json`
+				}
+
+				// Update files array to include index and ids files
+				const files = packageDotJson.files as string[] | undefined
+				if (files != null && !files.includes('index.js')) {
+					files.unshift('index.js', 'index.d.ts', 'ids.js', 'ids.d.ts')
+				}
+
 				const dependencies = packageDotJson?.dependencies as
 					| Record<string, string>
 					| undefined
@@ -53,6 +99,27 @@ export async function buildContentPackage({
 				return packageDotJson
 			}
 		)
+	)
+
+	// Generate and write index.js and index.d.ts files
+	const indexJsPath = path.join(pkgRoot, 'index.js')
+	const indexDtsPath = path.join(pkgRoot, 'index.d.ts')
+
+	jsonOps.push(
+		Bun.write(indexJsPath, generateIndexJs(id, id)),
+		Bun.write(indexDtsPath, generateIndexDts(id, type))
+	)
+
+	// Generate ID constants from the built JSON data
+	const jsonDataPath = path.join(ROOT_OUTPUT, id, `${id}.json`)
+	const jsonData = await Bun.file(jsonDataPath).json() as Datasworn.Ruleset | Datasworn.Expansion
+
+	const idsJsPath = path.join(pkgRoot, 'ids.js')
+	const idsDtsPath = path.join(pkgRoot, 'ids.d.ts')
+
+	jsonOps.push(
+		Bun.write(idsJsPath, generateIdConstantsJs(jsonData)),
+		Bun.write(idsDtsPath, generateIdConstantsDts(jsonData))
 	)
 
 	/** Destination path for the JSON content directory */

@@ -11,6 +11,8 @@ namespace Datasworn
     {
         Ability,
 
+        Condition,
+
         Danger,
 
         Denizen,
@@ -18,6 +20,8 @@ namespace Datasworn
         Feature,
 
         Option,
+
+        Outcome,
 
         Row,
 
@@ -32,6 +36,8 @@ namespace Datasworn
             {
                 case "ability":
                     return EmbedOnlyType.Ability;
+                case "condition":
+                    return EmbedOnlyType.Condition;
                 case "danger":
                     return EmbedOnlyType.Danger;
                 case "denizen":
@@ -40,6 +46,8 @@ namespace Datasworn
                     return EmbedOnlyType.Feature;
                 case "option":
                     return EmbedOnlyType.Option;
+                case "outcome":
+                    return EmbedOnlyType.Outcome;
                 case "row":
                     return EmbedOnlyType.Row;
                 case "variant":
@@ -56,6 +64,9 @@ namespace Datasworn
                 case EmbedOnlyType.Ability:
                     JsonSerializer.Serialize<string>(writer, "ability", options);
                     return;
+                case EmbedOnlyType.Condition:
+                    JsonSerializer.Serialize<string>(writer, "condition", options);
+                    return;
                 case EmbedOnlyType.Danger:
                     JsonSerializer.Serialize<string>(writer, "danger", options);
                     return;
@@ -67,6 +78,9 @@ namespace Datasworn
                     return;
                 case EmbedOnlyType.Option:
                     JsonSerializer.Serialize<string>(writer, "option", options);
+                    return;
+                case EmbedOnlyType.Outcome:
+                    JsonSerializer.Serialize<string>(writer, "outcome", options);
                     return;
                 case EmbedOnlyType.Row:
                     JsonSerializer.Serialize<string>(writer, "row", options);

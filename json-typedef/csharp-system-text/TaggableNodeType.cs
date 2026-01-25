@@ -19,6 +19,8 @@ namespace Datasworn
 
         AtlasEntry,
 
+        Condition,
+
         ConditionMeter,
 
         Danger,
@@ -49,6 +51,8 @@ namespace Datasworn
 
         OracleRollable,
 
+        Outcome,
+
         Rarity,
 
         Row,
@@ -78,6 +82,8 @@ namespace Datasworn
                     return TaggableNodeType.AtlasCollection;
                 case "atlas_entry":
                     return TaggableNodeType.AtlasEntry;
+                case "condition":
+                    return TaggableNodeType.Condition;
                 case "condition_meter":
                     return TaggableNodeType.ConditionMeter;
                 case "danger":
@@ -108,6 +114,8 @@ namespace Datasworn
                     return TaggableNodeType.OracleCollection;
                 case "oracle_rollable":
                     return TaggableNodeType.OracleRollable;
+                case "outcome":
+                    return TaggableNodeType.Outcome;
                 case "rarity":
                     return TaggableNodeType.Rarity;
                 case "row":
@@ -143,6 +151,9 @@ namespace Datasworn
                     return;
                 case TaggableNodeType.AtlasEntry:
                     JsonSerializer.Serialize<string>(writer, "atlas_entry", options);
+                    return;
+                case TaggableNodeType.Condition:
+                    JsonSerializer.Serialize<string>(writer, "condition", options);
                     return;
                 case TaggableNodeType.ConditionMeter:
                     JsonSerializer.Serialize<string>(writer, "condition_meter", options);
@@ -188,6 +199,9 @@ namespace Datasworn
                     return;
                 case TaggableNodeType.OracleRollable:
                     JsonSerializer.Serialize<string>(writer, "oracle_rollable", options);
+                    return;
+                case TaggableNodeType.Outcome:
+                    JsonSerializer.Serialize<string>(writer, "outcome", options);
                     return;
                 case TaggableNodeType.Rarity:
                     JsonSerializer.Serialize<string>(writer, "rarity", options);

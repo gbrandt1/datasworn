@@ -34,6 +34,12 @@ export type DataswornType =
 	| 'oracle_collection'
 	| 'npc_collection'
 	| 'atlas_collection'
+<<<<<<< HEAD
+=======
+	| 'delve_site'
+	| 'delve_site_theme'
+	| 'delve_site_domain'
+>>>>>>> upstream/main
 
 /** Check if an item is a specific Datasworn type */
 export function hasType(item: unknown, type: DataswornType): boolean {
@@ -86,3 +92,21 @@ export function isCollection(item: unknown): item is CollectionType {
 		type === 'atlas_collection'
 	)
 }
+<<<<<<< HEAD
+=======
+
+/** Type guard for DelveSite */
+export function isDelveSite(item: unknown): item is Datasworn.DelveSite {
+	return hasType(item, 'delve_site')
+}
+
+/** Type guard for DelveSiteTheme */
+export function isDelveSiteTheme(item: unknown): item is Datasworn.DelveSiteTheme {
+	return hasType(item, 'delve_site_theme')
+}
+
+/** Type guard for DelveSiteDomain */
+export function isDelveSiteDomain(item: unknown): item is Datasworn.DelveSiteDomain {
+	return hasType(item, 'delve_site_domain')
+}
+>>>>>>> upstream/main

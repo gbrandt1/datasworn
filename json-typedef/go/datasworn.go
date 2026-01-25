@@ -222,9 +222,17 @@ type AnyID = string
 // Represents any kind of wildcard ID, including IDs of embedded objects.
 type AnyIDWildcard = string
 
+type AnyMoveConditionID = string
+
+type AnyMoveConditionIDWildcard = string
+
 type AnyMoveID = string
 
 type AnyMoveIDWildcard = string
+
+type AnyMoveOutcomeID = string
+
+type AnyMoveOutcomeIDWildcard = string
 
 type AnyOracleRollableID = string
 
@@ -473,12 +481,26 @@ type AssetAbilityID = string
 // objects.
 type AssetAbilityIDWildcard = string
 
+// A unique ID representing an AssetAbilityMoveCondition object.
+type AssetAbilityMoveConditionID = string
+
+// A wildcarded AssetAbilityMoveConditionId that can be used to match multiple
+// AssetAbilityMoveCondition objects.
+type AssetAbilityMoveConditionIDWildcard = string
+
 // A unique ID representing an AssetAbilityMove object.
 type AssetAbilityMoveID = string
 
 // A wildcarded AssetAbilityMoveId that can be used to match multiple
 // AssetAbilityMove objects.
 type AssetAbilityMoveIDWildcard = string
+
+// A unique ID representing an AssetAbilityMoveOutcome object.
+type AssetAbilityMoveOutcomeID = string
+
+// A wildcarded AssetAbilityMoveOutcomeId that can be used to match multiple
+// AssetAbilityMoveOutcome objects.
+type AssetAbilityMoveOutcomeIDWildcard = string
 
 type AssetAbilityOptionField struct {
 	FieldType string
@@ -2040,6 +2062,8 @@ type EmbedOnlyType string
 const (
 	EmbedOnlyTypeAbility EmbedOnlyType = "ability"
 
+	EmbedOnlyTypeCondition EmbedOnlyType = "condition"
+
 	EmbedOnlyTypeDanger EmbedOnlyType = "danger"
 
 	EmbedOnlyTypeDenizen EmbedOnlyType = "denizen"
@@ -2047,6 +2071,8 @@ const (
 	EmbedOnlyTypeFeature EmbedOnlyType = "feature"
 
 	EmbedOnlyTypeOption EmbedOnlyType = "option"
+
+	EmbedOnlyTypeOutcome EmbedOnlyType = "outcome"
 
 	EmbedOnlyTypeRow EmbedOnlyType = "row"
 
@@ -3896,6 +3922,13 @@ type MoveCategoryID = string
 // objects.
 type MoveCategoryIDWildcard = string
 
+// A unique ID representing a MoveCondition object.
+type MoveConditionID = string
+
+// A wildcarded MoveConditionId that can be used to match multiple MoveCondition
+// objects.
+type MoveConditionIDWildcard = string
+
 type MoveEnhancement struct {
 	RollType string
 
@@ -4091,10 +4124,19 @@ type MoveOracleRollableRowID = string
 type MoveOracleRollableRowIDWildcard = string
 
 type MoveOutcome struct {
+	ID AnyMoveOutcomeID `json:"_id"`
+
 	Text MarkdownString `json:"text"`
 
 	OracleRolls []OracleRoll `json:"oracle_rolls,omitempty"`
 }
+
+// A unique ID representing a MoveOutcome object.
+type MoveOutcomeID = string
+
+// A wildcarded MoveOutcomeId that can be used to match multiple MoveOutcome
+// objects.
+type MoveOutcomeIDWildcard = string
 
 // A standalone localized description for each move outcome (miss, weak hit,
 // or strong hit). This is for for e.g. VTT implementations, where it's often
@@ -7416,6 +7458,8 @@ const (
 
 	TaggableNodeTypeAtlasEntry TaggableNodeType = "atlas_entry"
 
+	TaggableNodeTypeCondition TaggableNodeType = "condition"
+
 	TaggableNodeTypeConditionMeter TaggableNodeType = "condition_meter"
 
 	TaggableNodeTypeDanger TaggableNodeType = "danger"
@@ -7445,6 +7489,8 @@ const (
 	TaggableNodeTypeOracleCollection TaggableNodeType = "oracle_collection"
 
 	TaggableNodeTypeOracleRollable TaggableNodeType = "oracle_rollable"
+
+	TaggableNodeTypeOutcome TaggableNodeType = "outcome"
 
 	TaggableNodeTypeRarity TaggableNodeType = "rarity"
 
@@ -7493,6 +7539,8 @@ type TriggerActionRoll struct {
 }
 
 type TriggerActionRollCondition struct {
+	ID AnyMoveConditionID `json:"_id"`
+
 	Method ActionRollMethod `json:"method"`
 
 	// The options available when rolling with this trigger condition.
@@ -7545,6 +7593,15 @@ type TriggerNoRoll struct {
 }
 
 type TriggerNoRollCondition struct {
+	ID AnyMoveConditionID `json:"_id"`
+
+	By *TriggerBy `json:"by,omitempty"`
+
+	// A markdown string of any trigger text specific to this trigger condition.
+	Text *MarkdownString `json:"text,omitempty"`
+}
+
+type TriggerNoRollConditionEnhancement struct {
 	By *TriggerBy `json:"by,omitempty"`
 
 	// A markdown string of any trigger text specific to this trigger condition.
@@ -7554,7 +7611,7 @@ type TriggerNoRollCondition struct {
 // Describes changes/additions made to the enhanced move's trigger conditions.
 type TriggerNoRollEnhancement struct {
 	// Trigger conditions added to the enhanced move.
-	Conditions []TriggerNoRollCondition `json:"conditions"`
+	Conditions []TriggerNoRollConditionEnhancement `json:"conditions"`
 }
 
 type TriggerProgressRoll struct {
@@ -7569,6 +7626,8 @@ type TriggerProgressRoll struct {
 }
 
 type TriggerProgressRollCondition struct {
+	ID AnyMoveConditionID `json:"_id"`
+
 	Method ProgressRollMethod `json:"method"`
 
 	// The options available when rolling with this trigger condition.
@@ -7610,6 +7669,8 @@ type TriggerSpecialTrack struct {
 }
 
 type TriggerSpecialTrackCondition struct {
+	ID AnyMoveConditionID `json:"_id"`
+
 	Method SpecialTrackRollMethod `json:"method"`
 
 	// The options available when rolling with this trigger condition.

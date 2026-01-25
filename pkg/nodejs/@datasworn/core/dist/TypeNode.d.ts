@@ -56,6 +56,8 @@ declare namespace TypeNode {
     type PrimarySourceTypeMap = CollectionSourceTypeMap & CollectableSourceTypeMap & NonCollectableSourceTypeMap;
     type EmbedOnlyTypeMap = {
         ability: Datasworn.AssetAbility;
+        condition: Datasworn.TriggerActionRollCondition | Datasworn.TriggerNoRollCondition | Datasworn.TriggerProgressRollCondition | Datasworn.TriggerSpecialTrackCondition;
+        outcome: Datasworn.MoveOutcome;
         option: Datasworn.TruthOption;
         row: Datasworn.OracleRollableRow;
         feature: Datasworn.DelveSiteThemeFeature | Datasworn.DelveSiteDomainFeature;
@@ -65,6 +67,8 @@ declare namespace TypeNode {
     };
     type EmbedOnlySourceTypeMap = {
         ability: DataswornSource.AssetAbility;
+        condition: DataswornSource.TriggerActionRollCondition | DataswornSource.TriggerNoRollCondition | DataswornSource.TriggerProgressRollCondition | DataswornSource.TriggerSpecialTrackCondition;
+        outcome: DataswornSource.MoveOutcome;
         option: DataswornSource.TruthOption;
         row: DataswornSource.OracleRollableRow;
         feature: DataswornSource.DelveSiteThemeFeature | DataswornSource.DelveSiteDomainFeature;

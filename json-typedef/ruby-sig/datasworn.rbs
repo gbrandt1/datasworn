@@ -107,6 +107,20 @@ module Datasworn
     def to_json_data: () -> untyped
   end
 
+  class AnyMoveConditionID
+    attr_accessor value: String
+
+    def self.from_json_data: (untyped) -> AnyMoveConditionID
+    def to_json_data: () -> untyped
+  end
+
+  class AnyMoveConditionIDWildcard
+    attr_accessor value: String
+
+    def self.from_json_data: (untyped) -> AnyMoveConditionIDWildcard
+    def to_json_data: () -> untyped
+  end
+
   class AnyMoveID
     attr_accessor value: String
 
@@ -118,6 +132,20 @@ module Datasworn
     attr_accessor value: String
 
     def self.from_json_data: (untyped) -> AnyMoveIDWildcard
+    def to_json_data: () -> untyped
+  end
+
+  class AnyMoveOutcomeID
+    attr_accessor value: String
+
+    def self.from_json_data: (untyped) -> AnyMoveOutcomeID
+    def to_json_data: () -> untyped
+  end
+
+  class AnyMoveOutcomeIDWildcard
+    attr_accessor value: String
+
+    def self.from_json_data: (untyped) -> AnyMoveOutcomeIDWildcard
     def to_json_data: () -> untyped
   end
 
@@ -267,6 +295,20 @@ module Datasworn
     def to_json_data: () -> untyped
   end
 
+  class AssetAbilityMoveConditionID
+    attr_accessor value: String
+
+    def self.from_json_data: (untyped) -> AssetAbilityMoveConditionID
+    def to_json_data: () -> untyped
+  end
+
+  class AssetAbilityMoveConditionIDWildcard
+    attr_accessor value: String
+
+    def self.from_json_data: (untyped) -> AssetAbilityMoveConditionIDWildcard
+    def to_json_data: () -> untyped
+  end
+
   class AssetAbilityMoveID
     attr_accessor value: String
 
@@ -278,6 +320,20 @@ module Datasworn
     attr_accessor value: String
 
     def self.from_json_data: (untyped) -> AssetAbilityMoveIDWildcard
+    def to_json_data: () -> untyped
+  end
+
+  class AssetAbilityMoveOutcomeID
+    attr_accessor value: String
+
+    def self.from_json_data: (untyped) -> AssetAbilityMoveOutcomeID
+    def to_json_data: () -> untyped
+  end
+
+  class AssetAbilityMoveOutcomeIDWildcard
+    attr_accessor value: String
+
+    def self.from_json_data: (untyped) -> AssetAbilityMoveOutcomeIDWildcard
     def to_json_data: () -> untyped
   end
 
@@ -1362,10 +1418,12 @@ module Datasworn
     attr_accessor value: String
 
     ABILITY: EmbedOnlyType
+    CONDITION: EmbedOnlyType
     DANGER: EmbedOnlyType
     DENIZEN: EmbedOnlyType
     FEATURE: EmbedOnlyType
     OPTION: EmbedOnlyType
+    OUTCOME: EmbedOnlyType
     ROW: EmbedOnlyType
     VARIANT: EmbedOnlyType
 
@@ -2619,6 +2677,20 @@ module Datasworn
     def to_json_data: () -> untyped
   end
 
+  class MoveConditionID
+    attr_accessor value: String
+
+    def self.from_json_data: (untyped) -> MoveConditionID
+    def to_json_data: () -> untyped
+  end
+
+  class MoveConditionIDWildcard
+    attr_accessor value: String
+
+    def self.from_json_data: (untyped) -> MoveConditionIDWildcard
+    def to_json_data: () -> untyped
+  end
+
   class MoveEnhancement
     attr_accessor roll_type: String
 
@@ -2760,10 +2832,25 @@ module Datasworn
   end
 
   class MoveOutcome
+    attr_accessor id: AnyMoveOutcomeID
     attr_accessor text: MarkdownString
     attr_accessor oracle_rolls: Array[OracleRoll]?
 
     def self.from_json_data: (untyped) -> MoveOutcome
+    def to_json_data: () -> untyped
+  end
+
+  class MoveOutcomeID
+    attr_accessor value: String
+
+    def self.from_json_data: (untyped) -> MoveOutcomeID
+    def to_json_data: () -> untyped
+  end
+
+  class MoveOutcomeIDWildcard
+    attr_accessor value: String
+
+    def self.from_json_data: (untyped) -> MoveOutcomeIDWildcard
     def to_json_data: () -> untyped
   end
 
@@ -4986,6 +5073,7 @@ module Datasworn
     ASSET_COLLECTION: TaggableNodeType
     ATLAS_COLLECTION: TaggableNodeType
     ATLAS_ENTRY: TaggableNodeType
+    CONDITION: TaggableNodeType
     CONDITION_METER: TaggableNodeType
     DANGER: TaggableNodeType
     DELVE_SITE: TaggableNodeType
@@ -5001,6 +5089,7 @@ module Datasworn
     OPTION: TaggableNodeType
     ORACLE_COLLECTION: TaggableNodeType
     ORACLE_ROLLABLE: TaggableNodeType
+    OUTCOME: TaggableNodeType
     RARITY: TaggableNodeType
     ROW: TaggableNodeType
     SPECIAL_TRACK: TaggableNodeType
@@ -5047,6 +5136,7 @@ module Datasworn
   end
 
   class TriggerActionRollCondition
+    attr_accessor id: AnyMoveConditionID
     attr_accessor method: ActionRollMethod
     attr_accessor roll_options: Array[RollableValue]
     attr_accessor by: TriggerBy?
@@ -5090,6 +5180,7 @@ module Datasworn
   end
 
   class TriggerNoRollCondition
+    attr_accessor id: AnyMoveConditionID
     attr_accessor by: TriggerBy?
     attr_accessor text: MarkdownString?
 
@@ -5097,8 +5188,16 @@ module Datasworn
     def to_json_data: () -> untyped
   end
 
+  class TriggerNoRollConditionEnhancement
+    attr_accessor by: TriggerBy?
+    attr_accessor text: MarkdownString?
+
+    def self.from_json_data: (untyped) -> TriggerNoRollConditionEnhancement
+    def to_json_data: () -> untyped
+  end
+
   class TriggerNoRollEnhancement
-    attr_accessor conditions: Array[TriggerNoRollCondition]
+    attr_accessor conditions: Array[TriggerNoRollConditionEnhancement]
 
     def self.from_json_data: (untyped) -> TriggerNoRollEnhancement
     def to_json_data: () -> untyped
@@ -5113,6 +5212,7 @@ module Datasworn
   end
 
   class TriggerProgressRollCondition
+    attr_accessor id: AnyMoveConditionID
     attr_accessor method: ProgressRollMethod
     attr_accessor roll_options: Array[ProgressRollOption]
     attr_accessor by: TriggerBy?
@@ -5148,6 +5248,7 @@ module Datasworn
   end
 
   class TriggerSpecialTrackCondition
+    attr_accessor id: AnyMoveConditionID
     attr_accessor method: SpecialTrackRollMethod
     attr_accessor roll_options: Array[TriggerSpecialTrackConditionOption]
     attr_accessor by: TriggerBy?

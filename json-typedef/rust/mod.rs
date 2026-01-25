@@ -250,9 +250,17 @@ pub type AnyId = String;
 /// Represents any kind of wildcard ID, including IDs of embedded objects.
 pub type AnyIdWildcard = String;
 
+pub type AnyMoveConditionId = String;
+
+pub type AnyMoveConditionIdWildcard = String;
+
 pub type AnyMoveId = String;
 
 pub type AnyMoveIdWildcard = String;
+
+pub type AnyMoveOutcomeId = String;
+
+pub type AnyMoveOutcomeIdWildcard = String;
 
 pub type AnyOracleRollableId = String;
 
@@ -545,12 +553,26 @@ pub type AssetAbilityId = String;
 /// objects.
 pub type AssetAbilityIdWildcard = String;
 
+/// A unique ID representing an AssetAbilityMoveCondition object.
+pub type AssetAbilityMoveConditionId = String;
+
+/// A wildcarded AssetAbilityMoveConditionId that can be used to match multiple
+/// AssetAbilityMoveCondition objects.
+pub type AssetAbilityMoveConditionIdWildcard = String;
+
 /// A unique ID representing an AssetAbilityMove object.
 pub type AssetAbilityMoveId = String;
 
 /// A wildcarded AssetAbilityMoveId that can be used to match multiple
 /// AssetAbilityMove objects.
 pub type AssetAbilityMoveIdWildcard = String;
+
+/// A unique ID representing an AssetAbilityMoveOutcome object.
+pub type AssetAbilityMoveOutcomeId = String;
+
+/// A wildcarded AssetAbilityMoveOutcomeId that can be used to match multiple
+/// AssetAbilityMoveOutcome objects.
+pub type AssetAbilityMoveOutcomeIdWildcard = String;
 
 #[derive(Serialize, Deserialize)]
 #[serde(tag = "field_type")]
@@ -2366,6 +2388,9 @@ pub enum EmbedOnlyType {
     #[serde(rename = "ability")]
     Ability,
 
+    #[serde(rename = "condition")]
+    Condition,
+
     #[serde(rename = "danger")]
     Danger,
 
@@ -2377,6 +2402,9 @@ pub enum EmbedOnlyType {
 
     #[serde(rename = "option")]
     Option,
+
+    #[serde(rename = "outcome")]
+    Outcome,
 
     #[serde(rename = "row")]
     Row,
@@ -4885,6 +4913,13 @@ pub type MoveCategoryId = String;
 /// objects.
 pub type MoveCategoryIdWildcard = String;
 
+/// A unique ID representing a MoveCondition object.
+pub type MoveConditionId = String;
+
+/// A wildcarded MoveConditionId that can be used to match multiple
+/// MoveCondition objects.
+pub type MoveConditionIdWildcard = String;
+
 #[derive(Serialize, Deserialize)]
 #[serde(tag = "roll_type")]
 pub enum MoveEnhancement {
@@ -5090,6 +5125,9 @@ pub type MoveOracleRollableRowIdWildcard = String;
 
 #[derive(Serialize, Deserialize)]
 pub struct MoveOutcome {
+    #[serde(rename = "_id")]
+    pub id: AnyMoveOutcomeId,
+
     #[serde(rename = "text")]
     pub text: MarkdownString,
 
@@ -5097,6 +5135,13 @@ pub struct MoveOutcome {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub oracleRolls: Option<Box<Vec<OracleRoll>>>,
 }
+
+/// A unique ID representing a MoveOutcome object.
+pub type MoveOutcomeId = String;
+
+/// A wildcarded MoveOutcomeId that can be used to match multiple MoveOutcome
+/// objects.
+pub type MoveOutcomeIdWildcard = String;
 
 /// A standalone localized description for each move outcome (miss, weak hit,
 /// or strong hit). This is for for e.g. VTT implementations, where it's often
@@ -9430,6 +9475,9 @@ pub enum TaggableNodeType {
     #[serde(rename = "atlas_entry")]
     AtlasEntry,
 
+    #[serde(rename = "condition")]
+    Condition,
+
     #[serde(rename = "condition_meter")]
     ConditionMeter,
 
@@ -9474,6 +9522,9 @@ pub enum TaggableNodeType {
 
     #[serde(rename = "oracle_rollable")]
     OracleRollable,
+
+    #[serde(rename = "outcome")]
+    Outcome,
 
     #[serde(rename = "rarity")]
     Rarity,
@@ -9538,6 +9589,9 @@ pub struct TriggerActionRoll {
 
 #[derive(Serialize, Deserialize)]
 pub struct TriggerActionRollCondition {
+    #[serde(rename = "_id")]
+    pub id: AnyMoveConditionId,
+
     #[serde(rename = "method")]
     pub method: ActionRollMethod,
 
@@ -9614,6 +9668,22 @@ pub struct TriggerNoRoll {
 
 #[derive(Serialize, Deserialize)]
 pub struct TriggerNoRollCondition {
+    #[serde(rename = "_id")]
+    pub id: AnyMoveConditionId,
+
+    #[serde(rename = "by")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub by: Option<Box<TriggerBy>>,
+
+    /// A markdown string of any trigger text specific to this trigger
+    /// condition.
+    #[serde(rename = "text")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub text: Option<Box<MarkdownString>>,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct TriggerNoRollConditionEnhancement {
     #[serde(rename = "by")]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub by: Option<Box<TriggerBy>>,
@@ -9630,7 +9700,7 @@ pub struct TriggerNoRollCondition {
 pub struct TriggerNoRollEnhancement {
     /// Trigger conditions added to the enhanced move.
     #[serde(rename = "conditions")]
-    pub conditions: Vec<TriggerNoRollCondition>,
+    pub conditions: Vec<TriggerNoRollConditionEnhancement>,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -9649,6 +9719,9 @@ pub struct TriggerProgressRoll {
 
 #[derive(Serialize, Deserialize)]
 pub struct TriggerProgressRollCondition {
+    #[serde(rename = "_id")]
+    pub id: AnyMoveConditionId,
+
     #[serde(rename = "method")]
     pub method: ProgressRollMethod,
 
@@ -9711,6 +9784,9 @@ pub struct TriggerSpecialTrack {
 
 #[derive(Serialize, Deserialize)]
 pub struct TriggerSpecialTrackCondition {
+    #[serde(rename = "_id")]
+    pub id: AnyMoveConditionId,
+
     #[serde(rename = "method")]
     pub method: SpecialTrackRollMethod,
 

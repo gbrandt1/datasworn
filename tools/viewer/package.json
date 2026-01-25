@@ -6,11 +6,23 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
+<<<<<<< HEAD
 		"preview": "vite preview"
 	},
 	"devDependencies": {
 		"typescript": "^5.9.3",
 		"vite": "^7.3.0"
+=======
+		"preview": "vite preview",
+		"test": "vitest run",
+		"test:watch": "vitest"
+	},
+	"devDependencies": {
+		"jsdom": "^27.4.0",
+		"typescript": "^5.9.3",
+		"vite": "^7.3.0",
+		"vitest": "^4.0.18"
+>>>>>>> upstream/main
 	},
 	"dependencies": {
 		"@datasworn/core": "file:../../pkg/nodejs/@datasworn/core",
