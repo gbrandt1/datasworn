@@ -141,6 +141,7 @@ const transforms: SchemaTransforms = {
 
 		result.allOf = result.allOf.map((ifThen) => ({
 			...ifThen,
+			// biome-ignore lint/suspicious/noThenProperty: required for JSON Schema if-then-else
 			then: SourceData(ifThen.then)
 		})) as any[]
 		// result.oneOf = result.oneOf.map((member) => SourceData(member)) as any

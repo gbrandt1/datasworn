@@ -1042,22 +1042,15 @@ export class TypeDefBuilder {
 		fields: T,
 		metadata: StructMetadata = {}
 	): TStruct<T> {
-		const optionalProperties = globalThis.Object.getOwnPropertyNames(
-			fields
-		).reduce(
-			(acc, key) =>
-				Types.TypeGuard.IsOptional(fields[key])
-					? { ...acc, [key]: fields[key] }
-					: { ...acc },
-			{} as TFields
-		)
-		const properties = globalThis.Object.getOwnPropertyNames(fields).reduce(
-			(acc, key) =>
-				Types.TypeGuard.IsOptional(fields[key])
-					? { ...acc }
-					: { ...acc, [key]: fields[key] },
-			{} as TFields
-		)
+		const optionalProperties: TFields = {} as TFields
+		const properties: TFields = {} as TFields
+		for (const key of globalThis.Object.getOwnPropertyNames(fields)) {
+			if (Types.TypeGuard.IsOptional(fields[key])) {
+				optionalProperties[key] = fields[key]
+			} else {
+				properties[key] = fields[key]
+			}
+		}
 		const optionalObject =
 			globalThis.Object.getOwnPropertyNames(optionalProperties).length > 0
 				? { optionalProperties: optionalProperties }

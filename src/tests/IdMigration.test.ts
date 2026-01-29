@@ -14,8 +14,8 @@ test(`History exists for current version (${VERSION})`, () =>
 	expect(currentVersion).toBe(VERSION))
 
 const [
-	{ tree: previousTree, index: previousIndex },
-	{ tree: currentTree, index: currentIndex },
+	{ tree: _previousTree, index: previousIndex },
+	{ tree: _currentTree, index: currentIndex },
 	idMap
 ] = await Promise.all([
 	loadDatasworn(previousVersion),

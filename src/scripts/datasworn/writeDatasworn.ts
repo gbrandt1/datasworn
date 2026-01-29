@@ -66,10 +66,11 @@ async function buildRulesPackages(pkgs: Record<string, RulesPackageConfig>) {
 	const tree = new Map<string, Datasworn.RulesPackage>()
 
 	for (const builder of await Promise.all(buildOps)) {
-		if (builder.errors.size)
-			builder.errors.forEach(
-				(k, v) => new Error(`Couldn't build file "${k}", ${v}`)
-			)
+		if (builder.errors.size) {
+			for (const [k, v] of builder.errors) {
+				console.error(`Couldn't build file "${k}", ${v}`)
+			}
+		}
 
 		tree.set(builder.id, builder.build().toJSON())
 		builders.set(builder.id, builder)
@@ -202,7 +203,7 @@ async function _loadBuilderFile<T extends DataswornSource.RulesPackage>(
 ) {
 	const track = trackIdRefs.bind(idRefTracker)
 
-	let data
+	let data!: T
 
 	switch (path.extname(filePath)) {
 		case '.yaml':

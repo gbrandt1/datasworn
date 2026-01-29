@@ -210,7 +210,9 @@ function updateOddsResult(
 
 	// Highlight the clicked button
 	const allButtons = document.querySelectorAll('.odds-button')
-	allButtons.forEach((b) => b.classList.remove('selected'))
+	for (const b of allButtons) {
+		b.classList.remove('selected')
+	}
 	button.classList.add('selected')
 }
 

@@ -105,13 +105,13 @@ function generateTagSchemas(
 		tagSchemas[schema.$id] = schema
 		const pushTo = isNull(tag.node_types) ? anyType : tag.node_types
 
-		pushTo.forEach((objectType: string) =>
+		for (const objectType of pushTo) {
 			set(
 				allowedTagProperties,
 				[objectType, tagKey].join('.'),
 				Type.Optional(Type.Ref(schema))
 			)
-		)
+		}
 	})
 
 	const allowedTagSchemas = omitBy(
