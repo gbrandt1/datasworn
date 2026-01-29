@@ -282,7 +282,7 @@ function createTreeNode(node: TreeNodeData, path: string[]): HTMLElement {
 		const childrenContainer = document.createElement('div')
 		childrenContainer.className = 'tree-children collapsed'
 
-		for (const child of node.children!) {
+		for (const child of node.children ?? []) {
 			childrenContainer.appendChild(createTreeNode(child, [...path, child.key]))
 		}
 

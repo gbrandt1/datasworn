@@ -78,7 +78,7 @@ type TDiscriminatorValueOf<
 	D extends TDiscriminableKeyOf<T>
 > = Static<T[D]>
 
-type TDiscriminatorValueFor<
+type _TDiscriminatorValueFor<
 	T extends TDiscriminatorMap<TDiscriminableish>,
 	D extends TDiscriminableKeyFor<T>
 > = Static<T[keyof T] & TSchema>[D]

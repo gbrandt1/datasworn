@@ -51,7 +51,7 @@ const MoveOutcomeType = UnionEnumFromRecord(
 		$id: 'MoveOutcomeType'
 	}
 )
-type MoveOutcomeType = Static<typeof MoveOutcomeType>
+type _MoveOutcomeType = Static<typeof MoveOutcomeType>
 
 const rollMethodForceOutcome = {
 	[RollMethod.Miss]: 'An automatic miss.',

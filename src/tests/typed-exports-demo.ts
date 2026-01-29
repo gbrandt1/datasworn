@@ -107,7 +107,7 @@ console.log(`Starship Asset ID: ${starshipId}`)
 
 // The types are literal strings, so this works with IdParser.get()
 // and any function that expects specific ID types
-type StarforgedMoveId =
+type _StarforgedMoveId =
 	(typeof MoveIds)[keyof typeof MoveIds][keyof (typeof MoveIds)[keyof typeof MoveIds]]
 // This creates a union type of all move IDs
 

@@ -2,7 +2,7 @@ import type { TransformableInfo } from 'logform'
 import Winston from 'winston'
 import { PKG_NAME } from '../const.js'
 
-const { combine, timestamp, label, printf, colorize } = Winston.format
+const { combine, timestamp, label, printf } = Winston.format
 
 // const colors: Partial<typeof Winston.config.npm.colors> = {
 // 	warn: 'purple',

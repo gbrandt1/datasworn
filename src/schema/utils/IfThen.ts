@@ -40,7 +40,7 @@ export function IfThenElse<
 		{
 			...options,
 			if: condition,
-			// biome-ignore lint/suspicious/noThenProperty: <explanation>
+			// biome-ignore lint/suspicious/noThenProperty: required for JSON Schema if-then-else
 			then: ifTrue,
 			else: ifFalse,
 			[Kind]: 'IfThenElse'

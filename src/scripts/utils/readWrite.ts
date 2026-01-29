@@ -69,9 +69,10 @@ export async function emptyDir(dirPath: string) {
 	try {
 		// console.debug('emptying', dirPath)
 		await fs.rmdir(dirPath)
-	} finally {
-		return await ensureDir(dirPath)
+	} catch {
+		// Directory might not exist, ignore
 	}
+	return await ensureDir(dirPath)
 }
 
 export async function readJSON<T>(

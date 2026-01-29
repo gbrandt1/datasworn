@@ -9,7 +9,7 @@ import { Nullable, UnionEnum } from '../Utils.js'
 import { type PascalCase, pascalCase } from '../utils/string.js'
 import { TagSchema } from './TagSchema.js'
 
-type NodeSchemaName<T extends string> = PascalCase<T>
+type _NodeSchemaName<T extends string> = PascalCase<T>
 type EmbeddedNodeSchemaName<T extends string> = `Embedded${PascalCase<T>}`
 type IdSchemaName<T extends string> = `${PascalCase<T>}Id`
 type WildcardIdSchemaName<T extends string> = `${PascalCase<T>}IdWildcard`

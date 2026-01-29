@@ -7,7 +7,7 @@ const _TagsStarforged = {
 	})
 } satisfies Record<string, TSchema>
 const _TagsDelve = {} satisfies Record<string, TSchema>
-type TagParams = {
+type _TagParams = {
 	schema: TSchema
 	node_types: []
 }

@@ -65,7 +65,7 @@ export type TTableRow<Roll extends TSchema = TSchema> = TObject<
 	ObjectProperties<typeof TableRowBase> & { roll: Roll }
 >
 
-type TableRow<
+type _TableRow<
 	Roll = { min: number; max: number } | null,
 	Props extends { roll: Roll } = { roll: Roll }
 > = Props & Static<typeof TableRowBase>
@@ -119,7 +119,7 @@ export const OracleRollableRowText3 = Assign(
 )
 export type OracleRollableRowText3 = Static<typeof OracleRollableRowText3>
 
-type StringDefaultsFor<T extends TObject> = {
+type _StringDefaultsFor<T extends TObject> = {
 	[K in
 		| keyof PickByType<
 				T['properties'],
