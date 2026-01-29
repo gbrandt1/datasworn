@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mergeExpansion = mergeExpansion;
 const CONST_js_1 = require("./IdElements/CONST.js");
-const index_js_1 = require("./index.js");
 const TypeId_js_1 = __importDefault(require("./IdElements/TypeId.js"));
+const index_js_1 = require("./index.js");
 // const classic = fs.readJSONSync(
 // 	'./pkg/nodejs/@datasworn/ironsworn-classic/json/classic.json'
 // ) as Datasworn.Ruleset
@@ -66,7 +66,8 @@ function enhanceCollection(target, source) {
     if (!targetId.isMatchedBy(...source[CONST_js_1.EnhancesKey]))
         throw err;
     target[CONST_js_1.ContentsKey] = applyDictionaryReplacements(target[CONST_js_1.ContentsKey], source[CONST_js_1.ContentsKey]);
-    target[CONST_js_1.CollectionsKey] = applyDictionaryEnhancements(target[CONST_js_1.CollectionsKey], source[CONST_js_1.CollectionsKey]);
+    target[CONST_js_1.CollectionsKey] =
+        applyDictionaryEnhancements(target[CONST_js_1.CollectionsKey], source[CONST_js_1.CollectionsKey]);
     return target;
 }
 function applyDictionaryEnhancements(targetDictionary, sourceDictionary) {
@@ -151,7 +152,9 @@ function mergeExpansion(ruleset, expansion, strict = true) {
             ruleset[branchKey] = expansionBranch;
         else {
             const rulesetBranch = ruleset[branchKey];
-            if (expansionBranch && typeof expansionBranch === 'object' && CONST_js_1.ReplacesKey in expansionBranch) {
+            if (expansionBranch &&
+                typeof expansionBranch === 'object' &&
+                CONST_js_1.ReplacesKey in expansionBranch) {
                 // @ts-expect-error
                 ruleset[branchKey] = applyDictionaryReplacements(rulesetBranch, expansionBranch);
             }

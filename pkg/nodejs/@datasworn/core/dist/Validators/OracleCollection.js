@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validate = validate;
 function validate(collection) {
-    const errors = [];
+    const _errors = [];
     const { oracle_type } = collection;
     switch (oracle_type) {
         case 'table_shared_rolls':
@@ -25,7 +25,6 @@ function validate(collection) {
                 throw new Error(`${oracle_type} child OracleRollables must have the same text content in their rows, in the same order. The following rows array indices don't match:\n${String(e)}`);
             }
             break;
-        case 'tables':
         default:
             break;
     }
@@ -38,7 +37,7 @@ function validate(collection) {
  * @return An array of row indices; the rows with index fail at least one equality test.
  */
 function oracleRowsEqualBy(equalityFn, oracleRollables) {
-    const [[primaryKey, primary], ...secondaries] = Object.entries(oracleRollables);
+    const [[_primaryKey, primary], ...secondaries] = Object.entries(oracleRollables);
     const badRowMessages = {};
     for (let rowIndex = 0; rowIndex < primary.rows.length; rowIndex++) {
         const rowA = primary.rows[rowIndex];
@@ -67,19 +66,20 @@ function rowHasSameRolls(a, b) {
 const textProperties = [
     'text',
     'text2',
-    'text3',
+    'text3'
 ];
 function rowHasSameText(a, b) {
     for (const k of textProperties) {
         // neither has key -- skip it
         if (!(k in a) && !(k in b))
             continue;
-        if (a[k] !== b[k])
+        if (a[k] !==
+            b[k])
             throw new Error(`expected "${k}" to be ${JSON.stringify(a[k])}, but got ${JSON.stringify(b[k])}`);
     }
     return true;
 }
-function renderMultiTable(oracleRollables, showContent) {
+function _renderMultiTable(oracleRollables, showContent) {
     const tabularData = [];
     const rollableEntries = Object.entries(oracleRollables);
     const [[_, primary]] = rollableEntries;

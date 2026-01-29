@@ -16,11 +16,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 var _a, _IdParser_tree, _IdParser_pathSegments, _IdParser_typeIds, _IdParser_pathRegExp, _IdParser_regExp, _IdParser_validateTypeIds, _IdParser_toString, _IdParser_parseOptions, _IdParser_getClassForPrimaryTypeId, _IdParser_getMatchesFromArray, _IdParser_getMatchesFromMap, _IdParser_getMatchesFromRecord, _EmbeddingId_instances, _EmbeddingId_assignEmbeddedIdsInMap, _EmbeddingId_assignEmbeddedIdsInRecord, _EmbeddingId_assignEmbeddedIdsInArray, _b, _CollectionId_getPositionId, _EmbeddedId_parent;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.IdParser = exports.EmbeddedId = exports.CollectionId = void 0;
+const Errors_js_1 = require("./Errors.js");
 const CONST_js_1 = require("./IdElements/CONST.js");
+const index_js_1 = require("./IdElements/index.js");
 const TypeGuard_js_1 = __importDefault(require("./IdElements/TypeGuard.js"));
 const TypeId_js_1 = __importDefault(require("./IdElements/TypeId.js"));
-const Errors_js_1 = require("./Errors.js");
-const index_js_1 = require("./IdElements/index.js");
 /**
  * Resolves a potentially dot-separated property path to retrieve a nested value.
  * For example, 'trigger.conditions' on { trigger: { conditions: [...] } } returns the conditions array.
@@ -149,7 +149,7 @@ class IdParser {
         try {
             return this._getUnsafe(tree);
         }
-        catch (e) {
+        catch (_e) {
             return undefined;
         }
     }
@@ -159,7 +159,7 @@ class IdParser {
      * @param forEach Optional function to apply to each match. If it returns `true`, the matcher will exit early and return only the matches it has made so far.
      * @returns A {@link Map}
      */
-    getMatches(tree = _a['tree'], forEach) {
+    getMatches(tree = _a.tree, forEach) {
         tree || (tree = _a.tree);
         if (tree == null)
             throw new Error(`No Datasworn tree found -- set the static property ${_a.constructor.name}#tree, or provide one as a parameter.`);
@@ -220,7 +220,7 @@ class IdParser {
     }
     get pathRegExp() {
         if (__classPrivateFieldGet(this, _IdParser_pathRegExp, "f") == null)
-            __classPrivateFieldSet(this, _IdParser_pathRegExp, RegExp('^' + this._getPathRegExpSource() + '$'), "f");
+            __classPrivateFieldSet(this, _IdParser_pathRegExp, RegExp(`^${this._getPathRegExpSource()}$`), "f");
         return __classPrivateFieldGet(this, _IdParser_pathRegExp, "f");
     }
     get regExp() {
@@ -240,7 +240,7 @@ class IdParser {
     /** @internal */
     _getPathRegExpSource() {
         let pathPattern = '';
-        const keySep = '\\' + CONST_js_1.PathKeySep;
+        const keySep = `\\${CONST_js_1.PathKeySep}`;
         const { min, max } = _a._getPathKeyCount(this.primaryTypeId);
         /** The minimum number of path keys a single globstar ("**") may stand in for */
         const expansionMin = Math.max(0, min - (this.primaryPathKeys.length - 1));
@@ -303,7 +303,7 @@ class IdParser {
         return parsed.getMatches(tree, forEach);
     }
     static parse(id) {
-        const { typeIds, pathSegments } = __classPrivateFieldGet(this, _a, "m", _IdParser_parseOptions).call(this, id);
+        const { typeIds, pathSegments } = __classPrivateFieldGet(_a, _a, "m", _IdParser_parseOptions).call(_a, id);
         const [primaryTypeId, ...embeddedTypeIds] = typeIds;
         const [primaryPath, ...embeddedPaths] = pathSegments;
         const [rulesPackage, ...pathKeys] = primaryPath.split(CONST_js_1.PathKeySep);
@@ -364,7 +364,7 @@ class IdParser {
             throw new Error(`Expected an array of strings, but got ${JSON.stringify(pathSegments)}`);
         if (typeIds.length !== pathSegments.length)
             throw new Error(`The length of typeIds (${typeIds.length}) and pathSegments (${pathSegments.length}) does't match.`);
-        const [primaryTypeId, ...embeddedTypeIds] = typeIds;
+        const [primaryTypeId, ..._embeddedTypeIds] = typeIds;
         const errors = [];
         const [primaryPath, ...embeddedPaths] = pathSegments;
         try {
@@ -396,7 +396,7 @@ class IdParser {
         return true;
     }
     static _validateEmbeddedPath(typeIds, path) {
-        const embeddedTypeId = typeIds.at(-1);
+        const _embeddedTypeId = typeIds.at(-1);
         const pathParts = path.split(CONST_js_1.PathKeySep);
         for (const part of pathParts)
             if (!(_a._validateDictKey(part) || _a._validateIndexKey(part)))
@@ -435,7 +435,7 @@ class IdParser {
     static _validatePrimaryPath(typeId, path) {
         if (!TypeGuard_js_1.default.PrimaryType(typeId))
             throw new Error(`Expected a primary TypeId, but got ${JSON.stringify(typeId)}. Valid TypeIds are: ${JSON.stringify(TypeId_js_1.default.Primary)}`);
-        const { min, max } = this._getPathKeyCount(typeId);
+        const { min, max } = _a._getPathKeyCount(typeId);
         const [rulesPackageId, ...tail] = path.split(CONST_js_1.PathKeySep);
         const errors = [];
         let nonGlobstarCount = 0;
@@ -483,11 +483,11 @@ class IdParser {
     static _getMatchesFrom(obj, matchKey = CONST_js_1.WildcardString) {
         switch (true) {
             case Array.isArray(obj):
-                return __classPrivateFieldGet(this, _a, "m", _IdParser_getMatchesFromArray).call(this, obj, matchKey);
+                return __classPrivateFieldGet(_a, _a, "m", _IdParser_getMatchesFromArray).call(_a, obj, matchKey);
             case obj instanceof Map:
-                return __classPrivateFieldGet(this, _a, "m", _IdParser_getMatchesFromMap).call(this, obj, matchKey);
+                return __classPrivateFieldGet(_a, _a, "m", _IdParser_getMatchesFromMap).call(_a, obj, matchKey);
             case typeof obj === 'object':
-                return __classPrivateFieldGet(this, _a, "m", _IdParser_getMatchesFromRecord).call(this, obj, matchKey.toString());
+                return __classPrivateFieldGet(_a, _a, "m", _IdParser_getMatchesFromRecord).call(_a, obj, matchKey.toString());
             default:
                 throw new Error(`Expected an Array, Map, or Record, but got ${String(obj)}`);
         }
@@ -903,13 +903,13 @@ class CollectionId extends IdParser {
         // no further traversal needed
         if (nextPath.length === 0) {
             // from.type is fine here since collections can't be embedded.
-            const positionId = __classPrivateFieldGet(this, _b, "m", _CollectionId_getPositionId).call(this, currentPath, from);
+            const positionId = __classPrivateFieldGet(_b, _b, "m", _CollectionId_getPositionId).call(_b, currentPath, from);
             if (typeof forEach === 'function')
                 forEach(positionId, from);
             return matches.set(positionId, from);
         }
         if (depth > CONST_js_1.COLLECTION_DEPTH_MAX) {
-            console.warn(`Exceeded max collection depth (${CONST_js_1.COLLECTION_DEPTH_MAX}) @ <${__classPrivateFieldGet(this, _b, "m", _CollectionId_getPositionId).call(this, currentPath, from)}>`);
+            console.warn(`Exceeded max collection depth (${CONST_js_1.COLLECTION_DEPTH_MAX}) @ <${__classPrivateFieldGet(_b, _b, "m", _CollectionId_getPositionId).call(_b, currentPath, from)}>`);
             return matches;
         }
         const [keyToMatch, ...tailKeys] = nextPath;
@@ -987,7 +987,7 @@ class EmbeddedId extends EmbeddingId {
         let basePath = __classPrivateFieldGet(this, _EmbeddedId_parent, "f")._getPathRegExpSource();
         const [_primaryPathSegment, ...secondaryPathSegments] = this.pathSegments;
         for (const segment of secondaryPathSegments) {
-            basePath += '\\' + CONST_js_1.TypeSep;
+            basePath += `\\${CONST_js_1.TypeSep}`;
             const keys = segment.split(CONST_js_1.PathKeySep);
             for (const key of keys) {
                 switch (true) {

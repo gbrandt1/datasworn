@@ -1,6 +1,6 @@
 import type TypeId from '../IdElements/TypeId.js';
-import type TypeNode from '../TypeNode.js';
 import { type Datasworn, type DataswornSource } from '../index.js';
+import type TypeNode from '../TypeNode.js';
 export type SchemaValidator<TTarget> = (data: unknown) => data is TTarget;
 export type Logger = Record<'warn' | 'info' | 'debug' | 'error', (message?: unknown, ...optionalParams: unknown[]) => unknown>;
 export type IdRefTracker = {
@@ -23,7 +23,7 @@ export declare class RulesPackageBuilder<TSource extends DataswornSource.RulesPa
     static get schemaValidator(): SchemaValidator<Datasworn.RulesPackage>;
     static get sourceSchemaValidator(): SchemaValidator<DataswornSource.RulesPackage>;
     get packageType(): Datasworn.RulesPackage['type'] | undefined;
-    static init({ validator, sourceValidator, }: {
+    static init({ validator, sourceValidator }: {
         validator: SchemaValidator<Datasworn.RulesPackage>;
         sourceValidator: SchemaValidator<DataswornSource.RulesPackage>;
     }): typeof RulesPackageBuilder;

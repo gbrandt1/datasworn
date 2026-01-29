@@ -13,13 +13,13 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-var _RulesPackageBuilder_instances, _a, _RulesPackageBuilder_schemaValidator, _RulesPackageBuilder_sourceSchemaValidator, _RulesPackageBuilder_result, _RulesPackageBuilder_isMergeComplete, _RulesPackageBuilder_isValidated, _RulesPackageBuilder_countTypes, _RulesPackageBuilder_build, _RulesPackageBuilder_addFile, _RulesPackageBuilder_isObject, _RulesPackageBuilder_merge, _RulesPackagePart_data, _RulesPackagePart_isValidated;
+var _RulesPackageBuilder_instances, _a, _RulesPackageBuilder_schemaValidator, _RulesPackageBuilder_sourceSchemaValidator, _RulesPackageBuilder_result, _RulesPackageBuilder_isMergeComplete, _RulesPackageBuilder_isValidated, _RulesPackageBuilder_build, _RulesPackageBuilder_addFile, _RulesPackageBuilder_isObject, _RulesPackageBuilder_merge, _RulesPackagePart_data, _RulesPackagePart_isValidated;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RulesPackageBuilder = void 0;
 const CONST_js_1 = require("../IdElements/CONST.js");
+const index_js_1 = require("../index.js");
+const index_js_2 = __importDefault(require("../Validators/index.js"));
 const Text_js_1 = require("../Validators/Text.js");
-const index_js_1 = __importDefault(require("../Validators/index.js"));
-const index_js_2 = require("../index.js");
 /**
  * Merges, assigns IDs to, and validates multiple {@link DataswornSource.RulesPackage}s to create a complete {@link Datasworn.RulesPackage} object.
  *
@@ -27,10 +27,10 @@ const index_js_2 = require("../index.js");
  * */
 class RulesPackageBuilder {
     static get schemaValidator() {
-        return __classPrivateFieldGet(this, _a, "f", _RulesPackageBuilder_schemaValidator);
+        return __classPrivateFieldGet(_a, _a, "f", _RulesPackageBuilder_schemaValidator);
     }
     static get sourceSchemaValidator() {
-        return __classPrivateFieldGet(this, _a, "f", _RulesPackageBuilder_sourceSchemaValidator);
+        return __classPrivateFieldGet(_a, _a, "f", _RulesPackageBuilder_sourceSchemaValidator);
     }
     get packageType() {
         if (this.files.size)
@@ -38,14 +38,14 @@ class RulesPackageBuilder {
                 return file.packageType;
         return undefined;
     }
-    static init({ validator, sourceValidator, }) {
-        __classPrivateFieldSet(this, _a, validator, "f", _RulesPackageBuilder_schemaValidator);
-        __classPrivateFieldSet(this, _a, sourceValidator, "f", _RulesPackageBuilder_sourceSchemaValidator);
-        return this;
+    static init({ validator, sourceValidator }) {
+        __classPrivateFieldSet(_a, _a, validator, "f", _RulesPackageBuilder_schemaValidator);
+        __classPrivateFieldSet(_a, _a, sourceValidator, "f", _RulesPackageBuilder_sourceSchemaValidator);
+        return _a;
     }
     static get isInitialized() {
-        return (typeof this.schemaValidator === 'function' &&
-            typeof this.sourceSchemaValidator === 'function');
+        return (typeof _a.schemaValidator === 'function' &&
+            typeof _a.sourceSchemaValidator === 'function');
     }
     countType(typeId) {
         let ct = 0;
@@ -69,16 +69,16 @@ class RulesPackageBuilder {
     toJSON() {
         return __classPrivateFieldGet(this, _RulesPackageBuilder_result, "f");
     }
-    static validateIdRef(id, idTracker, tree = index_js_2.IdParser.tree) {
+    static validateIdRef(id, idTracker, tree = index_js_1.IdParser.tree) {
         if (idTracker.valid.has(id))
             return true;
         if (idTracker.unreachable.has(id) || idTracker.invalid.has(id))
             return false;
         let parsedId;
         try {
-            parsedId = index_js_2.IdParser.parse(id);
+            parsedId = index_js_1.IdParser.parse(id);
         }
-        catch (e) {
+        catch (_e) {
             idTracker.invalid.add(id);
             return false;
         }
@@ -90,7 +90,7 @@ class RulesPackageBuilder {
         idTracker.unreachable.add(id);
         return false;
     }
-    validateIdRefs(idTracker, tree = index_js_2.IdParser.tree) {
+    validateIdRefs(idTracker, tree = index_js_1.IdParser.tree) {
         (0, Text_js_1.forEachIdRef)(this.toJSON(), (id) => {
             _a.validateIdRef(id, idTracker, tree);
         });
@@ -175,15 +175,7 @@ class RulesPackageBuilder {
     }
 }
 exports.RulesPackageBuilder = RulesPackageBuilder;
-_a = RulesPackageBuilder, _RulesPackageBuilder_result = new WeakMap(), _RulesPackageBuilder_isMergeComplete = new WeakMap(), _RulesPackageBuilder_isValidated = new WeakMap(), _RulesPackageBuilder_instances = new WeakSet(), _RulesPackageBuilder_countTypes = function _RulesPackageBuilder_countTypes() {
-    const ct = {};
-    for (const [k, _] of this.index) {
-        const [prefix] = k.split(':');
-        ct[prefix] || (ct[prefix] = 0);
-        ct[prefix]++;
-    }
-    return ct;
-}, _RulesPackageBuilder_build = function _RulesPackageBuilder_build(force = false) {
+_a = RulesPackageBuilder, _RulesPackageBuilder_result = new WeakMap(), _RulesPackageBuilder_isMergeComplete = new WeakMap(), _RulesPackageBuilder_isValidated = new WeakMap(), _RulesPackageBuilder_instances = new WeakSet(), _RulesPackageBuilder_build = function _RulesPackageBuilder_build(force = false) {
     this.mergeFiles(force);
     __classPrivateFieldSet(this, _RulesPackageBuilder_isValidated, false, "f");
     return __classPrivateFieldGet(this, _RulesPackageBuilder_result, "f");
@@ -233,12 +225,12 @@ _a = RulesPackageBuilder, _RulesPackageBuilder_result = new WeakMap(), _RulesPac
     }
     return __classPrivateFieldGet(this, _RulesPackageBuilder_instances, "m", _RulesPackageBuilder_merge).call(this, target, ...sources);
 };
-RulesPackageBuilder.postSchemaValidators = index_js_1.default;
+RulesPackageBuilder.postSchemaValidators = index_js_2.default;
 _RulesPackageBuilder_schemaValidator = { value: void 0 };
 _RulesPackageBuilder_sourceSchemaValidator = { value: void 0 };
 /** Top-level RulesPackage properties to omit from key sorting. */
 RulesPackageBuilder.topLevelKeysBlackList = [
-    'rules',
+    'rules'
 ];
 /** Separator character used for JSON pointers. */
 RulesPackageBuilder.pointerSep = '/';
@@ -278,7 +270,7 @@ class RulesPackagePart {
         const isValid = this.validateSource();
         if (!isValid)
             throw new Error(`File "${this.name}" doesn't match DataswornSource schema`);
-        void index_js_2.IdParser.assignIdsInRulesPackage(this.data, this.index);
+        void index_js_1.IdParser.assignIdsInRulesPackage(this.data, this.index);
         return isValid;
     }
 }

@@ -15,9 +15,6 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
 var __importStar = (this && this.__importStar) || (function () {
     var ownKeys = function(o) {
         ownKeys = Object.getOwnPropertyNames || function (o) {
@@ -35,16 +32,19 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Builders = exports.Validators = exports.Migrations = exports.DataswornTree = void 0;
-__exportStar(require("./IdParser.js"), exports);
+exports.Validators = exports.Migrations = exports.DataswornTree = exports.Builders = void 0;
+exports.Builders = __importStar(require("./Builders/index.js"));
 var DataswornTree_js_1 = require("./DataswornTree.js");
 Object.defineProperty(exports, "DataswornTree", { enumerable: true, get: function () { return DataswornTree_js_1.DataswornTree; } });
+__exportStar(require("./IdParser.js"), exports);
 exports.Migrations = __importStar(require("./Migrations/index.js"));
+__exportStar(require("./mergeExpansion.js"), exports);
 var index_js_1 = require("./Validators/index.js");
 Object.defineProperty(exports, "Validators", { enumerable: true, get: function () { return __importDefault(index_js_1).default; } });
-exports.Builders = __importStar(require("./Builders/index.js"));
-__exportStar(require("./mergeExpansion.js"), exports);

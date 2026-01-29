@@ -14,9 +14,9 @@ exports.validateIdPointer = validateIdPointer;
 exports.forEachPrimitiveValue = forEachPrimitiveValue;
 const CONST_js_1 = require("../IdElements/CONST.js");
 const Pattern_js_1 = __importDefault(require("../IdElements/Pattern.js"));
-const typeIdPattern = '[a-z][a-z_](?:\\.[a-z][a-z_]){0,2}';
+const _typeIdPattern = '[a-z][a-z_](?:\\.[a-z][a-z_]){0,2}';
 const dictKeyOrIndexPattern = `[\\/\\.](?:[a-z_0-9\\]|\\*{1,2})+`;
-const pathPattern = `${Pattern_js_1.default.RulesPackageElement.source}(?:${dictKeyOrIndexPattern})+`;
+const _pathPattern = `${Pattern_js_1.default.RulesPackageElement.source}(?:${dictKeyOrIndexPattern})+`;
 // (?<path>
 //   (?:[a-z_]+|\*{1,2})
 //   (?:\/
@@ -24,33 +24,33 @@ const pathPattern = `${Pattern_js_1.default.RulesPackageElement.source}(?:${dict
 //    )+
 // |\*{2})
 exports.idLike = /(?<typeId>[a-z\d_.]{3,}|\*{1,2}):(?<path>(?:[a-z_]+|\*{1,2})(?:\/(?:[a-z\d_.]+|\*{1,2})+)+|\*{2})/g;
-const idPointerPattern = new RegExp(`^${exports.idLike}$`);
+const _idPointerPattern = new RegExp(`^${exports.idLike}$`);
 const linkSymbolPattern = new RegExp([
     `(?<=\\[\\w.+?\\]\\(${CONST_js_1.MdLinkPrefix}${CONST_js_1.PrefixSep})`, // lookbehind for markdown text in square brackets, plus left paren
     `(?<id>${exports.idLike})`,
-    `(?=\\))`, // lookahead for right paren
+    `(?=\\))` // lookahead for right paren
 ].join(''), 'g');
 const macroSymbolPattern = new RegExp([
     `(?<=\\{\\{)`, // lookbehind for left curly braces
     `(?<directive>[a-z][a-z_]+>)`,
     `(?<id>${exports.idLike})`,
-    `(?=\\}\\})`, // lookahead for right curly braces
+    `(?=\\}\\})` // lookahead for right curly braces
 ].join(''), 'g');
 const plainTextKeys = new Set([
     'label',
     '_comment',
     'name',
     'title',
-    'category',
+    'category'
 ]);
 const urlKeys = new Set(['url', 'license', 'icon']);
 const nonTextKeys = new Set(['dice']);
-const markdownKeys = new Set([
+const _markdownKeys = new Set([
     'text',
     'description',
     'summary',
     'quest_starter',
-    'your_truth',
+    'your_truth'
 ]);
 const idBlacklist = new Set([
     ' / ',
@@ -69,9 +69,9 @@ const idBlacklist = new Set([
     '"',
     '://',
     '.svg',
-    '.webp',
+    '.webp'
 ]);
-function isBareId(v) {
+function _isBareId(v) {
     if (typeof v !== 'string')
         return false;
     if (!v.includes('/') || !v.includes(':'))
@@ -190,7 +190,7 @@ function validateMarkdownIdPointers(text, validIds) {
         throw new Error(errors.map((e) => String(e)).join('\n'));
     return true;
 }
-const testStr = '[Bannersworn](datasworn:asset:starforged/path/bannersworn); [Diplomat](datasworn:asset:starforged/path/diplomat)';
+const _testStr = '[Bannersworn](datasworn:asset:starforged/path/bannersworn); [Diplomat](datasworn:asset:starforged/path/diplomat)';
 // for (const f of testStr.matchAll(idPattern)) {
 // 	console.log(f)
 // }
