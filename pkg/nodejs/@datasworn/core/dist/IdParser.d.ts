@@ -1,13 +1,13 @@
-import { IdKey, PathKeySep, TypeSep, WildcardString, PrefixSep, GlobstarString } from './IdElements/CONST.js';
-import TypeId from './IdElements/TypeId.js';
-import type * as StringId from './StringId.js';
-import type { ExtractTypeId } from './Utils/Id.js';
-import type { Datasworn, DataswornSource } from './index.js';
-import type { CollectableAncestorKeys, CollectionAncestorKeys } from './IdElements/PathKeys.js';
+import { GlobstarString, IdKey, PathKeySep, PrefixSep, TypeSep, WildcardString } from './IdElements/CONST.js';
 import { type PathKeys } from './IdElements/index.js';
+import type { CollectableAncestorKeys, CollectionAncestorKeys } from './IdElements/PathKeys.js';
+import TypeId from './IdElements/TypeId.js';
+import type { Datasworn, DataswornSource } from './index.js';
+import type * as StringId from './StringId.js';
 import type { Tree } from './Tree.js';
 import type TypeNode from './TypeNode.js';
 import type { DropFirst, Head, LastElementOf } from './Utils/Array.js';
+import type { ExtractTypeId } from './Utils/Id.js';
 import type { Join, Split } from './Utils/String.js';
 type DictionaryLike<T> = Record<string, T> | Map<string, T>;
 type UnknownNode = {
@@ -236,7 +236,7 @@ declare class CollectableId<TTypeId extends TypeId.Collectable = TypeId.Collecta
     get collectionAncestorKeys(): CollectableAncestorKeys;
     get recursionDepth(): CollectableAncestorKeys['length'];
     get parentTypeId(): TypeId.CollectionOf<TTypeId>;
-    getCollectionIdParent(): CollectionId<TypeId.CollectionOf<TTypeId>, RulesPackage, Head<CollectableAncestorKeys> & CollectionAncestorKeys, LastElementOf<CollectableAncestorKeys>>;
+    getCollectionIdParent(): CollectionId<TypeId.CollectionOf<TTypeId>, RulesPackage, Head<CollectableAncestorKeys> & PathKeys.CollectionAncestorKeys, LastElementOf<CollectableAncestorKeys>>;
     /** @internal */
     _getUnsafe(tree: (typeof IdParser)['tree']): TypeNode.Collectable<TTypeId>;
     /** @internal */

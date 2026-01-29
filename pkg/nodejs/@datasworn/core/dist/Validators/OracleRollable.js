@@ -102,11 +102,15 @@ function getDiceRange(diceExpression) {
  * @returns `-1` if `a` comes before `b`, `1` if `b` comes before `a`, or `0` if the sort order is unchanged.
  */
 function compareRanges(a, b) {
+    var _a, _b;
     if (a.roll == null && b.roll == null)
         return 0;
     if (a.roll == null && b.roll != null)
         return -1;
     if (a.roll != null && b.roll == null)
         return 1;
-    return a.roll.min < b.roll.min ? -1 : b.roll.min > a.roll.min ? 1 : 0;
+    // At this point, both a.roll and b.roll are guaranteed to be non-null
+    const aMin = (_a = a.roll.min) !== null && _a !== void 0 ? _a : 0;
+    const bMin = (_b = b.roll.min) !== null && _b !== void 0 ? _b : 0;
+    return aMin < bMin ? -1 : bMin > aMin ? 1 : 0;
 }

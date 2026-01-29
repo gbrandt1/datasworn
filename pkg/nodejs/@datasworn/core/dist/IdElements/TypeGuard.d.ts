@@ -2,9 +2,9 @@
  * Type guards for individual elements of Datasworn IDs.
  * @module
  */
-import { WildcardString, GlobstarString } from './CONST.js';
-import type * as Id from '../StringId.js';
 import type { DictKey } from '../Datasworn.js';
+import type * as Id from '../StringId.js';
+import { GlobstarString, WildcardString } from './CONST.js';
 import TypeId from './TypeId.js';
 declare namespace TypeGuard {
     function IndexKey(value: string): value is `${number}`;

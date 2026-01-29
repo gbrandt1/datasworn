@@ -7,8 +7,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Pattern_js_1 = __importDefault(require("./Pattern.js"));
 const CONST_js_1 = require("./CONST.js");
+const Pattern_js_1 = __importDefault(require("./Pattern.js"));
 const TypeId_js_1 = __importDefault(require("./TypeId.js"));
 var TypeGuard;
 (function (TypeGuard) {

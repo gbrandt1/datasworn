@@ -103,5 +103,8 @@ export function compareRanges(a: RowLike, b: RowLike) {
 
 	if (a.roll != null && b.roll == null) return 1
 
-	return a.roll?.min < b.roll?.min ? -1 : b.roll?.min > a.roll?.min ? 1 : 0
+	// At this point, both a.roll and b.roll are guaranteed to be non-null
+	const aMin = a.roll!.min ?? 0
+	const bMin = b.roll!.min ?? 0
+	return aMin < bMin ? -1 : bMin > aMin ? 1 : 0
 }
