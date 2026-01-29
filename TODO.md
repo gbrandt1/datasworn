@@ -42,7 +42,7 @@
 ### Nice to Have
 
 - [ ] Hover previews - Preview linked items on hover
-- [ ] Mobile layout - Responsive sidebar/detail toggle
+- [x] Mobile layout - Responsive sidebar/detail toggle
 - [ ] Cursed oracle support - Use Sundered Isles `curse` tags for alternatives
 - [ ] Export/print view - Clean printable format
 - [ ] Favorites - Bookmark frequently used items
@@ -105,7 +105,7 @@ Feedback from southpole regarding converter-generated data.
 - [x] **Add failure track** - Ancient Wonders uses failure track mechanic, needs special track added (see Delve p. 58ff for reference)
 - [x] **Clean up oracle text formatting** - 68 entries had `>Name; pg N` format, now cleaned
 - [x] Identify and add missing Focus oracle - Verified: `oracle_rollable:ancient_wonders/other/focus` exists (100 entries)
-- [ ] Add `_index` fields or restructure YAML to match book ordering
+- [ ] Add `_source.page` numbers to match book ordering (blocked: needs PDF for page numbers)
 - [x] Reorganize `planets_expanded` into hierarchical collections
   - ~262 oracles grouped into 20 planet type collections
   - Creates IDs like `oracle_collection:ancient_wonders/planets_expanded/desert_world`
