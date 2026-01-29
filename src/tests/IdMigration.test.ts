@@ -1,8 +1,7 @@
-import { ROOT_HISTORY, VERSION } from '../scripts/const.js'
-import { test, expect, describe } from 'bun:test'
-import { loadDatasworn } from './loadJson.js'
+import { describe, expect, test } from 'bun:test'
 import { readdir } from 'node:fs/promises'
-import { loadIdMap } from './loadJson.js'
+import { ROOT_HISTORY, VERSION } from '../scripts/const.js'
+import { loadDatasworn, loadIdMap } from './loadJson.js'
 
 const versions = (await readdir(ROOT_HISTORY))
 	.sort(Bun.semver.order)
@@ -36,6 +35,3 @@ describe('Changed ID has migration', () => {
 		expect(mapping).not.toBeUndefined()
 	})
 })
-
-
-

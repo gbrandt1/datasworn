@@ -4,7 +4,10 @@ import { KEYWORDS } from './keywords.js'
 
 // TODO: have these do actual validation instead of skipping it
 export const validateFormat = Object.fromEntries(
-	Object.keys(FORMATS).map<[string, JsonSchemaValidator]>((k) => [k, () => undefined])
+	Object.keys(FORMATS).map<[string, JsonSchemaValidator]>((k) => [
+		k,
+		() => undefined
+	])
 )
 
 export const validateKeyword = Object.fromEntries(

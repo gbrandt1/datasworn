@@ -1,9 +1,9 @@
-import { expect, test, describe } from 'bun:test'
-import { $ } from 'bun'
-import { existsSync, readFileSync, readdirSync } from 'fs'
-import path from 'path'
+import { describe, expect, test } from 'bun:test'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
+import path from 'node:path'
 import ajvPkg, { type ErrorObject } from 'ajv'
 import ajvFormatPkg from 'ajv-formats'
+import { $ } from 'bun'
 import * as JTD from 'jtd'
 
 // workaround for https://github.com/ajv-validator/ajv/issues/2132
@@ -23,8 +23,12 @@ describe('Build Pipeline', () => {
 		expect(result.exitCode).toBe(0)
 
 		// Verify output files exist
-		expect(existsSync(path.join(ROOT, 'datasworn/datasworn.schema.json'))).toBe(true)
-		expect(existsSync(path.join(ROOT, 'datasworn/datasworn-source.schema.json'))).toBe(true)
+		expect(existsSync(path.join(ROOT, 'datasworn/datasworn.schema.json'))).toBe(
+			true
+		)
+		expect(
+			existsSync(path.join(ROOT, 'datasworn/datasworn-source.schema.json'))
+		).toBe(true)
 	}, 60000)
 
 	test('build:dts generates TypeScript types', async () => {
@@ -33,7 +37,9 @@ describe('Build Pipeline', () => {
 
 		// Verify output files exist
 		expect(existsSync(path.join(ROOT, 'src/types/Datasworn.d.ts'))).toBe(true)
-		expect(existsSync(path.join(ROOT, 'src/types/DataswornSource.d.ts'))).toBe(true)
+		expect(existsSync(path.join(ROOT, 'src/types/DataswornSource.d.ts'))).toBe(
+			true
+		)
 	}, 60000)
 
 	test('build:json compiles source data', async () => {
@@ -41,8 +47,12 @@ describe('Build Pipeline', () => {
 		expect(result.exitCode).toBe(0)
 
 		// Verify output files exist
-		expect(existsSync(path.join(ROOT, 'datasworn/classic/classic.json'))).toBe(true)
-		expect(existsSync(path.join(ROOT, 'datasworn/starforged/starforged.json'))).toBe(true)
+		expect(existsSync(path.join(ROOT, 'datasworn/classic/classic.json'))).toBe(
+			true
+		)
+		expect(
+			existsSync(path.join(ROOT, 'datasworn/starforged/starforged.json'))
+		).toBe(true)
 	}, 120000)
 
 	test('build:pkg builds packages', async () => {
@@ -50,7 +60,9 @@ describe('Build Pipeline', () => {
 		expect(result.exitCode).toBe(0)
 
 		// Verify package files exist
-		expect(existsSync(path.join(ROOT, 'pkg/nodejs/@datasworn/core/package.json'))).toBe(true)
+		expect(
+			existsSync(path.join(ROOT, 'pkg/nodejs/@datasworn/core/package.json'))
+		).toBe(true)
 	}, 60000)
 })
 
@@ -89,7 +101,7 @@ describe('Output Data Validation', () => {
 
 		expect(data._id).toBe('lodestar')
 		expect(data.type).toBe('expansion')
-		expect(data.ruleset).toBe("classic")
+		expect(data.ruleset).toBe('classic')
 		expect(data.moves).toBeDefined()
 	})
 
@@ -132,7 +144,10 @@ describe('Output Data Validation', () => {
 	})
 
 	test('sundered_isles.json is valid expansion for Starforged', () => {
-		const dataPath = path.join(ROOT, 'datasworn/sundered_isles/sundered_isles.json')
+		const dataPath = path.join(
+			ROOT,
+			'datasworn/sundered_isles/sundered_isles.json'
+		)
 		const data = JSON.parse(readFileSync(dataPath, 'utf-8'))
 
 		expect(data._id).toBe('sundered_isles')
@@ -146,7 +161,10 @@ describe('Output Data Validation', () => {
 	})
 
 	test('ancient_wonders.json is valid expansion for Starforged', () => {
-		const dataPath = path.join(ROOT, 'datasworn/ancient_wonders/ancient_wonders.json')
+		const dataPath = path.join(
+			ROOT,
+			'datasworn/ancient_wonders/ancient_wonders.json'
+		)
 		const data = JSON.parse(readFileSync(dataPath, 'utf-8'))
 
 		expect(data._id).toBe('ancient_wonders')
@@ -162,7 +180,10 @@ describe('Output Data Validation', () => {
 	})
 
 	test('ancient_wonders.json has substantial oracle content', () => {
-		const dataPath = path.join(ROOT, 'datasworn/ancient_wonders/ancient_wonders.json')
+		const dataPath = path.join(
+			ROOT,
+			'datasworn/ancient_wonders/ancient_wonders.json'
+		)
 		const data = JSON.parse(readFileSync(dataPath, 'utf-8'))
 
 		// Ancient Wonders has 10 oracle categories
@@ -176,18 +197,25 @@ describe('Output Data Validation', () => {
 	})
 
 	test('sundered_isles.json has incidental_vehicle collection with sailing_ship', () => {
-		const dataPath = path.join(ROOT, 'datasworn/sundered_isles/sundered_isles.json')
+		const dataPath = path.join(
+			ROOT,
+			'datasworn/sundered_isles/sundered_isles.json'
+		)
 		const data = JSON.parse(readFileSync(dataPath, 'utf-8'))
 
 		// Check incidental_vehicle collection exists
 		expect(data.assets.incidental_vehicle).toBeDefined()
 		expect(data.assets.incidental_vehicle.type).toBe('asset_collection')
-		expect(data.assets.incidental_vehicle.name).toBe('Incidental Vehicle Assets')
+		expect(data.assets.incidental_vehicle.name).toBe(
+			'Incidental Vehicle Assets'
+		)
 
 		// Check sailing_ship asset exists with correct properties
 		const sailingShip = data.assets.incidental_vehicle.contents.sailing_ship
 		expect(sailingShip).toBeDefined()
-		expect(sailingShip._id).toBe('asset:sundered_isles/incidental_vehicle/sailing_ship')
+		expect(sailingShip._id).toBe(
+			'asset:sundered_isles/incidental_vehicle/sailing_ship'
+		)
 		expect(sailingShip.name).toBe('Sailing Ship')
 		expect(sailingShip.category).toBe('Incidental Vehicle')
 		expect(sailingShip.shared).toBe(true)
@@ -246,7 +274,10 @@ describe('Schema Round-Trip Validation', () => {
 
 describe('Source Schema Validation', () => {
 	// Validate source data against source schema
-	const sourceSchemaPath = path.join(ROOT, 'datasworn/datasworn-source.schema.json')
+	const sourceSchemaPath = path.join(
+		ROOT,
+		'datasworn/datasworn-source.schema.json'
+	)
 	if (existsSync(sourceSchemaPath)) {
 		const sourceSchema = JSON.parse(readFileSync(sourceSchemaPath, 'utf-8'))
 
@@ -307,7 +338,10 @@ describe('Generated Types Compilation', () => {
 		expect(existsSync(dtsPath)).toBe(true)
 
 		// Try to compile just the types file (--typeRoots avoids broken @types/parse-path stub)
-		const result = await $`npx tsc ${dtsPath} --noEmit --skipLibCheck --typeRoots none`.quiet().nothrow()
+		const result =
+			await $`npx tsc ${dtsPath} --noEmit --skipLibCheck --typeRoots none`
+				.quiet()
+				.nothrow()
 		expect(result.exitCode).toBe(0)
 	}, 30000)
 })
@@ -325,7 +359,9 @@ describe('Content Integrity', () => {
 
 		// Recurse into collections
 		if (obj.collections && typeof obj.collections === 'object') {
-			for (const coll of Object.values(obj.collections as Record<string, unknown>)) {
+			for (const coll of Object.values(
+				obj.collections as Record<string, unknown>
+			)) {
 				if (coll && typeof coll === 'object') {
 					count += countContentsRecursive(coll as Record<string, unknown>)
 				}
@@ -364,7 +400,10 @@ describe('Content Integrity', () => {
 
 	test('starforged.json has expected content counts', () => {
 		const data = JSON.parse(
-			readFileSync(path.join(ROOT, 'datasworn/starforged/starforged.json'), 'utf-8')
+			readFileSync(
+				path.join(ROOT, 'datasworn/starforged/starforged.json'),
+				'utf-8'
+			)
 		)
 
 		const movesCount = countAllContents(data.moves)
@@ -510,32 +549,46 @@ describe('Rust Integration Test', () => {
 		expect(cargoAvailable).toBe(true)
 	})
 
-	test.skipIf(!cargoAvailable)('Rust test project compiles', async () => {
-		const result = await $`cargo build --release`.cwd(rustTestDir).quiet().nothrow()
-		expect(result.exitCode).toBe(0)
-	}, 120000)
+	test.skipIf(!cargoAvailable)(
+		'Rust test project compiles',
+		async () => {
+			const result = await $`cargo build --release`
+				.cwd(rustTestDir)
+				.quiet()
+				.nothrow()
+			expect(result.exitCode).toBe(0)
+		},
+		120000
+	)
 
-	test.skipIf(!cargoAvailable)('Rust types can deserialize all JSON files', async () => {
-		// Find all output JSON files
-		const dataswornDir = path.join(ROOT, 'datasworn')
-		const jsonFiles = readdirSync(dataswornDir, { withFileTypes: true })
-			.filter((d) => d.isDirectory())
-			.map((d) => path.join(dataswornDir, d.name, `${d.name}.json`))
-			.filter((p) => existsSync(p))
+	test.skipIf(!cargoAvailable)(
+		'Rust types can deserialize all JSON files',
+		async () => {
+			// Find all output JSON files
+			const dataswornDir = path.join(ROOT, 'datasworn')
+			const jsonFiles = readdirSync(dataswornDir, { withFileTypes: true })
+				.filter((d) => d.isDirectory())
+				.map((d) => path.join(dataswornDir, d.name, `${d.name}.json`))
+				.filter((p) => existsSync(p))
 
-		expect(jsonFiles.length).toBeGreaterThan(0)
+			expect(jsonFiles.length).toBeGreaterThan(0)
 
-		// Run the Rust test binary with all JSON files
-		const binary = path.join(rustTestDir, 'target/release/datasworn-rust-test')
-		const result = await $`${binary} ${jsonFiles}`.quiet().nothrow()
+			// Run the Rust test binary with all JSON files
+			const binary = path.join(
+				rustTestDir,
+				'target/release/datasworn-rust-test'
+			)
+			const result = await $`${binary} ${jsonFiles}`.quiet().nothrow()
 
-		if (result.exitCode !== 0) {
-			console.error('Rust integration test output:')
-			console.error(result.stderr.toString())
-		}
+			if (result.exitCode !== 0) {
+				console.error('Rust integration test output:')
+				console.error(result.stderr.toString())
+			}
 
-		expect(result.exitCode).toBe(0)
-	}, 30000)
+			expect(result.exitCode).toBe(0)
+		},
+		30000
+	)
 })
 
 describe('ID Consistency', () => {
@@ -548,14 +601,18 @@ describe('ID Consistency', () => {
 				ids.push(obj._id)
 			}
 			if (obj.contents && typeof obj.contents === 'object') {
-				for (const item of Object.values(obj.contents as Record<string, unknown>)) {
+				for (const item of Object.values(
+					obj.contents as Record<string, unknown>
+				)) {
 					if (item && typeof item === 'object') {
 						collectIds(item as Record<string, unknown>)
 					}
 				}
 			}
 			if (obj.collections && typeof obj.collections === 'object') {
-				for (const coll of Object.values(obj.collections as Record<string, unknown>)) {
+				for (const coll of Object.values(
+					obj.collections as Record<string, unknown>
+				)) {
 					if (coll && typeof coll === 'object') {
 						collectIds(coll as Record<string, unknown>)
 					}
@@ -605,7 +662,10 @@ describe('ID Consistency', () => {
 
 	test('all _id values in starforged.json contain ruleset ID', () => {
 		const data = JSON.parse(
-			readFileSync(path.join(ROOT, 'datasworn/starforged/starforged.json'), 'utf-8')
+			readFileSync(
+				path.join(ROOT, 'datasworn/starforged/starforged.json'),
+				'utf-8'
+			)
 		)
 
 		expect(data._id).toBe('starforged')
@@ -620,7 +680,10 @@ describe('ID Consistency', () => {
 
 	test('all _id values in starsmith.json contain expansion ID', () => {
 		const data = JSON.parse(
-			readFileSync(path.join(ROOT, 'datasworn/starsmith/starsmith.json'), 'utf-8')
+			readFileSync(
+				path.join(ROOT, 'datasworn/starsmith/starsmith.json'),
+				'utf-8'
+			)
 		)
 
 		expect(data._id).toBe('starsmith')
@@ -636,7 +699,10 @@ describe('ID Consistency', () => {
 
 	test('all _id values in fe_runners.json contain expansion ID', () => {
 		const data = JSON.parse(
-			readFileSync(path.join(ROOT, 'datasworn/fe_runners/fe_runners.json'), 'utf-8')
+			readFileSync(
+				path.join(ROOT, 'datasworn/fe_runners/fe_runners.json'),
+				'utf-8'
+			)
 		)
 
 		expect(data._id).toBe('fe_runners')
@@ -666,7 +732,10 @@ describe('ID Consistency', () => {
 
 	test('all _id values in ancient_wonders.json contain expansion ID', () => {
 		const data = JSON.parse(
-			readFileSync(path.join(ROOT, 'datasworn/ancient_wonders/ancient_wonders.json'), 'utf-8')
+			readFileSync(
+				path.join(ROOT, 'datasworn/ancient_wonders/ancient_wonders.json'),
+				'utf-8'
+			)
 		)
 
 		expect(data._id).toBe('ancient_wonders')
@@ -700,14 +769,54 @@ describe('Typed Content Package Exports', () => {
 
 	// Content packages with their expected Datasworn types
 	const contentPackages = [
-		{ scope: '@datasworn', name: 'ironsworn-classic', id: 'classic', type: 'Ruleset' },
-		{ scope: '@datasworn', name: 'ironsworn-classic-delve', id: 'delve', type: 'Expansion' },
-		{ scope: '@datasworn', name: 'ironsworn-classic-lodestar', id: 'lodestar', type: 'Expansion' },
-		{ scope: '@datasworn', name: 'starforged', id: 'starforged', type: 'Ruleset' },
-		{ scope: '@datasworn', name: 'sundered-isles', id: 'sundered_isles', type: 'Expansion' },
-		{ scope: '@datasworn-community-content', name: 'ancient-wonders', id: 'ancient_wonders', type: 'Expansion' },
-		{ scope: '@datasworn-community-content', name: 'fe-runners', id: 'fe_runners', type: 'Expansion' },
-		{ scope: '@datasworn-community-content', name: 'starsmith', id: 'starsmith', type: 'Expansion' },
+		{
+			scope: '@datasworn',
+			name: 'ironsworn-classic',
+			id: 'classic',
+			type: 'Ruleset'
+		},
+		{
+			scope: '@datasworn',
+			name: 'ironsworn-classic-delve',
+			id: 'delve',
+			type: 'Expansion'
+		},
+		{
+			scope: '@datasworn',
+			name: 'ironsworn-classic-lodestar',
+			id: 'lodestar',
+			type: 'Expansion'
+		},
+		{
+			scope: '@datasworn',
+			name: 'starforged',
+			id: 'starforged',
+			type: 'Ruleset'
+		},
+		{
+			scope: '@datasworn',
+			name: 'sundered-isles',
+			id: 'sundered_isles',
+			type: 'Expansion'
+		},
+		{
+			scope: '@datasworn-community-content',
+			name: 'ancient-wonders',
+			id: 'ancient_wonders',
+			type: 'Expansion'
+		},
+		{
+			scope: '@datasworn-community-content',
+			name: 'fe-runners',
+			id: 'fe_runners',
+			type: 'Expansion'
+		},
+		{
+			scope: '@datasworn-community-content',
+			name: 'starsmith',
+			id: 'starsmith',
+			type: 'Expansion'
+		}
 	]
 
 	for (const pkg of contentPackages) {
@@ -732,7 +841,9 @@ describe('Typed Content Package Exports', () => {
 
 				const content = readFileSync(dtsPath, 'utf-8')
 				// Verify it imports from @datasworn/core
-				expect(content).toContain("import type { Datasworn } from '@datasworn/core'")
+				expect(content).toContain(
+					"import type { Datasworn } from '@datasworn/core'"
+				)
 				// Verify it exports the correct Datasworn type
 				expect(content).toContain(`Datasworn.${pkg.type}`)
 				// Verify named export
@@ -755,7 +866,9 @@ describe('Typed Content Package Exports', () => {
 				expect(packageJson.exports['.'].default).toBe('./index.js')
 
 				// Verify backwards-compatible JSON access
-				expect(packageJson.exports[`./json/${pkg.id}.json`]).toBe(`./json/${pkg.id}.json`)
+				expect(packageJson.exports[`./json/${pkg.id}.json`]).toBe(
+					`./json/${pkg.id}.json`
+				)
 
 				// Verify files array includes index files
 				expect(packageJson.files).toContain('index.js')
@@ -771,8 +884,12 @@ describe('Typed Content Package Exports', () => {
 			const content = readFileSync(dtsPath, 'utf-8')
 
 			// Basic syntax checks
-			expect(content).toMatch(/^import type \{ Datasworn \} from '@datasworn\/core';/m)
-			expect(content).toMatch(/^declare const data: Datasworn\.(Ruleset|Expansion);/m)
+			expect(content).toMatch(
+				/^import type \{ Datasworn \} from '@datasworn\/core';/m
+			)
+			expect(content).toMatch(
+				/^declare const data: Datasworn\.(Ruleset|Expansion);/m
+			)
 			expect(content).toMatch(/^export default data;/m)
 			expect(content).toMatch(/^export \{ data as \w+ \};/m)
 		}

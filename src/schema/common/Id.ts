@@ -1,16 +1,16 @@
 import {
-	Type,
 	type Static,
 	type TRef,
 	type TRefUnsafe,
 	type TString,
-	type TUnion
+	type TUnion,
+	Type
 } from '@sinclair/typebox'
 
 import ids from '../../builders/IdBuilder.js'
 import Pattern from '../../pkg-core/IdElements/Pattern.js'
-import { JsonTypeDef } from '../Symbols.js'
 import JtdType from '../../scripts/json-typedef/typedef.js'
+import { JsonTypeDef } from '../Symbols.js'
 
 export const RulesetId = Type.String({
 	$id: 'RulesetId',

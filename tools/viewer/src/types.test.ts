@@ -2,19 +2,19 @@
  * Tests for type guards
  */
 
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import {
 	hasType,
-	isMove,
 	isAsset,
-	isOracleRollable,
-	isNpc,
 	isAtlasEntry,
-	isTruth,
 	isCollection,
 	isDelveSite,
+	isDelveSiteDomain,
 	isDelveSiteTheme,
-	isDelveSiteDomain
+	isMove,
+	isNpc,
+	isOracleRollable,
+	isTruth
 } from './types'
 
 describe('Type Guards', () => {

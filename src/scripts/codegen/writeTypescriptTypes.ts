@@ -2,16 +2,16 @@ import path from 'node:path'
 import { DataswornSchema, DataswornSourceSchema } from '../../schema/Root.js'
 import {
 	CORE_COMMON,
-	DIR_HISTORY_CURRENT,
 	DefsKey,
-	ROOT_TYPES_OUT,
+	DIR_HISTORY_CURRENT,
+	ROOT_TYPES_OUT
 } from '../const.js'
 import { emptyDir, writeCode } from '../utils/readWrite.js'
 import { extractDefs } from './schemaToTsDeclaration.js'
 
 const rootSchemas = {
 	Datasworn: DataswornSchema,
-	DataswornSource: DataswornSourceSchema,
+	DataswornSource: DataswornSourceSchema
 } satisfies Record<string, unknown>
 
 await emptyDir(ROOT_TYPES_OUT)
@@ -22,9 +22,9 @@ for (const identifier in rootSchemas) {
 	const value = rootSchemas[identifier as keyof typeof rootSchemas]
 
 	const paths = [
-		path.join(ROOT_TYPES_OUT, identifier + '.d.ts'),
-		path.join(CORE_COMMON, identifier + '.ts'),
-		path.join(DIR_HISTORY_CURRENT, identifier + '.d.ts'),
+		path.join(ROOT_TYPES_OUT, `${identifier}.d.ts`),
+		path.join(CORE_COMMON, `${identifier}.ts`),
+		path.join(DIR_HISTORY_CURRENT, `${identifier}.d.ts`)
 	]
 
 	const fileContents = Object.values(extractDefs(value[DefsKey])).join('\n\n')

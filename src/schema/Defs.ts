@@ -1,31 +1,27 @@
-import { Type, TypeGuard, type TSchema, type TUnion } from '@sinclair/typebox'
+import { type TSchema, Type } from '@sinclair/typebox'
+import { pickBy } from 'lodash-es'
+import { DefsKey } from '../scripts/const.js'
+import Log from '../scripts/utils/Log.js'
 import * as Assets from './Assets.js'
 import * as Atlas from './Atlas.js'
+import Id from './common/Id.js'
+import * as Metadata from './common/Metadata.js'
+import * as Player from './common/Player.js'
+import * as Progress from './common/Progress.js'
+import { DiceRange } from './common/Range.js'
+import * as RollableValues from './common/RollableValues.js'
+import * as Rolls from './common/Rolls.js'
+import * as Text from './common/Text.js'
 import * as DelveSites from './DelveSites.js'
+import * as Entities from './Entities.js'
 import * as Moves from './Moves.js'
 import * as Npcs from './Npcs.js'
 import * as Oracles from './Oracles.js'
 import * as Rarities from './Rarities.js'
 import * as Rules from './Rules.js'
-import * as Truths from './Truths.js'
-import * as Entities from './Entities.js'
-import { RulesPackage, Ruleset, Expansion } from './RulesPackages.js'
-
-import Id from './common/Id.js'
-import * as Text from './common/Text.js'
-import * as Metadata from './common/Metadata.js'
-import * as Player from './common/Player.js'
-import * as Progress from './common/Progress.js'
-import * as Rolls from './common/Rolls.js'
-import * as RollableValues from './common/RollableValues.js'
-
-import Log from '../scripts/utils/Log.js'
-import { pickBy } from 'lodash-es'
-import { DefsKey } from '../scripts/const.js'
-import { DiceRange } from './common/Range.js'
-import type { TObject, TString } from '@sinclair/typebox'
+import { Expansion, Ruleset, RulesPackage } from './RulesPackages.js'
 import { isValidTagSchema } from './rules/TagSchema.js'
-import type { JSONSchema7 } from 'json-schema'
+import * as Truths from './Truths.js'
 import { UnionEnum } from './Utils.js'
 
 function validateSchemaDefinitions(defs: Record<string, TSchema>) {
@@ -45,9 +41,9 @@ function validateSchemaDefinitions(defs: Record<string, TSchema>) {
 	const allPointers = new Set<string>([...usedRefs, ...availableRefs])
 
 	for (const pointer of allPointers) {
-    if (pointer.startsWith('http')) continue
-				if (!usedRefs.has(pointer)) unusedDefinitions.add(pointer)
-				if (!availableRefs.has(pointer)) invalidPointers.add(pointer)
+		if (pointer.startsWith('http')) continue
+		if (!usedRefs.has(pointer)) unusedDefinitions.add(pointer)
+		if (!availableRefs.has(pointer)) invalidPointers.add(pointer)
 	}
 
 	// console.log('unusedDefinitions', unusedDefinitions)
@@ -110,7 +106,7 @@ const Defs: Defs = Object.fromEntries(
 
 // special: update the '$ref' subschema of SafeValue schema so that it's an enum of all  Datasworn schemata references that are valid for use in tags.
 
-const schemaToUpdate = Rules.TagSchema
+const _schemaToUpdate = Rules.TagSchema
 
 const enumValues: string[] = []
 
@@ -121,7 +117,10 @@ for (const k in Defs) {
 }
 
 const union = Rules.TagSchema.allOf[0]
-const dataswornRef = union.anyOf[0]
-union.anyOf[0] = Type.Object({ $ref: UnionEnum(enumValues) }, { additionalProperties: true })
+const _dataswornRef = union.anyOf[0]
+union.anyOf[0] = Type.Object(
+	{ $ref: UnionEnum(enumValues) },
+	{ additionalProperties: true }
+)
 
 export default Defs

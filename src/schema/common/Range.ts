@@ -1,8 +1,7 @@
-import { Type, type Static } from '@sinclair/typebox'
-import { FlatIntersect } from '../utils/FlatIntersect.js'
-import { JsonTypeDef } from '../Symbols.js'
-import JtdType from '../../scripts/json-typedef/typedef.js'
+import { type Static, Type } from '@sinclair/typebox'
 import { omit } from 'lodash-es'
+import JtdType from '../../scripts/json-typedef/typedef.js'
+import { JsonTypeDef } from '../Symbols.js'
 
 // const IntegerRange = Type.Object({
 // 	min: Type.Integer(),

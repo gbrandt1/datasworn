@@ -1,7 +1,7 @@
-import { Compiler } from '@swc/core'
 import path from 'node:path'
+import { Compiler } from '@swc/core'
+import { Glob } from 'bun'
 import {
-	LEGACY_ID_DIR,
 	PKG_DIR_NODE,
 	PKG_SCOPE_OFFICIAL,
 	ROOT_HISTORY,
@@ -11,12 +11,11 @@ import {
 } from '../../const.js'
 import Log from '../../utils/Log.js'
 import { copyFile, emptyDir, writeJSON } from '../../utils/readWrite.js'
-import { Glob } from 'bun'
 import { buildLegacyDataforgedIdMap } from './buildLegacyIdMap.js'
 
 new Compiler()
 
-const corePkgSrcRoot = path.join('src/pkg-core')
+const _corePkgSrcRoot = path.join('src/pkg-core')
 const corePkgOutRoot = path.join(PKG_DIR_NODE, PKG_SCOPE_OFFICIAL, 'core')
 
 const id = `${PKG_SCOPE_OFFICIAL}/core`
@@ -28,31 +27,31 @@ const corePkgMigration = path.join(corePkgOutRoot, 'migration')
 export const config = {
 	id,
 	corePkgOutRoot,
-	jsonDir,
+	jsonDir
 } as const
 
 /** Assembles the core package from built data, which contains types, schema, and documentation. */
 export async function buildCorePackage({
 	id,
-	jsonDir,
+	jsonDir
 }: typeof config = config) {
 	Log.info(`⚙️  Building ${id}...`)
 
-  // flush any old files
+	// flush any old files
 	await Promise.all([emptyDir(jsonDir), emptyDir(corePkgDist)])
 
-  const writeOps: Promise<unknown>[] = [
-			copyFile(SCHEMA_PATH, path.join(jsonDir, 'datasworn.schema.json')),
-			copyFile(
-				SOURCE_SCHEMA_PATH,
-				path.join(jsonDir, 'datasworn-source.schema.json')
-			),
+	const writeOps: Promise<unknown>[] = [
+		copyFile(SCHEMA_PATH, path.join(jsonDir, 'datasworn.schema.json')),
+		copyFile(
+			SOURCE_SCHEMA_PATH,
+			path.join(jsonDir, 'datasworn-source.schema.json')
+		),
 
-			writeJSON(
-				path.join(corePkgMigration, 'dataforged_legacy', 'id_map.json'),
-				await buildLegacyDataforgedIdMap()
-			)
-		]
+		writeJSON(
+			path.join(corePkgMigration, 'dataforged_legacy', 'id_map.json'),
+			await buildLegacyDataforgedIdMap()
+		)
+	]
 
 	const migrationFileGlob = new Glob('*/*_map.json')
 	/** Paths relative to ROOT_HISTORY which are to be evaluated for copying.

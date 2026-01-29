@@ -1,9 +1,9 @@
 import {
+	CloneType,
 	type SchemaOptions,
 	type TRef,
 	type TSchema,
-	Type,
-	CloneType
+	Type
 } from '@sinclair/typebox'
 import {
 	forEach,
@@ -16,15 +16,10 @@ import {
 	set
 } from 'lodash-es'
 import type { SetRequired, SnakeCase } from 'type-fest'
-import {
-	CollectableType,
-	NonCollectableType,
-	type Rules,
-	type TagRule
-} from '../Rules.js'
 import * as Player from '../common/Player.js'
-import { UnionEnum } from './UnionEnum.js'
+import { CollectableType, NonCollectableType, type Rules } from '../Rules.js'
 import { pascalCase } from './string.js'
+import { UnionEnum } from './UnionEnum.js'
 
 export function generateRulesetSchemas(rulesPackage: string, rules: Rules) {
 	const ConditionMeterKey = UnionEnum(
@@ -49,7 +44,7 @@ function generateTagSchema(
 	tagKey: string,
 	tagRule: any // TODO: update TagRule type to match expected shape
 ): SetRequired<TSchema, '$id' | 'description'> {
-	const $id = pascalCase(rulesPackage) + pascalCase(tagKey) + 'Tag'
+	const $id = `${pascalCase(rulesPackage) + pascalCase(tagKey)}Tag`
 	const { description } = tagRule
 	const options = { description, $id } as SetRequired<
 		SchemaOptions,
@@ -61,13 +56,13 @@ function generateTagSchema(
 		case 'integer': {
 			const base = (Type as any)[pascalCase(tagRule.value_type)]()
 			return tagRule.array
-				? Type.Array(base, options) as any
+				? (Type.Array(base, options) as any)
 				: ({ ...base, ...options } as any)
 		}
 		case 'enum': {
 			const base = UnionEnum(tagRule.enum)
 			return tagRule.array
-				? Type.Array(base, options) as any
+				? (Type.Array(base, options) as any)
 				: ({ ...base, ...options } as any)
 		}
 		case 'move':
@@ -81,10 +76,10 @@ function generateTagSchema(
 		case 'truth':
 		case 'rarity':
 			return tagRule.wildcard
-				? Type.Array(Type.Ref(pascalCase(tagRule.value_type) + 'WildcardId'), {
+				? (Type.Array(Type.Ref(`${pascalCase(tagRule.value_type)}WildcardId`), {
 						description
-					}) as any
-				: (Type.Ref(pascalCase(tagRule.value_type) + 'Id', options) as any)
+					}) as any)
+				: (Type.Ref(`${pascalCase(tagRule.value_type)}Id`, options) as any)
 		default:
 			throw new Error(`Unknown tag value type: ${tagRule.value_type}`)
 	}

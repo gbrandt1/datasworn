@@ -3,10 +3,10 @@
  */
 
 import type { Datasworn } from '@datasworn/core'
-import { formatLabel, formatOutcome, OUTCOME_LABELS } from '../utils/formatting'
+import type { EmbeddedOracle } from '../types'
+import { formatLabel, formatOutcome } from '../utils/formatting'
 import { renderMarkdown } from '../utils/markdown'
 import { renderEmbeddedOracle, renderOracleColumns } from './OracleRenderer'
-import type { EmbeddedOracle } from '../types'
 
 /** Render a move */
 export function renderMove(move: Datasworn.Move): string {
@@ -44,7 +44,11 @@ export function renderMove(move: Datasworn.Move): string {
 
 /** Render stat pills for action rolls */
 function renderActionRollStats(move: Datasworn.Move): string {
-	if (move.roll_type !== 'action_roll' || !('trigger' in move) || !move.trigger) {
+	if (
+		move.roll_type !== 'action_roll' ||
+		!('trigger' in move) ||
+		!move.trigger
+	) {
 		return ''
 	}
 
@@ -74,7 +78,10 @@ function renderActionRollStats(move: Datasworn.Move): string {
 }
 
 /** Render move outcomes */
-function renderOutcomes(move: Datasworn.Move, oracles?: Record<string, EmbeddedOracle>): string {
+function renderOutcomes(
+	move: Datasworn.Move,
+	oracles?: Record<string, EmbeddedOracle>
+): string {
 	if (!('outcomes' in move) || !move.outcomes) return ''
 
 	const outcomes = move.outcomes
@@ -98,7 +105,10 @@ function renderOutcomes(move: Datasworn.Move, oracles?: Record<string, EmbeddedO
 }
 
 /** Render markdown with embedded oracle template support */
-function renderMarkdownWithOracles(text: string, oracles?: Record<string, EmbeddedOracle>): string {
+function renderMarkdownWithOracles(
+	text: string,
+	oracles?: Record<string, EmbeddedOracle>
+): string {
 	if (!text) return ''
 
 	// Replace {{table>...}} templates

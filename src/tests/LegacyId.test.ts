@@ -1,4 +1,4 @@
-import { expect, test, describe } from 'bun:test'
+import { describe, expect, test } from 'bun:test'
 
 import { buildLegacyDataforgedIdMap } from '../scripts/pkg/nodejs/buildLegacyIdMap.js'
 import { loadDatasworn } from './loadJson.js'
@@ -10,6 +10,5 @@ const validTargets = new Set([null, ...index.keys()])
 
 describe('Legacy ID map target', () => {
 	test.each(Object.entries(idMap))('%p => %p', (_oldId, newId) =>
-		expect(newId).toBeOneOf(validTargets)
-	)
+		expect(newId).toBeOneOf(validTargets))
 })

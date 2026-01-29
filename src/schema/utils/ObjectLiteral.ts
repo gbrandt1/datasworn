@@ -1,4 +1,4 @@
-import { Type, type TLiteralValue } from '@sinclair/typebox'
+import { type TLiteralValue, Type } from '@sinclair/typebox'
 import { mapValues } from 'lodash-es'
 
 /** Transform an object of literal values into a schema representing the object. */

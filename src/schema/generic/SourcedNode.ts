@@ -1,15 +1,15 @@
 import {
-	Type,
 	type ObjectOptions,
 	type Static,
-	type TObject
+	type TObject,
+	Type
 } from '@sinclair/typebox'
-import { Label } from '../common/Text.js'
+import type { TAnyId } from '../common/Id.js'
 import { SourceInfo, Suggestions } from '../common/Metadata.js'
+import { Label } from '../common/Text.js'
 import { Tags } from '../rules/TagRule.js'
 import { FlatIntersect, type TAssign } from '../utils/FlatIntersect.js'
 import { IdNode, type TIdNode } from './IdNode.js'
-import type { TAnyId } from '../common/Id.js'
 
 export const SourcedNodeBase = Type.Object({
 	name: Type.Ref(Label, {

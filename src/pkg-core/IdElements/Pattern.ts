@@ -1,7 +1,7 @@
 import {
-	PathKeySep,
+	COLLECTION_DEPTH_MAX,
 	COLLECTION_DEPTH_MIN,
-	COLLECTION_DEPTH_MAX
+	PathKeySep
 } from './CONST.js'
 
 /**

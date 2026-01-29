@@ -3,8 +3,8 @@
  */
 
 import type { Datasworn } from '@datasworn/core'
-import { escapeHtml } from '../utils/html'
 import { formatLabel } from '../utils/formatting'
+import { escapeHtml } from '../utils/html'
 import { renderMarkdown } from '../utils/markdown'
 
 /** Render an asset */
@@ -92,8 +92,9 @@ function renderAssetControls(asset: Datasworn.Asset): string {
 		if (control.field_type === 'condition_meter') {
 			const max = control.max || 5
 			const label = control.label || formatLabel(key)
-			const boxes = Array.from({ length: max }, (_, i) =>
-				`<div class="meter-box">${max - i}</div>`
+			const boxes = Array.from(
+				{ length: max },
+				(_, i) => `<div class="meter-box">${max - i}</div>`
 			).join('')
 
 			// Render impacts (e.g. "battered" for vehicles, "out of action" for companions)
@@ -118,7 +119,10 @@ function renderAssetControls(asset: Datasworn.Asset): string {
 }
 
 /** Tag display labels and descriptions */
-const TAG_LABELS: Record<string, { label: string; description: string; icon?: string }> = {
+const TAG_LABELS: Record<
+	string,
+	{ label: string; description: string; icon?: string }
+> = {
 	supernatural: {
 		label: 'Supernatural',
 		description: 'Features supernatural or mythic powers',
@@ -137,7 +141,10 @@ const TAG_LABELS: Record<string, { label: string; description: string; icon?: st
 }
 
 /** Namespace-specific labels for the 'recommended' tag */
-const RECOMMENDED_LABELS: Record<string, { label: string; description: string; cssClass: string }> = {
+const RECOMMENDED_LABELS: Record<
+	string,
+	{ label: string; description: string; cssClass: string }
+> = {
 	starforged: {
 		label: '★ SF Friendly',
 		description: 'Recommended for use in Starforged',
@@ -152,7 +159,8 @@ const RECOMMENDED_LABELS: Record<string, { label: string; description: string; c
 
 /** Render asset tags as badges */
 function renderAssetTags(asset: Datasworn.Asset): string {
-	const tags = (asset as { tags?: Record<string, Record<string, unknown>> }).tags
+	const tags = (asset as { tags?: Record<string, Record<string, unknown>> })
+		.tags
 	if (!tags) return ''
 
 	const tagBadges: string[] = []

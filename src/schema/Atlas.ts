@@ -1,4 +1,4 @@
-import { Type, type Static } from '@sinclair/typebox'
+import { type Static, Type } from '@sinclair/typebox'
 import * as Generic from './Generic.js'
 import { Cyclopedia } from './generic/Mixin.js'
 

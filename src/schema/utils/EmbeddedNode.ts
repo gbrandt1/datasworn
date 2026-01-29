@@ -1,5 +1,4 @@
 import {
-	Type,
 	type ObjectOptions,
 	type Static,
 	type TLiteral,
@@ -7,17 +6,18 @@ import {
 	type TOmit,
 	type TRefUnsafe,
 	type TString,
-	type TUnion
+	type TUnion,
+	Type
 } from '@sinclair/typebox'
 import type { Writable } from 'type-fest'
+import TypeId from '../../pkg-core/IdElements/TypeId.js'
 import {
-	IdKey,
-	SourceInfoKey,
 	EnhancesKey,
+	IdKey,
 	ReplacesKey,
+	SourceInfoKey,
 	type TypeSep
 } from '../../scripts/const.js'
-import TypeId from '../../pkg-core/IdElements/TypeId.js'
 import { Computed } from './Computed.js'
 import { pascalCase } from './string.js'
 
@@ -39,7 +39,7 @@ export function EmbeddedPrimaryNode<
 	const typeSchema = (base as unknown as TTypeNode).properties?.type
 	const typeName = `Embedded${pascalCase(typeSchema?.const ?? 'Unknown')}`
 
-	const _id = Computed(Type.Ref(typeName + 'Id'))
+	const _id = Computed(Type.Ref(`${typeName}Id`))
 
 	const forbiddenEmbedChildren = (
 		allowEmbeds == null

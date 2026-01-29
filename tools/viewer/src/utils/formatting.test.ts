@@ -2,8 +2,13 @@
  * Tests for formatting utilities
  */
 
-import { describe, it, expect } from 'vitest'
-import { formatLabel, formatOutcome, formatRank, formatType } from './formatting'
+import { describe, expect, it } from 'vitest'
+import {
+	formatLabel,
+	formatOutcome,
+	formatRank,
+	formatType
+} from './formatting'
 
 describe('Formatting Utilities', () => {
 	describe('formatLabel', () => {

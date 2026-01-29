@@ -1,9 +1,9 @@
 import {
 	type SchemaOptions,
-	Type,
 	type TNull,
 	type TSchema,
-	type TUnion
+	type TUnion,
+	Type
 } from '@sinclair/typebox'
 
 export const isNullable = Symbol('isNullable')

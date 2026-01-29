@@ -28,7 +28,7 @@ export default Winston.createLogger({
 	// levels: merge(cloneDeep(Winston.config.npm.levels), {
 	// 	colors
 	// }),
-	transports: [new Winston.transports.Console({})],
+	transports: [new Winston.transports.Console({})]
 })
 
 // Winston.addColors(colors as any)

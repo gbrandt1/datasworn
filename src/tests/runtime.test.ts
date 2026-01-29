@@ -1,9 +1,9 @@
-import { expect, test, describe } from 'bun:test'
-import { readFileSync } from 'fs'
-import path from 'path'
-import { mergeExpansion } from '../pkg-core/mergeExpansion.js'
+import { describe, expect, test } from 'bun:test'
+import { readFileSync } from 'node:fs'
+import path from 'node:path'
 import { IdParser } from '../pkg-core/IdParser.js'
 import type { Datasworn } from '../pkg-core/index.js'
+import { mergeExpansion } from '../pkg-core/mergeExpansion.js'
 
 const ROOT = path.resolve(import.meta.dir, '../..')
 

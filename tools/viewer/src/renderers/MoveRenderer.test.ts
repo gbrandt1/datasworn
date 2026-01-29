@@ -2,9 +2,9 @@
  * Tests for Move rendering functions
  */
 
-import { describe, it, expect } from 'vitest'
-import { renderMove } from './MoveRenderer'
 import type { Datasworn } from '@datasworn/core'
+import { describe, expect, it } from 'vitest'
+import { renderMove } from './MoveRenderer'
 
 describe('MoveRenderer', () => {
 	describe('renderMove', () => {
@@ -18,7 +18,13 @@ describe('MoveRenderer', () => {
 					text: 'When you attempt something risky or react to an imminent threat...'
 				},
 				text: 'Roll the dice.',
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Move
 
 			const html = renderMove(move)
@@ -34,7 +40,13 @@ describe('MoveRenderer', () => {
 				type: 'move',
 				name: 'Test Move',
 				roll_type: 'action_roll',
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Move
 
 			const html = renderMove(move)
@@ -49,7 +61,13 @@ describe('MoveRenderer', () => {
 				type: 'move',
 				name: 'Test Move',
 				text: 'This is the move text.',
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Move
 
 			const html = renderMove(move)
@@ -69,7 +87,13 @@ describe('MoveRenderer', () => {
 					weak_hit: { text: 'You partially succeed.' },
 					miss: { text: 'You fail.' }
 				},
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Move
 
 			const html = renderMove(move)
@@ -100,7 +124,13 @@ describe('MoveRenderer', () => {
 						}
 					]
 				},
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Move
 
 			const html = renderMove(move)
@@ -117,7 +147,13 @@ describe('MoveRenderer', () => {
 				type: 'move',
 				name: 'Test Move',
 				text: 'Just do it.',
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Move
 
 			const html = renderMove(move)
@@ -133,7 +169,13 @@ describe('MoveRenderer', () => {
 				name: 'Test Move',
 				roll_type: 'no_roll',
 				text: 'No roll needed.',
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Move
 
 			const html = renderMove(move)
@@ -158,7 +200,13 @@ describe('MoveRenderer', () => {
 						]
 					}
 				},
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Move
 
 			const html = renderMove(move)
@@ -174,7 +222,13 @@ describe('MoveRenderer', () => {
 				type: 'move',
 				name: 'Test Move',
 				text: 'Roll on {{table>self.oracles.missing}} table.',
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Move
 
 			const html = renderMove(move)

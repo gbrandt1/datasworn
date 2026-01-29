@@ -1,13 +1,11 @@
 import * as JTD from 'jtd'
-import Log from '../utils/Log.js'
-import { refTracker, toJtdRoot } from './utils.js'
-
 import { isEmpty } from 'lodash-es'
 import { DataswornSchema } from '../../schema/index.js'
+import { shellPromise } from '../../shellify.js'
+import { emptyDir, writeJSON } from '../utils/readWrite.js'
 import { cmdOptions, getTypeDefBuildCommand } from './buildTypeDefs.js'
 import { JTD_JSON_PATH } from './const.js'
-import { emptyDir, writeJSON } from '../utils/readWrite.js'
-import { shellPromise } from '../../shellify.js'
+import { refTracker, toJtdRoot } from './utils.js'
 
 const jtdRoot = toJtdRoot(DataswornSchema) as JTD.Schema
 
@@ -21,14 +19,15 @@ const json = await writeJSON(filePath, jtdRoot, {
 	replacer: (k, v) => {
 		// Strip null values and empty objects/arrays, but preserve booleans (like `nullable: true`)
 		if (v === null) return undefined
-		if (typeof v === 'object' && isEmpty(v) && k !== 'properties') return undefined
+		if (typeof v === 'object' && isEmpty(v) && k !== 'properties')
+			return undefined
 		return v
 	}
 })
 
 if (!JTD.isValidSchema(JSON.parse(json)))
 	throw new Error(
-		`Wrote JTD schema to ${filePath}, but it\'s not a valid JSON Typedef schema. No type code was generated.`
+		`Wrote JTD schema to ${filePath}, but it's not a valid JSON Typedef schema. No type code was generated.`
 	)
 
 // flush old files before generating types

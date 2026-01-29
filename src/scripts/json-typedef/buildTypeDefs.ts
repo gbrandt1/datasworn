@@ -1,6 +1,6 @@
-import { kebabCase } from 'lodash-es'
 import path from 'node:path'
-import { ValueSeperatorType, getShellCmd } from '../../shellify.js'
+import { kebabCase } from 'lodash-es'
+import { getShellCmd, ValueSeperatorType } from '../../shellify.js'
 import { PKG_NAME, rootSchemaName } from '../const.js'
 import { JTD_JSON_PATH, JTD_TYPES_ROOT } from './const.js'
 

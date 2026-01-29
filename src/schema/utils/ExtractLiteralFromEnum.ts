@@ -1,4 +1,4 @@
-import { Type, type SchemaOptions, type Static } from '@sinclair/typebox'
+import { type SchemaOptions, type Static, Type } from '@sinclair/typebox'
 import { EnumDescription } from './UnionEnum.js'
 import type { UnionEnumFromRecord } from './UnionEnumFromRecord.js'
 

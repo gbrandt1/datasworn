@@ -2,25 +2,24 @@
  * Regenerates the schemas and write them to file.
  */
 
+import path from 'node:path'
 import type { JsonSchema } from 'json-schema-library'
+import { kebabCase } from 'lodash-es'
+import * as Schema from '../../schema/index.js'
+import type { TRoot } from '../../schema/root/Root.js'
 import {
+	DefsKey,
+	DIR_HISTORY_CURRENT,
 	SCHEMA_NAME,
 	SCHEMA_PATH,
-	DIR_HISTORY_CURRENT,
 	SOURCE_SCHEMA_NAME,
-	SOURCEDATA_SCHEMA_PATH,
 	SOURCE_SCHEMA_PATH,
-	DefsKey,
+	SOURCEDATA_SCHEMA_PATH
 } from '../const.js'
-import { writeJSON } from '../utils/readWrite.js'
 import { sortSchemaKeys } from '../datasworn/sort.js'
 import Log from '../utils/Log.js'
+import { writeJSON } from '../utils/readWrite.js'
 import AJV from '../validation/ajv.js'
-import * as Schema from '../../schema/index.js'
-
-import type { TRoot } from '../../schema/root/Root.js'
-import path from 'node:path'
-import { kebabCase } from 'lodash-es'
 
 interface SchemaOptions {
 	name: string
@@ -65,7 +64,6 @@ const schemaOptions: SchemaOptions[] = [
 
 const metadataKeys: string[] = []
 
-
 function replacer(k: string, v: unknown) {
 	if (metadataKeys.includes(k)) return undefined
 
@@ -81,7 +79,7 @@ function replacer(k: string, v: unknown) {
 		// adjust references for use with standard json validation
 		return `#/${DefsKey}/${v}`
 
-  return v
+	return v
 }
 
 /** Pending operations to write the schema to disk */
@@ -98,7 +96,7 @@ for (const { rootSchema, name, paths, messages } of schemaOptions) {
 
 		writeOps.push(
 			writeJSON(paths, sortedSchema, {
-				replacer,
+				replacer
 			}).then(() => Log.info(messages.writeFinish))
 		)
 	} catch (error) {

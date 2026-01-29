@@ -1,26 +1,18 @@
-import {
-	Type,
-	type ObjectOptions,
-	type TProperties,
-	type TSchema
-} from '@sinclair/typebox'
-import Pattern from '../../pkg-core/IdElements/Pattern.js'
-import type { Tag } from '../Rules.js'
+import { type TSchema, Type } from '@sinclair/typebox'
 
-
-const TagsClassic = {}
-const TagsStarforged = {
+const _TagsClassic = {}
+const _TagsStarforged = {
 	recommended: Type.Boolean({
 		description: 'This object is ideal for use in Starforged.'
 	})
 } satisfies Record<string, TSchema>
-const TagsDelve = {} satisfies Record<string, TSchema>
+const _TagsDelve = {} satisfies Record<string, TSchema>
 type TagParams = {
 	schema: TSchema
 	node_types: []
 }
 // TODO:
-const TagsSunderedIsles = {
+const _TagsSunderedIsles = {
 	recommended: Type.Boolean({
 		description: 'This object is ideal for use in Sundered Isles.'
 	}),

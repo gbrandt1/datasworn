@@ -1,8 +1,8 @@
-import { IdKey, PathKeySep, ROOT_HISTORY, VERSION } from '../scripts/const.js'
-import type { Datasworn } from '../pkg-core/index.js'
-import type { IdNode } from '../schema/Generic.js'
 import path from 'node:path'
 import { Glob } from 'bun'
+import type { Datasworn } from '../pkg-core/index.js'
+import type { IdNode } from '../schema/Generic.js'
+import { IdKey, PathKeySep, ROOT_HISTORY, VERSION } from '../scripts/const.js'
 
 export async function loadDatasworn(
 	version: string = VERSION,

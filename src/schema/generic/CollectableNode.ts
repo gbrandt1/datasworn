@@ -3,12 +3,7 @@ import type { SetRequired } from 'type-fest'
 import type TypeId from '../../pkg-core/IdElements/TypeId.js'
 import { setSourceDataSchema } from '../Utils.js'
 import { pascalCase } from '../utils/string.js'
-import {
-	PrimarySubtypeNode,
-	PrimaryTypeNode,
-	type TPrimarySubtypeNode,
-	type TPrimaryTypeNode
-} from './PrimaryTypeNode.js'
+import { PrimarySubtypeNode, PrimaryTypeNode } from './PrimaryTypeNode.js'
 
 export const CollectableBrand = Symbol('Collectable')
 
@@ -51,7 +46,10 @@ export type TCollectableSubtypeNode<
 	TType extends TypeId.Collectable = TypeId.Collectable,
 	TSubtypeKey extends string = string,
 	TSubtype extends string = string
-> = TCollectableNode<TBase, TType> & { _subtypeKey: TSubtypeKey; _subtype: TSubtype }
+> = TCollectableNode<TBase, TType> & {
+	_subtypeKey: TSubtypeKey
+	_subtype: TSubtype
+}
 
 export function CollectableSubtypeNode<
 	TBase extends TObject,

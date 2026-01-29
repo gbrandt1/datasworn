@@ -1,23 +1,21 @@
-import * as pkgConfig from '../pkgConfig.js'
 import path from 'node:path'
-import { PKG_DIR_NODE } from '../../const.js'
-import { updatePackageVersions } from './updatePackageVersions.js'
 import { $ } from 'bun'
+import { kebabCase } from 'lodash-es'
 import {
 	getShellCmd,
 	shellPromise,
 	ValueSeperatorType
 } from '../../../shellify.js'
-import { kebabCase } from 'lodash-es'
+import { PKG_DIR_NODE } from '../../const.js'
 import Log from '../../utils/Log.js'
 
 type npmPublishOptions = { tag?: string; dryRun?: boolean }
 
-async function publishCommand(
+async function _publishCommand(
 	cwd: string,
 	{ tag = 'latest', dryRun = true }: npmPublishOptions = {}
 ) {
-	const tail = dryRun ? '--dry-run' : '--otp $OTP'
+	const _tail = dryRun ? '--dry-run' : '--otp $OTP'
 	try {
 		const { stdout, stderr } = await shellPromise({
 			command: 'npm publish',

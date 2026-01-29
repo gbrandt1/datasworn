@@ -1,6 +1,6 @@
-import { $, type BunFile } from 'bun'
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import { $, type BunFile } from 'bun'
 import type { Simplify } from 'type-fest'
 import yaml from 'yaml'
 import type { DataswornSource } from '../../pkg-core/index.js'
@@ -13,7 +13,7 @@ const space = '\t'
  * @return The deserialized object.
  */
 export async function readDataswornSourceData<
-	T extends DataswornSource.RulesPackage,
+	T extends DataswornSource.RulesPackage
 >(
 	filePath: string | BunFile,
 	reviver?: (key: unknown, value: unknown) => unknown
@@ -39,7 +39,7 @@ export async function readYAML<T>(
 		schema: 'core',
 		merge: true,
 		maxAliasCount: 1000,
-		logLevel: 'debug',
+		logLevel: 'debug'
 	}
 ): Promise<T> {
 	const file = typeof filePath === 'string' ? Bun.file(filePath) : filePath
@@ -81,7 +81,7 @@ export async function readJSON<T>(
 	const file =
 		typeof filePath === 'string'
 			? Bun.file(filePath.toString(), {
-					type: 'application/json',
+					type: 'application/json'
 				})
 			: filePath
 
@@ -108,10 +108,10 @@ type WriteJsonOptions = {
 	replacer?: (this: any, key: string, value: any) => any
 }
 export async function writeJSON(
-		filePath: string | BunFile,
-		object: any,
-		options?: WriteJsonOptions
-	): Promise<string>
+	filePath: string | BunFile,
+	object: any,
+	options?: WriteJsonOptions
+): Promise<string>
 export async function writeJSON(
 	filePaths: (string | BunFile)[],
 	object: any,
@@ -122,44 +122,43 @@ export async function writeJSON(
 	object: any,
 	{ skipCopyAwait = false, replacer }: WriteJsonOptions = {}
 ): Promise<any> {
+	if (typeof object === 'string') throw new Error()
 
-  if (typeof object === 'string') throw new Error()
+	const pathParams = Array.isArray(filePath) ? filePath : [filePath]
 
-		const pathParams = Array.isArray(filePath) ? filePath : [filePath]
+	if (pathParams.length === 0)
+		// nothing to do
+		return
 
-		if (pathParams.length === 0)
-			// nothing to do
-			return
+	const [writeDestination, ...copyDestinations]: BunFile[] = pathParams.map(
+		(destination) =>
+			typeof destination === 'string' ? Bun.file(destination) : destination
+	)
 
-		const [writeDestination, ...copyDestinations]: BunFile[] = pathParams.map(
-			(destination) =>
-				typeof destination === 'string' ? Bun.file(destination) : destination
-		)
+	const json = JSON.stringify(object, replacer, space)
 
-		const json = JSON.stringify(object, replacer, space)
+	// write to the first destination
+	await Bun.write(writeDestination, json, { createPath: true })
 
-		// write to the first destination
-		await Bun.write(writeDestination, json, { createPath: true })
+	// biome is CLI only, but we can use Bun's shell to do this instead.
+	await formatFile(writeDestination)
 
-		// biome is CLI only, but we can use Bun's shell to do this instead.
-		await formatFile(writeDestination)
-
-		if (copyDestinations.length === 0)
-			// nothing left to do
-			return json
-
-		const copyOps: Promise<any>[] = []
-
-		for (const copyDestionation of copyDestinations)
-			copyOps.push(copyFile(writeDestination, copyDestionation))
-
-		if (skipCopyAwait) {
-			void Promise.all(copyOps)
-		} else {
-			await Promise.all(copyOps)
-		}
-
+	if (copyDestinations.length === 0)
+		// nothing left to do
 		return json
+
+	const copyOps: Promise<any>[] = []
+
+	for (const copyDestionation of copyDestinations)
+		copyOps.push(copyFile(writeDestination, copyDestionation))
+
+	if (skipCopyAwait) {
+		void Promise.all(copyOps)
+	} else {
+		await Promise.all(copyOps)
+	}
+
+	return json
 }
 
 type YAMLOptions = Simplify<

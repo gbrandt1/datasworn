@@ -1,4 +1,4 @@
-import { expect, test, describe } from 'bun:test'
+import { describe, expect, test } from 'bun:test'
 
 import { IdParser } from '../pkg-core/IdParser.js'
 import { loadDatasworn } from './loadJson.js'
@@ -88,7 +88,9 @@ describe('Outcome ID parsing', () => {
 
 		for (const id of moveOutcomeIds) {
 			// Format: move.outcome:package/path/move_key.outcome_type
-			expect(id).toMatch(/^move\.outcome:[a-z_]+\/[a-z_/]+\.(strong_hit|weak_hit|miss)$/)
+			expect(id).toMatch(
+				/^move\.outcome:[a-z_]+\/[a-z_/]+\.(strong_hit|weak_hit|miss)$/
+			)
 		}
 	})
 
@@ -135,13 +137,15 @@ describe('Outcome ID parsing', () => {
 		for (const id of moveOutcomeIds) {
 			const moveId = id.substring(0, id.lastIndexOf('.'))
 			if (!byMove.has(moveId)) byMove.set(moveId, [])
-			byMove.get(moveId)!.push(id)
+			byMove.get(moveId)?.push(id)
 		}
 
 		// Each move should have exactly 3 outcomes
-		for (const [moveId, outcomes] of byMove) {
+		for (const [_moveId, outcomes] of byMove) {
 			expect(outcomes.length).toBe(3)
-			const outcomeTypes = outcomes.map(id => id.substring(id.lastIndexOf('.') + 1))
+			const outcomeTypes = outcomes.map((id) =>
+				id.substring(id.lastIndexOf('.') + 1)
+			)
 			expect(outcomeTypes).toContain('strong_hit')
 			expect(outcomeTypes).toContain('weak_hit')
 			expect(outcomeTypes).toContain('miss')

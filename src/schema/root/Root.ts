@@ -1,15 +1,8 @@
-import {
-	CloneType,
-	Type,
-	type SchemaOptions,
-	type TSchema
-} from '@sinclair/typebox'
+import { CloneType, type SchemaOptions, type TSchema } from '@sinclair/typebox'
 import { mapValues } from 'lodash-es'
-import { SourceData } from './SourceData.js'
+import { DefsKey } from '../../scripts/const.js'
 import type { Defs } from '../Defs.js'
-import { DefsKey, VERSION } from '../../scripts/const.js'
-import * as Utils from '../Utils.js'
-import { Metadata, Version } from '../index.js'
+import { SourceData } from './SourceData.js'
 
 export interface RootOptions extends SchemaOptions {
 	$id: `${'https' | 'http'}://${string}`

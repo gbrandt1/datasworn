@@ -1,13 +1,11 @@
 import {
-	Type,
 	type ObjectOptions,
 	type TRecord,
 	type TSchema,
-	type TString
+	type TString,
+	Type
 } from '@sinclair/typebox'
-
 import Id from '../common/Id.js'
-import { omit } from 'lodash-es'
 
 export const DictionaryBrand = Symbol('Dictionary')
 

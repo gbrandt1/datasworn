@@ -1,20 +1,17 @@
-import { expect, test, describe } from 'bun:test'
-
-import { IdParser } from '../pkg-core/IdParser.js'
-import { loadDatasworn } from './loadJson.js'
-
+import { describe, expect, test } from 'bun:test'
+import {
+	AssetIds as ClassicAssetIds,
+	MoveIds as ClassicMoveIds,
+	OracleIds as ClassicOracleIds
+} from '../../pkg/nodejs/@datasworn/ironsworn-classic/ids.js'
 // Import ID constants from packages
 import {
+	AssetIds as StarforgedAssetIds,
 	MoveIds as StarforgedMoveIds,
-	OracleIds as StarforgedOracleIds,
-	AssetIds as StarforgedAssetIds
+	OracleIds as StarforgedOracleIds
 } from '../../pkg/nodejs/@datasworn/starforged/ids.js'
-
-import {
-	MoveIds as ClassicMoveIds,
-	OracleIds as ClassicOracleIds,
-	AssetIds as ClassicAssetIds
-} from '../../pkg/nodejs/@datasworn/ironsworn-classic/ids.js'
+import { IdParser } from '../pkg-core/IdParser.js'
+import { loadDatasworn } from './loadJson.js'
 
 const { tree } = await loadDatasworn()
 IdParser.tree = tree
@@ -45,8 +42,10 @@ describe('ID Constants - Starforged', () => {
 		})
 
 		test('all move IDs in constants are resolvable', () => {
-			for (const [category, moves] of Object.entries(StarforgedMoveIds)) {
-				for (const [moveKey, moveId] of Object.entries(moves as Record<string, string>)) {
+			for (const [_category, moves] of Object.entries(StarforgedMoveIds)) {
+				for (const [_moveKey, moveId] of Object.entries(
+					moves as Record<string, string>
+				)) {
 					const move = IdParser.get(moveId)
 					expect(move._id).toBe(moveId)
 				}
@@ -86,8 +85,11 @@ describe('ID Constants - Starforged', () => {
 		})
 
 		test('nested oracle IDs are resolvable', () => {
-			const givenNameId = StarforgedOracleIds.character.name.given_name as string
-			expect(givenNameId).toBe('oracle_rollable:starforged/character/name/given_name')
+			const givenNameId = StarforgedOracleIds.character.name
+				.given_name as string
+			expect(givenNameId).toBe(
+				'oracle_rollable:starforged/character/name/given_name'
+			)
 
 			const oracle = IdParser.get(givenNameId)
 			expect(oracle._id).toBe(givenNameId)
@@ -117,8 +119,10 @@ describe('ID Constants - Starforged', () => {
 		})
 
 		test('all asset IDs in constants are resolvable', () => {
-			for (const [collection, assets] of Object.entries(StarforgedAssetIds)) {
-				for (const [assetKey, assetId] of Object.entries(assets as Record<string, string>)) {
+			for (const [_collection, assets] of Object.entries(StarforgedAssetIds)) {
+				for (const [_assetKey, assetId] of Object.entries(
+					assets as Record<string, string>
+				)) {
 					const asset = IdParser.get(assetId)
 					expect(asset._id).toBe(assetId)
 				}
@@ -163,9 +167,12 @@ describe('ID Constants - Classic', () => {
 describe('ID Constants - Type Safety', () => {
 	test('ID constants have literal string types', () => {
 		// This is a compile-time check - if types are wrong, this file won't compile
-		const faceDangerId: 'move:starforged/adventure/face_danger' = StarforgedMoveIds.adventure.face_danger
-		const actionId: 'oracle_rollable:starforged/core/action' = StarforgedOracleIds.core.action
-		const bansheeId: 'asset:starforged/companion/banshee' = StarforgedAssetIds.companion.banshee
+		const faceDangerId: 'move:starforged/adventure/face_danger' =
+			StarforgedMoveIds.adventure.face_danger
+		const actionId: 'oracle_rollable:starforged/core/action' =
+			StarforgedOracleIds.core.action
+		const bansheeId: 'asset:starforged/companion/banshee' =
+			StarforgedAssetIds.companion.banshee
 
 		// Runtime verification
 		expect(faceDangerId).toBe('move:starforged/adventure/face_danger')

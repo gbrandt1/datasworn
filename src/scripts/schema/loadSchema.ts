@@ -3,10 +3,10 @@ import type { SchemaValidator } from '../../pkg-core/Builders/RulesPackageBuilde
 import type { Datasworn, DataswornSource } from '../../pkg-core/index.js'
 import { formatPath } from '../../utils.js'
 import {
-	SOURCEDATA_SCHEMA_PATH,
-	SOURCE_SCHEMA_NAME,
-	SCHEMA_PATH,
 	SCHEMA_NAME,
+	SCHEMA_PATH,
+	SOURCE_SCHEMA_NAME,
+	SOURCEDATA_SCHEMA_PATH
 } from '../const.js'
 import Log from '../utils/Log.js'
 import { readJSON } from '../utils/readWrite.js'
@@ -35,12 +35,12 @@ export async function loadDataswornSchema() {
 async function loadSchemaFile(filePath: string, key: string) {
 	const v = await readJSON<JsonSchema>(filePath)
 
-  AJV.addSchema(v, key)
+	AJV.addSchema(v, key)
 
 	Log.info(`✅ Loaded ${key} schema from ${formatPath(filePath)}`)
 
 	return {
-		AJV,
+		AJV
 	}
 }
 
@@ -52,7 +52,7 @@ function _validate<T>(schemaId: string, data: unknown): data is T {
 			({ instancePath, parentSchema, message }) => ({
 				parentSchema: parentSchema?.$id ?? parentSchema?.title,
 				instancePath,
-				message,
+				message
 			})
 		)
 		throw Error(

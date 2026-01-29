@@ -1,9 +1,7 @@
 import type { Datasworn } from '../index.js'
-import * as Collection from './Collection.js'
-import * as OracleRollable from './OracleRollable.js'
 
 export function validate<T extends Datasworn.OracleCollection>(collection: T) {
-	const errors = []
+	const _errors = []
 
 	const { oracle_type } = collection
 
@@ -30,7 +28,6 @@ export function validate<T extends Datasworn.OracleCollection>(collection: T) {
 				)
 			}
 			break
-		case 'tables':
 		default:
 			break
 	}
@@ -51,7 +48,7 @@ function oracleRowsEqualBy(
 	) => boolean,
 	oracleRollables: Record<string, Datasworn.OracleRollable>
 ) {
-	const [[primaryKey, primary], ...secondaries] =
+	const [[_primaryKey, primary], ...secondaries] =
 		Object.entries(oracleRollables)
 	const badRowMessages: Record<number, string[]> = {}
 
@@ -89,7 +86,7 @@ function rowHasSameRolls(
 const textProperties = [
 	'text',
 	'text2',
-	'text3',
+	'text3'
 ] as const satisfies (keyof Datasworn.OracleRollableRowText3)[]
 
 function rowHasSameText(
@@ -100,7 +97,10 @@ function rowHasSameText(
 		// neither has key -- skip it
 		if (!(k in a) && !(k in b)) continue
 
-		if ((a as unknown as Record<string, unknown>)[k] !== (b as unknown as Record<string, unknown>)[k])
+		if (
+			(a as unknown as Record<string, unknown>)[k] !==
+			(b as unknown as Record<string, unknown>)[k]
+		)
 			throw new Error(
 				`expected "${k}" to be ${JSON.stringify((a as unknown as Record<string, unknown>)[k])}, but got ${JSON.stringify((b as unknown as Record<string, unknown>)[k])}`
 			)
@@ -109,9 +109,9 @@ function rowHasSameText(
 	return true
 }
 
-function renderMultiTable<
+function _renderMultiTable<
 	T extends Record<string, Datasworn.OracleRollable>,
-	K extends (keyof Datasworn.OracleRollableRowText3)[],
+	K extends (keyof Datasworn.OracleRollableRowText3)[]
 >(oracleRollables: T, showContent: K) {
 	const tabularData: Record<keyof T, string>[] = []
 
@@ -124,7 +124,9 @@ function renderMultiTable<
 			const row = oracleRollable.rows[rowIndex]
 			let content = ''
 			for (const contentKey of showContent) {
-				const contentValue = (row as unknown as Record<string, unknown>)[contentKey]
+				const contentValue = (row as unknown as Record<string, unknown>)[
+					contentKey
+				]
 				switch (typeof contentValue) {
 					case 'object':
 						if (contentValue === null) content += '(none): '

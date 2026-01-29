@@ -3,8 +3,6 @@ import * as Metadata from '../common/Metadata.js'
 
 import * as Generic from '../generic/Dictionary.js'
 
-import type { TAssetAttachment } from './Enhancement.js'
-
 export function AssetPropertiesEnhanceable<Control extends TSchema>(
 	controlSchema: Control
 ) {

@@ -15,8 +15,17 @@ let currentFilter: TreeFilter = 'all'
 let treeContainerRef: HTMLElement | null = null
 
 const CATEGORY_ORDER = [
-	'moves', 'assets', 'oracles', 'rules', 'truths', 'atlas', 'npcs',
-	'delve_sites', 'site_themes', 'site_domains', 'rarities'
+	'moves',
+	'assets',
+	'oracles',
+	'rules',
+	'truths',
+	'atlas',
+	'npcs',
+	'delve_sites',
+	'site_themes',
+	'site_domains',
+	'rarities'
 ]
 
 // Map filter types to category keys
@@ -82,7 +91,9 @@ export function createTree(container: HTMLElement): void {
 	let currentRulesetId: string | null = null
 
 	// Listen for navigation events to expand tree to the target path
-	window.addEventListener('datasworn-navigate', ((e: CustomEvent<{ path: string[] }>) => {
+	window.addEventListener('datasworn-navigate', ((
+		e: CustomEvent<{ path: string[] }>
+	) => {
 		const path = e.detail.path
 		expandAndSelectPath(treeContainer, path)
 	}) as EventListener)
@@ -282,9 +293,7 @@ function createTreeNode(node: TreeNodeData, path: string[]): HTMLElement {
 }
 
 function formatLabel(key: string): string {
-	return key
-		.replace(/_/g, ' ')
-		.replace(/\b\w/g, (c) => c.toUpperCase())
+	return key.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
 function getIcon(type: string): string {

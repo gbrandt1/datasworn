@@ -1,13 +1,12 @@
 import {
-	Type,
 	type Static,
 	type TAnySchema,
-	type TBigInt
+	type TBigInt,
+	Type
 } from '@sinclair/typebox'
 import * as Text from '../common/Text.js'
-import type { TOracleRoll } from '../common/Rolls.js'
-import { UnionEnumFromRecord } from '../utils/UnionEnumFromRecord.js'
 import * as Utils from '../Utils.js'
+import { UnionEnumFromRecord } from '../utils/UnionEnumFromRecord.js'
 
 enum Outcome {
 	Miss = 'miss',

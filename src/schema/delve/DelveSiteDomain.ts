@@ -1,12 +1,12 @@
-import { Type, type Static } from '@sinclair/typebox'
+import { type Static, Type } from '@sinclair/typebox'
 import { toJtdElements } from '../../scripts/json-typedef/utils.js'
-import { JsonTypeDef } from '../Symbols.js'
-import { setSourceDataSchema } from '../Utils.js'
 import Id from '../common/Id.js'
+import { MarkdownString } from '../common/Text.js'
 import { NonCollectableNode } from '../generic/NonCollectableNode.js'
 import { OracleRollableRowText, StaticRowPartial } from '../oracles/TableRow.js'
+import { JsonTypeDef } from '../Symbols.js'
+import { setSourceDataSchema } from '../Utils.js'
 import { EmbeddedType } from './common.js'
-import { MarkdownString } from '../common/Text.js'
 
 export const DelveSiteDomainFeature = EmbeddedType(
 	OracleRollableRowText,

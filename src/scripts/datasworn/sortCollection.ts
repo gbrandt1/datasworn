@@ -5,7 +5,7 @@ import Assert from './validators.js'
 
 function sortDictionary<
 	T,
-	D extends Generic.Dictionary<T> = Generic.Dictionary<T>,
+	D extends Generic.Dictionary<T> = Generic.Dictionary<T>
 >(dictionary: D, sortFn: (a: T, B: T) => number) {
 	const entries = Object.entries(dictionary).sort(([_keyA, a], [_keyB, b]) =>
 		sortFn(a, b)
@@ -16,7 +16,7 @@ function sortDictionary<
 
 export function isCollection<
 	T extends
-		Generic.Collection<Generic.SourcedNode> = Generic.Collection<Generic.SourcedNode>,
+		Generic.Collection<Generic.SourcedNode> = Generic.Collection<Generic.SourcedNode>
 >(obj: unknown): obj is T {
 	return (
 		Assert.SourcedNode.Check(obj) && ('contents' in obj || 'collections' in obj)
@@ -25,7 +25,7 @@ export function isCollection<
 
 export function sortTopLevelCollection<
 	T extends Generic.SourcedNode,
-	D extends Generic.Dictionary<T> = Generic.Dictionary<T>,
+	D extends Generic.Dictionary<T> = Generic.Dictionary<T>
 >(dictionary: D) {
 	const result = sortDictionary<T>(dictionary, (a, b) => {
 		// sort descendant collections since we're already iterating over them
@@ -44,7 +44,7 @@ export function sortTopLevelCollection<
 export function sortCollection<
 	T extends
 		| Generic.Collection<Generic.SourcedNode>
-		| Generic.Collection<Generic.Collection<Generic.SourcedNode>>,
+		| Generic.Collection<Generic.Collection<Generic.SourcedNode>>
 >(collection: T) {
 	const hasContents = Object.keys(collection.contents).length > 0
 

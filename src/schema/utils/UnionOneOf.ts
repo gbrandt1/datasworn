@@ -2,10 +2,10 @@
 
 import {
 	Kind,
-	TypeRegistry,
 	type SchemaOptions,
 	type Static,
-	type TSchema
+	type TSchema,
+	TypeRegistry
 } from '@sinclair/typebox'
 import { Value } from '@sinclair/typebox/value'
 import { Members } from '../Symbols.js'

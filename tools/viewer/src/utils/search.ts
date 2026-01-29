@@ -24,12 +24,25 @@ export function searchItems(
 	const lowerQuery = query.toLowerCase()
 
 	// Search in each category
-	const categories = ['moves', 'assets', 'oracles', 'npcs', 'atlas', 'truths'] as const
+	const categories = [
+		'moves',
+		'assets',
+		'oracles',
+		'npcs',
+		'atlas',
+		'truths'
+	] as const
 
 	for (const category of categories) {
 		const data = (ruleset as unknown as Record<string, unknown>)[category]
 		if (data && typeof data === 'object') {
-			searchInObject(data as Record<string, unknown>, [category], lowerQuery, results, limit)
+			searchInObject(
+				data as Record<string, unknown>,
+				[category],
+				lowerQuery,
+				results,
+				limit
+			)
 		}
 		if (results.length >= limit) break
 	}

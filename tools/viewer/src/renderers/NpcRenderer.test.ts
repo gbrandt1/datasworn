@@ -2,9 +2,9 @@
  * Tests for NPC rendering functions
  */
 
-import { describe, it, expect } from 'vitest'
-import { renderNpc } from './NpcRenderer'
 import type { Datasworn } from '@datasworn/core'
+import { describe, expect, it } from 'vitest'
+import { renderNpc } from './NpcRenderer'
 
 describe('NpcRenderer', () => {
 	describe('renderNpc', () => {
@@ -14,7 +14,13 @@ describe('NpcRenderer', () => {
 				type: 'npc',
 				name: 'Raider',
 				nature: 'Human',
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Npc
 
 			const html = renderNpc(npc)
@@ -31,7 +37,13 @@ describe('NpcRenderer', () => {
 				name: 'Test NPC',
 				summary: 'A dangerous foe.',
 				description: 'This creature lurks in the shadows.',
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Npc
 
 			const html = renderNpc(npc)
@@ -48,7 +60,13 @@ describe('NpcRenderer', () => {
 				type: 'npc',
 				name: 'Test NPC',
 				features: ['Sharp claws', 'Red eyes', 'Thick hide'],
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Npc
 
 			const html = renderNpc(npc)
@@ -67,7 +85,13 @@ describe('NpcRenderer', () => {
 				type: 'npc',
 				name: 'Test NPC',
 				drives: ['Hunt for prey', 'Protect territory'],
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Npc
 
 			const html = renderNpc(npc)
@@ -83,7 +107,13 @@ describe('NpcRenderer', () => {
 				type: 'npc',
 				name: 'Test NPC',
 				tactics: ['Ambush from above', 'Use terrain for cover'],
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Npc
 
 			const html = renderNpc(npc)
@@ -99,7 +129,13 @@ describe('NpcRenderer', () => {
 				type: 'npc',
 				name: 'Test NPC',
 				rank: 3,
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Npc
 
 			const html = renderNpc(npc)
@@ -115,7 +151,13 @@ describe('NpcRenderer', () => {
 				type: 'npc',
 				name: 'Test NPC',
 				quest_starter: 'A village has been terrorized by this creature.',
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Npc
 
 			const html = renderNpc(npc)
@@ -138,7 +180,13 @@ describe('NpcRenderer', () => {
 						rank: 4
 					}
 				},
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Npc
 
 			const html = renderNpc(npc)
@@ -153,7 +201,13 @@ describe('NpcRenderer', () => {
 				_id: 'npc:test/minimal',
 				type: 'npc',
 				name: 'Minimal NPC',
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Npc
 
 			const html = renderNpc(npc)
@@ -172,7 +226,13 @@ describe('NpcRenderer', () => {
 				type: 'npc',
 				name: 'Test NPC',
 				nature: '<script>alert("xss")</script>',
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Npc
 
 			const html = renderNpc(npc)

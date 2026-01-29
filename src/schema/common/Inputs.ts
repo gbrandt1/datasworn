@@ -1,6 +1,5 @@
 /** Abstract inputs that are used by option and control fields.  */
 import {
-	Type,
 	type ObjectOptions,
 	type Static,
 	type TInteger,
@@ -8,23 +7,21 @@ import {
 	type TObject,
 	type TRefUnsafe,
 	type TSchema,
-	type TString
+	type TString,
+	Type
 } from '@sinclair/typebox'
+import JtdType from '../../scripts/json-typedef/typedef.js'
+import * as Generic from '../Generic.js'
 import { JsonTypeDef } from '../Symbols.js'
-
+import * as Utils from '../Utils.js'
+import { Assign } from '../utils/FlatIntersect.js'
+import type { ObjectProperties } from '../utils/ObjectProperties.js'
 import {
 	LiteralZero,
 	setDescriptions,
 	type TFuzzySchemaOf
 } from '../utils/typebox.js'
-
-import * as Generic from '../Generic.js'
-import * as Utils from '../Utils.js'
-import type * as Id from './Id.js'
 import * as Text from './Text.js'
-import JtdType from '../../scripts/json-typedef/typedef.js'
-import type { ObjectProperties } from '../utils/ObjectProperties.js'
-import { Assign } from '../utils/FlatIntersect.js'
 
 /**
  * @abstract
@@ -302,7 +299,7 @@ export function SelectChoicesGroup<
 	return Assign(SelectChoicesGroupBase, mixin, {
 		description: 'Represents a grouping of options in a list of choices.',
 		remarks: 'Semantics are similar to the HTML `<optgroup>` element.',
-		title: optionSchema.title ? optionSchema.title + 'Group' : undefined,
+		title: optionSchema.title ? `${optionSchema.title}Group` : undefined,
 		...options
 	}) as TObject<
 		ObjectProperties<typeof SelectChoicesGroupBase> &
@@ -369,9 +366,8 @@ export function Select<
 		ObjectProperties<typeof SelectBase> & ObjectProperties<typeof mixin>
 	>
 }
-export type TSelect<Option extends TRefUnsafe<TSelectChoice<TObject>>> = ReturnType<
-	typeof Select<Option>
->
+export type TSelect<Option extends TRefUnsafe<TSelectChoice<TObject>>> =
+	ReturnType<typeof Select<Option>>
 export type Select<Option extends SelectChoice<any>> = Static<
 	typeof SelectBase
 > &

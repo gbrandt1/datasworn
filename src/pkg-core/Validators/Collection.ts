@@ -1,9 +1,9 @@
-import { ContentsKey, CollectionsKey } from '../IdElements/CONST.js'
+import { CollectionsKey, ContentsKey } from '../IdElements/CONST.js'
 import type TypeNode from '../TypeNode.js'
 
 export function validate<
 	T extends TypeNode.Collection,
-	TChild extends TypeNode.CollectableOf<T>,
+	TChild extends TypeNode.CollectableOf<T>
 >(
 	obj: T,
 
@@ -20,7 +20,11 @@ export function validate<
 	if (CollectionsKey in obj) {
 		const collectionChildren = obj[CollectionsKey]
 		for (const k in collectionChildren)
-			validate(collectionChildren[k] as T, collectionValidator, collectableValidator)
+			validate(
+				collectionChildren[k] as T,
+				collectionValidator,
+				collectableValidator
+			)
 	}
 
 	return true

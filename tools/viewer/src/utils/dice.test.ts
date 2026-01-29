@@ -2,8 +2,14 @@
  * Tests for dice utilities
  */
 
-import { describe, it, expect } from 'vitest'
-import { parseDice, rollDice, isInRange, isMatch, formatRollRange } from './dice'
+import { describe, expect, it } from 'vitest'
+import {
+	formatRollRange,
+	isInRange,
+	isMatch,
+	parseDice,
+	rollDice
+} from './dice'
 
 describe('Dice Utilities', () => {
 	describe('parseDice', () => {

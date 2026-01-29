@@ -1,23 +1,22 @@
 import {
-	Type,
-	TypeGuard,
 	type ObjectOptions,
 	type Static,
 	type TArray,
 	type TNull,
-	type TSchema,
 	type TObject,
-	CloneType
+	type TSchema,
+	Type,
+	TypeGuard
 } from '@sinclair/typebox'
 import * as Text from '../common/Text.js'
+import * as Utils from '../Utils.js'
+import { Assign } from '../utils/FlatIntersect.js'
 import {
 	setDescriptions,
 	type TFuzzyNull,
 	type TFuzzyObject,
 	type TFuzzyRef
 } from '../utils/typebox.js'
-import * as Utils from '../Utils.js'
-import { Assign } from '../utils/FlatIntersect.js'
 
 export const TriggerBy = Type.Object(
 	{

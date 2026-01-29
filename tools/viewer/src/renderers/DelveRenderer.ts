@@ -3,11 +3,11 @@
  */
 
 import type { Datasworn } from '@datasworn/core'
-import { escapeHtml, generateId } from '../utils/html'
-import { formatRank } from '../utils/formatting'
 import { formatRollRange } from '../utils/dice'
+import { formatRank } from '../utils/formatting'
+import { escapeHtml, generateId } from '../utils/html'
 import { renderMarkdown } from '../utils/markdown'
-import { ROLL_DATA_ATTR, encodeRollInfo } from './OracleRenderer'
+import { encodeRollInfo, ROLL_DATA_ATTR } from './OracleRenderer'
 
 /** Render a Delve Site */
 export function renderDelveSite(site: Datasworn.DelveSite): string {
@@ -82,7 +82,9 @@ export function renderDelveSiteTheme(theme: Datasworn.DelveSiteTheme): string {
 }
 
 /** Render a Delve Site Domain */
-export function renderDelveSiteDomain(domain: Datasworn.DelveSiteDomain): string {
+export function renderDelveSiteDomain(
+	domain: Datasworn.DelveSiteDomain
+): string {
 	let html = '<div class="delve-domain-card">'
 
 	// Summary
@@ -120,7 +122,8 @@ function renderDenizensTable(denizens: Datasworn.DelveSiteDenizen[]): string {
 	html += `<button class="roll-button" ${ROLL_DATA_ATTR}="${encodeRollInfo(rollInfo)}">Roll 1d100</button>`
 	html += `<div class="roll-result" id="${tableId}-result"></div>`
 	html += `<table id="${tableId}">`
-	html += '<thead><tr><th class="roll-col">Roll</th><th>Denizen</th><th>Frequency</th></tr></thead>'
+	html +=
+		'<thead><tr><th class="roll-col">Roll</th><th>Denizen</th><th>Frequency</th></tr></thead>'
 	html += '<tbody>'
 
 	for (const denizen of denizens) {
@@ -149,7 +152,11 @@ function renderDenizensTable(denizens: Datasworn.DelveSiteDenizen[]): string {
 }
 
 /** Render a features table */
-function renderFeaturesTable(features: Datasworn.DelveSiteDomainFeature[] | Datasworn.DelveSiteThemeFeature[]): string {
+function renderFeaturesTable(
+	features:
+		| Datasworn.DelveSiteDomainFeature[]
+		| Datasworn.DelveSiteThemeFeature[]
+): string {
 	const tableId = generateId('features')
 	const dice = getDiceFromRows(features)
 	const rollInfo = { type: 'oracle' as const, tableId, dice }
@@ -158,7 +165,8 @@ function renderFeaturesTable(features: Datasworn.DelveSiteDomainFeature[] | Data
 	html += `<button class="roll-button" ${ROLL_DATA_ATTR}="${encodeRollInfo(rollInfo)}">Roll ${dice}</button>`
 	html += `<div class="roll-result" id="${tableId}-result"></div>`
 	html += `<table id="${tableId}">`
-	html += '<thead><tr><th class="roll-col">Roll</th><th>Feature</th></tr></thead>'
+	html +=
+		'<thead><tr><th class="roll-col">Roll</th><th>Feature</th></tr></thead>'
 	html += '<tbody>'
 
 	for (const feature of features) {
@@ -178,7 +186,9 @@ function renderFeaturesTable(features: Datasworn.DelveSiteDomainFeature[] | Data
 }
 
 /** Render a dangers table */
-function renderDangersTable(dangers: Datasworn.DelveSiteDomainDanger[] | Datasworn.DelveSiteThemeDanger[]): string {
+function renderDangersTable(
+	dangers: Datasworn.DelveSiteDomainDanger[] | Datasworn.DelveSiteThemeDanger[]
+): string {
 	const tableId = generateId('dangers')
 	const dice = getDiceFromRows(dangers)
 	const rollInfo = { type: 'oracle' as const, tableId, dice }
@@ -187,7 +197,8 @@ function renderDangersTable(dangers: Datasworn.DelveSiteDomainDanger[] | Dataswo
 	html += `<button class="roll-button" ${ROLL_DATA_ATTR}="${encodeRollInfo(rollInfo)}">Roll ${dice}</button>`
 	html += `<div class="roll-result" id="${tableId}-result"></div>`
 	html += `<table id="${tableId}">`
-	html += '<thead><tr><th class="roll-col">Roll</th><th>Danger</th></tr></thead>'
+	html +=
+		'<thead><tr><th class="roll-col">Roll</th><th>Danger</th></tr></thead>'
 	html += '<tbody>'
 
 	for (const danger of dangers) {
@@ -220,20 +231,18 @@ function formatRef(ref: string): string {
 	// Extract the last part of the ID: "npc:classic/ironlanders/raider" -> "Raider"
 	const parts = ref.split('/')
 	const lastPart = parts[parts.length - 1]
-	return lastPart
-		.replace(/_/g, ' ')
-		.replace(/\b\w/g, (c) => c.toUpperCase())
+	return lastPart.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
 /** Format denizen frequency */
 function formatFrequency(frequency: string): string {
-	return frequency
-		.replace(/_/g, ' ')
-		.replace(/\b\w/g, (c) => c.toUpperCase())
+	return frequency.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
 /** Determine dice notation from table rows */
-function getDiceFromRows(rows: { roll?: { min: number; max: number } | null }[]): string {
+function getDiceFromRows(
+	rows: { roll?: { min: number; max: number } | null }[]
+): string {
 	if (rows.length === 0) return '1d100'
 
 	// Find the max value in the table

@@ -20,8 +20,6 @@ export function rehydrateReplacementMaps(...data: ReplacementMapData[]) {
 	return result
 }
 
-
-
 const neverLegacyIdSubstrings = new Set([
 	',',
 	'. ',
@@ -32,7 +30,7 @@ const neverLegacyIdSubstrings = new Set([
 	')',
 	'://',
 	'.svg',
-	'.webp',
+	'.webp'
 ])
 
 const alwaysMdKeys = new Set([
@@ -43,7 +41,7 @@ const alwaysMdKeys = new Set([
 	'text',
 	'text2',
 	'text3',
-	'requirement',
+	'requirement'
 ])
 
 const neverMdOrIdKeys = new Set([
@@ -58,7 +56,7 @@ const neverMdOrIdKeys = new Set([
 	'field_type',
 	'oracle_type',
 	'field_type',
-	'choice_type',
+	'choice_type'
 ])
 
 /**

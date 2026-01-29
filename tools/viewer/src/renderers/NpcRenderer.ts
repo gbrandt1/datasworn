@@ -3,8 +3,8 @@
  */
 
 import type { Datasworn } from '@datasworn/core'
-import { escapeHtml } from '../utils/html'
 import { formatRank } from '../utils/formatting'
+import { escapeHtml } from '../utils/html'
 import { renderMarkdown } from '../utils/markdown'
 
 /** Render an NPC */

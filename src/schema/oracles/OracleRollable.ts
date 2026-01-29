@@ -1,26 +1,26 @@
 import {
-	Type,
 	type ObjectOptions,
 	type Static,
 	type TObject,
 	type TRefUnsafe,
-	type TSchema
+	type TSchema,
+	Type
 } from '@sinclair/typebox'
 import type { SetRequired } from 'type-fest'
+import * as Rolls from '../common/Rolls.js'
 import { CollectableSubtypeNode } from '../generic/CollectableNode.js'
 import * as Utils from '../Utils.js'
-import * as Rolls from '../common/Rolls.js'
 import { FlatIntersect } from '../utils/FlatIntersect.js'
+import {
+	Text2ColumnLabels,
+	Text3ColumnLabels,
+	TextColumnLabels
+} from './Table.js'
 import {
 	OracleRollableRowText,
 	OracleRollableRowText2,
 	OracleRollableRowText3
 } from './TableRow.js'
-import {
-	TextColumnLabels,
-	Text2ColumnLabels,
-	Text3ColumnLabels
-} from './Table.js'
 
 // metadata necessary to generate a roll result from an OracleRollable
 const RollableMeta = Type.Object({
@@ -44,7 +44,7 @@ const RollableMeta = Type.Object({
 
 const subtypeKey = 'oracle_type' as const
 
-function OracleRollableBase<TBase extends TObject, TSubtype extends string>(
+function OracleRollableBase<TBase extends TObject, _TSubtype extends string>(
 	base: TBase,
 	row: TRefUnsafe<TObject>,
 	options: ObjectOptions = {}
@@ -73,10 +73,7 @@ function RollableTable<TRow extends TObject, TSubtype extends string>(
 	options: SetRequired<ObjectOptions, '$id'>
 ) {
 	return CollectableSubtypeNode(
-		OracleRollableBase(
-			Type.Object({ column_labels }),
-			row
-		),
+		OracleRollableBase(Type.Object({ column_labels }), row),
 		'oracle_rollable',
 		subtypeKey,
 		subtype,

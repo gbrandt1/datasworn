@@ -1,9 +1,15 @@
 import { state } from '../state'
-import { getRulesetDisplayName } from '../utils/loader'
-import { searchItems, type SearchResult } from '../utils/search'
-import { createTree, expandAllNodes, collapseAllNodes, setTreeFilter, type TreeFilter } from './Tree'
-import { escapeHtml } from '../utils/html'
 import { formatType } from '../utils/formatting'
+import { escapeHtml } from '../utils/html'
+import { getRulesetDisplayName } from '../utils/loader'
+import { type SearchResult, searchItems } from '../utils/search'
+import {
+	collapseAllNodes,
+	createTree,
+	expandAllNodes,
+	setTreeFilter,
+	type TreeFilter
+} from './Tree'
 
 function getTheme(): 'dark' | 'light' {
 	return (localStorage.getItem('theme') as 'dark' | 'light') || 'dark'
@@ -89,8 +95,12 @@ export function createSidebar(container: HTMLElement): void {
 
 	// Toolbar buttons
 	const expandAllBtn = header.querySelector('#expand-all') as HTMLButtonElement
-	const collapseAllBtn = header.querySelector('#collapse-all') as HTMLButtonElement
-	const themeToggleBtn = header.querySelector('#theme-toggle') as HTMLButtonElement
+	const collapseAllBtn = header.querySelector(
+		'#collapse-all'
+	) as HTMLButtonElement
+	const themeToggleBtn = header.querySelector(
+		'#theme-toggle'
+	) as HTMLButtonElement
 
 	expandAllBtn.addEventListener('click', () => {
 		expandAllNodes(treeContainer)
@@ -114,7 +124,9 @@ export function createSidebar(container: HTMLElement): void {
 	})
 
 	// Filter buttons
-	const filterButtons = header.querySelectorAll('.filter-btn') as NodeListOf<HTMLButtonElement>
+	const filterButtons = header.querySelectorAll(
+		'.filter-btn'
+	) as NodeListOf<HTMLButtonElement>
 
 	const updateFilterButtons = (activeFilter: TreeFilter) => {
 		filterButtons.forEach((btn) => {
@@ -179,7 +191,9 @@ export function createSidebar(container: HTMLElement): void {
 	// Handle clicking on search results
 	searchResults.addEventListener('click', (e) => {
 		const target = e.target as HTMLElement
-		const resultItem = target.closest('.search-result-item') as HTMLElement | null
+		const resultItem = target.closest(
+			'.search-result-item'
+		) as HTMLElement | null
 		if (resultItem) {
 			const id = resultItem.dataset.id
 			if (id) {

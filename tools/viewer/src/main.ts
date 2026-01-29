@@ -3,11 +3,11 @@
  */
 
 import { createApp } from './components/App'
-import { loadAllRulesets } from './utils/loader'
-import { state } from './state'
-import { rollDice, isMatch, isInRange } from './utils/dice'
 import { ROLL_DATA_ATTR } from './renderers/OracleRenderer'
+import { state } from './state'
 import type { OracleRow } from './types'
+import { isInRange, isMatch, rollDice } from './utils/dice'
+import { loadAllRulesets } from './utils/loader'
 
 /** Initialize the application */
 async function init() {
@@ -53,7 +53,7 @@ async function init() {
 function setupRollHandlers(container: HTMLElement): void {
 	container.addEventListener('click', (e) => {
 		const target = e.target as HTMLElement
-		const button = target.closest('[' + ROLL_DATA_ATTR + ']') as HTMLElement | null
+		const button = target.closest(`[${ROLL_DATA_ATTR}]`) as HTMLElement | null
 
 		if (!button) return
 
@@ -72,7 +72,9 @@ function setupRollHandlers(container: HTMLElement): void {
 	// These use data-rows attribute directly
 	container.addEventListener('click', (e) => {
 		const target = e.target as HTMLElement
-		const button = target.closest('.odds-button:not([' + ROLL_DATA_ATTR + '])') as HTMLButtonElement | null
+		const button = target.closest(
+			`.odds-button:not([${ROLL_DATA_ATTR}])`
+		) as HTMLButtonElement | null
 
 		if (!button) return
 
@@ -120,7 +122,11 @@ function handleRoll(info: RollInfo, button: HTMLElement): void {
 }
 
 /** Handle rolling on a standard oracle table */
-function handleOracleRoll(tableId: string, dice: string, oracleName?: string): void {
+function handleOracleRoll(
+	tableId: string,
+	dice: string,
+	oracleName?: string
+): void {
 	const roll = rollDice(dice)
 	const result = highlightResult(tableId, roll)
 
@@ -135,7 +141,11 @@ function handleOracleRoll(tableId: string, dice: string, oracleName?: string): v
 }
 
 /** Handle rolling odds from RollInfo */
-function handleOddsRollFromInfo(info: RollInfo, button: HTMLElement, oracleName?: string): void {
+function handleOddsRollFromInfo(
+	info: RollInfo,
+	button: HTMLElement,
+	oracleName?: string
+): void {
 	const roll = rollDice('1d100')
 	const rows = info.rows || []
 
@@ -152,7 +162,8 @@ function handleOddsRollFromInfo(info: RollInfo, button: HTMLElement, oracleName?
 	updateOddsResult(roll, resultText, matchResult, button)
 
 	// Add to roll history
-	const oddsName = button.querySelector('.odds-name')?.textContent || 'Ask the Oracle'
+	const oddsName =
+		button.querySelector('.odds-name')?.textContent || 'Ask the Oracle'
 	state.addRollToHistory('1d100', roll, resultText, oracleName || oddsName)
 }
 
@@ -174,12 +185,18 @@ function handleOddsRoll(button: HTMLButtonElement, rowsData: string): void {
 	updateOddsResult(roll, resultText, matchResult, button)
 
 	// Add to roll history
-	const oddsName = button.querySelector('.odds-name')?.textContent || 'Ask the Oracle'
+	const oddsName =
+		button.querySelector('.odds-name')?.textContent || 'Ask the Oracle'
 	state.addRollToHistory('1d100', roll, resultText, oddsName)
 }
 
 /** Update the odds result display */
-function updateOddsResult(roll: number, resultText: string, matchResult: boolean, button: HTMLElement): void {
+function updateOddsResult(
+	roll: number,
+	resultText: string,
+	matchResult: boolean,
+	button: HTMLElement
+): void {
 	const resultDiv = document.getElementById('odds-result')
 	if (resultDiv) {
 		const oddsName = button.querySelector('.odds-name')?.textContent || ''
@@ -207,8 +224,8 @@ function highlightResult(tableId: string, roll: number): string | null {
 
 	rows.forEach((row) => {
 		row.classList.remove('roll-highlight')
-		const min = parseInt(row.getAttribute('data-min') || '0')
-		const max = parseInt(row.getAttribute('data-max') || '0')
+		const min = parseInt(row.getAttribute('data-min') || '0', 10)
+		const max = parseInt(row.getAttribute('data-max') || '0', 10)
 
 		if (roll >= min && roll <= max) {
 			row.classList.add('roll-highlight')
@@ -230,7 +247,8 @@ declare global {
 }
 
 window.rollOracle = handleOracleRoll
-window.rollOracleColumns = (tableId: string) => handleOracleRoll(tableId, '1d100')
+window.rollOracleColumns = (tableId: string) =>
+	handleOracleRoll(tableId, '1d100')
 window.rollOdds = (button: HTMLButtonElement) => {
 	const rowsData = button.getAttribute('data-rows')
 	if (rowsData) handleOddsRoll(button, rowsData)

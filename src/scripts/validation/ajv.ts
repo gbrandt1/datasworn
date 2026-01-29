@@ -1,8 +1,8 @@
+import ajvPkg from 'ajv'
 import ajvFormatPkg from 'ajv-formats'
 import Log from '../utils/Log.js'
-import { KEYWORDS } from './keywords.js'
 import { FORMATS } from './formats.js'
-import ajvPkg from 'ajv'
+import { KEYWORDS } from './keywords.js'
 
 // workaround for https://github.com/ajv-validator/ajv/issues/2132
 const Ajv = ajvPkg.default
@@ -19,7 +19,7 @@ const AJV = new Ajv({
 	strictTypes: 'log',
 	useDefaults: 'empty',
 	validateFormats: true,
-	verbose: true,
+	verbose: true
 	// used for code generation
 	// code: { source: true, esm: true }
 })

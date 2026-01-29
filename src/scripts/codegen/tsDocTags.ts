@@ -41,7 +41,7 @@ import { Type } from '@sinclair/typebox'
 import type { KeywordDefinition } from 'ajv'
 
 // @virtual
-const tags: Record<string, Omit<KeywordDefinition, 'keyword'>> = {
+const _tags: Record<string, Omit<KeywordDefinition, 'keyword'>> = {
 	alpha: { metaSchema: Type.Boolean() },
 	beta: { metaSchema: Type.Boolean() },
 	category: { metaSchema: Type.String() },
@@ -81,5 +81,5 @@ const tags: Record<string, Omit<KeywordDefinition, 'keyword'>> = {
 	template: { metaSchema: Type.Boolean() },
 	throws: { metaSchema: Type.Boolean() },
 	typeParam: { metaSchema: Type.Boolean() },
-	virtual: { metaSchema: Type.Boolean() },
+	virtual: { metaSchema: Type.Boolean() }
 }

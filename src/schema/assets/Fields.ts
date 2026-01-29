@@ -1,9 +1,9 @@
-import { Type, type Static } from '@sinclair/typebox'
+import { type Static, Type } from '@sinclair/typebox'
 import type { Simplify } from 'type-fest'
-import * as Generic from '../Generic.js'
 import * as Fields from '../common/Fields.js'
-import { Assign } from '../utils/FlatIntersect.js'
+import * as Generic from '../Generic.js'
 import { DiscriminatedUnion } from '../Utils.js'
+import { Assign } from '../utils/FlatIntersect.js'
 
 const AssetBooleanFieldMixin = Type.Object({
 	is_impact: Type.Boolean({

@@ -1,15 +1,15 @@
 import {
 	Kind,
-	Type,
 	type ObjectOptions,
 	type Static,
-	type TObject
+	type TObject,
+	Type
 } from '@sinclair/typebox'
-import { Computed } from '../Utils.js'
-import { setDescriptions } from '../utils/typebox.js'
-import { FlatIntersect } from '../utils/FlatIntersect.js'
 import type { TAnyId } from '../common/Id.js'
 import { Documentation } from '../common/Text.js'
+import { Computed } from '../Utils.js'
+import { FlatIntersect } from '../utils/FlatIntersect.js'
+import { setDescriptions } from '../utils/typebox.js'
 
 const IdNodeBase = Type.Object({
 	_id: Computed(Type.String()),

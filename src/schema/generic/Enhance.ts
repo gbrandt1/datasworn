@@ -1,13 +1,13 @@
 import {
-	Type,
 	type ObjectOptions,
 	type TObject,
 	type TSchema,
-	type TString
+	type TString,
+	Type
 } from '@sinclair/typebox'
+import { EnhancesKey } from '../../scripts/const.js'
 import * as Utils from '../Utils.js'
 import { Assign } from '../utils/FlatIntersect.js'
-import { EnhancesKey } from '../../scripts/const.js'
 
 /**
  * Enhances multiple rules elements

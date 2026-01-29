@@ -1,9 +1,8 @@
 import { type ExecOptions, exec } from 'node:child_process'
 import util from 'node:util'
-import { kebabCase, merge } from 'lodash-es'
-import type { CamelCase } from 'type-fest'
-import Log from './scripts/utils/Log.js'
 import { $ } from 'bun'
+import { kebabCase } from 'lodash-es'
+import type { CamelCase } from 'type-fest'
 
 export enum ValueSeperatorType {
 	Equals = '=',
@@ -76,23 +75,22 @@ export function shellPromise(
 }
 
 export type ShellCommandParams<
-		Command extends string = string,
-		Arguments extends string[] = string[],
-		Options extends Record<CamelCase<string>, unknown> = Record<
-			CamelCase<string>,
-			unknown
-		>
-	> = {
-		command: Command
-		args?: Arguments
-		cmdOptions?: Options
-		/**
-		 * @default kebabCase
-		 */
-		optionCase?: (str: string) => string
-		/**
-		 * @default ValueSeperatorType.Space
-		 */
-		separator?: ValueSeperatorType
-	}
-
+	Command extends string = string,
+	Arguments extends string[] = string[],
+	Options extends Record<CamelCase<string>, unknown> = Record<
+		CamelCase<string>,
+		unknown
+	>
+> = {
+	command: Command
+	args?: Arguments
+	cmdOptions?: Options
+	/**
+	 * @default kebabCase
+	 */
+	optionCase?: (str: string) => string
+	/**
+	 * @default ValueSeperatorType.Space
+	 */
+	separator?: ValueSeperatorType
+}

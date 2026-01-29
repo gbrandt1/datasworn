@@ -1,4 +1,4 @@
-import { Type, type Static } from '@sinclair/typebox'
+import { type Static, Type } from '@sinclair/typebox'
 import { CollectionNode } from '../generic/CollectionNode.js'
 
 export const MoveCategory = CollectionNode(Type.Object({}), 'move_category')

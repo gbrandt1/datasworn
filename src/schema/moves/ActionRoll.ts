@@ -1,14 +1,17 @@
-import { Type, type Static } from '@sinclair/typebox'
+import { type Static, Type } from '@sinclair/typebox'
+import { RollableValue } from '../common/RollableValues.js'
+import {
+	ActionRollMethod,
+	MoveOutcomes,
+	type MoveOutcomes as MoveOutcomesType
+} from './common.js'
 import {
 	Trigger,
 	TriggerCondition,
 	TriggerConditionEnhancement,
 	TriggerEnhancement
 } from './Trigger.js'
-import { ActionRollMethod, MoveOutcomes, type MoveOutcomes as MoveOutcomesType } from './common.js'
 import { Move, MoveEnhancement } from './utils.js'
-import * as Utils from '../Utils.js'
-import { RollableValue } from '../common/RollableValues.js'
 
 export const TriggerActionRollCondition = TriggerCondition(
 	Type.Ref(ActionRollMethod),

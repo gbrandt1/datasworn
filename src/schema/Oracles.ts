@@ -1,21 +1,20 @@
 // constituent types
-export {
-	OracleRollableRowText,
-	OracleRollableRowText2,
-	OracleRollableRowText3,
-	OracleRollableRow
-} from './oracles/TableRow.js'
 
-// primary type
-export * from './oracles/OracleRollable.js'
+// derived type
+export * from './oracles/EmbeddedOracleRollable.js'
 export {
+	OracleCollection,
 	OracleTableSharedRolls,
 	OracleTableSharedText,
 	OracleTableSharedText2,
 	OracleTableSharedText3,
-	OracleTablesCollection,
-	OracleCollection
+	OracleTablesCollection
 } from './oracles/OracleCollection.js'
-
-// derived type
-export * from './oracles/EmbeddedOracleRollable.js'
+// primary type
+export * from './oracles/OracleRollable.js'
+export {
+	OracleRollableRow,
+	OracleRollableRowText,
+	OracleRollableRowText2,
+	OracleRollableRowText3
+} from './oracles/TableRow.js'

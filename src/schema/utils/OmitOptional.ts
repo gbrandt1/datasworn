@@ -1,14 +1,14 @@
 import {
 	CloneType,
+	type ObjectOptions,
 	type TObject,
 	type TOptional,
 	type TSchema,
-	TypeGuard,
 	Type,
-	type ObjectOptions
+	TypeGuard
 } from '@sinclair/typebox'
 import { omitBy } from 'lodash-es'
-import type { OptionalKeysOf, ConditionalExcept } from 'type-fest'
+import type { ConditionalExcept, OptionalKeysOf } from 'type-fest'
 
 export type OmitOptional<T extends object> = Omit<T, OptionalKeysOf<T>>
 

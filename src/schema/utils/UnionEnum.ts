@@ -1,14 +1,14 @@
 // adapted from https://github.com/sinclairzx81/typebox/blob/master/examples/prototypes/union-enum.ts
 
 import {
+	CloneType,
 	Hint,
 	Kind,
-	Type,
-	CloneType,
-	TypeRegistry,
 	type SchemaOptions,
 	type TEnum,
-	type TSchema
+	type TSchema,
+	Type,
+	TypeRegistry
 } from '@sinclair/typebox'
 import { isInteger, omit, set } from 'lodash-es'
 import { JsonTypeDef } from '../Symbols.js'
@@ -55,10 +55,7 @@ export function TUnionEnum(schema: any): schema is TUnionEnum {
 	)
 }
 
-function UnionEnumCheck(
-	schema: TUnionEnum<any>,
-	value: unknown
-) {
+function UnionEnumCheck(schema: TUnionEnum<any>, value: unknown) {
 	return schema.enum.includes(value as string | number)
 }
 

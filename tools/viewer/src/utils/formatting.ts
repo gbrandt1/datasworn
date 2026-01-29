@@ -4,9 +4,7 @@
 
 /** Format a snake_case or kebab-case key as Title Case */
 export function formatLabel(key: string): string {
-	return key
-		.replace(/[_-]/g, ' ')
-		.replace(/\b\w/g, (c) => c.toUpperCase())
+	return key.replace(/[_-]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
 /** Outcome labels for moves */

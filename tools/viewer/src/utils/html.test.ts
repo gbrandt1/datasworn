@@ -2,8 +2,8 @@
  * Tests for HTML utilities
  */
 
-import { describe, it, expect } from 'vitest'
-import { escapeHtml, generateId, createElement } from './html'
+import { describe, expect, it } from 'vitest'
+import { createElement, escapeHtml, generateId } from './html'
 
 describe('HTML Utilities', () => {
 	describe('escapeHtml', () => {
@@ -72,11 +72,15 @@ describe('HTML Utilities', () => {
 		})
 
 		it('handles boolean true attributes', () => {
-			expect(createElement('input', { disabled: true }, '')).toBe('<input disabled></input>')
+			expect(createElement('input', { disabled: true }, '')).toBe(
+				'<input disabled></input>'
+			)
 		})
 
 		it('excludes false boolean attributes', () => {
-			expect(createElement('input', { disabled: false }, '')).toBe('<input></input>')
+			expect(createElement('input', { disabled: false }, '')).toBe(
+				'<input></input>'
+			)
 		})
 
 		it('escapes attribute values', () => {

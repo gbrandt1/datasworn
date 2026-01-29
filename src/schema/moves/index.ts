@@ -1,15 +1,13 @@
 // parts
-export { TriggerBy } from './Trigger.js'
-export * from './common.js'
 
 // subtypes
 export * from './ActionRoll.js'
-export * from './ProgressRoll.js'
-
+export * from './common.js'
+export * from './EmbeddedMove.js'
 // primary type
 export * from './Move.js'
-
 // derived types
 export * from './MoveCategory.js'
-export * from './EmbeddedMove.js'
 export * from './MoveEnhancement.js'
+export * from './ProgressRoll.js'
+export { TriggerBy } from './Trigger.js'

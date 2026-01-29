@@ -1,7 +1,7 @@
-import { createSidebar } from './Sidebar'
+import { state } from '../state'
 import { createDetailPanel } from './Detail'
 import { createRollHistoryPanel } from './RollHistory'
-import { state } from '../state'
+import { createSidebar } from './Sidebar'
 
 /** Check if we're on mobile viewport */
 function isMobile(): boolean {

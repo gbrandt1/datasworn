@@ -3,8 +3,8 @@ import { map } from 'lodash-es'
 import {
 	Description,
 	EnumDescription,
-	UnionEnum,
-	type TUnionEnum
+	type TUnionEnum,
+	UnionEnum
 } from './UnionEnum.js'
 
 export function UnionEnumFromRecord<K extends string>(
@@ -25,7 +25,7 @@ export function UnionEnumFromRecord<T extends string[] | number[]>(
 	).join('\n')
 
 	if (options.description)
-		description = options.description + '\n\n' + description
+		description = `${options.description}\n\n${description}`
 
 	return UnionEnum(literals, {
 		[Description]: options.description,
