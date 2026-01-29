@@ -98,7 +98,12 @@ class StateManager {
 		return rulesets.get(currentRuleset) ?? null
 	}
 
-	addRollToHistory(dice: string, roll: number, result: string, oracleName?: string): void {
+	addRollToHistory(
+		dice: string,
+		roll: number,
+		result: string,
+		oracleName?: string
+	): void {
 		const entry: RollHistoryEntry = {
 			id: ++this.rollIdCounter,
 			timestamp: new Date(),
@@ -135,7 +140,11 @@ class StateManager {
 		let ruleset = this.getCurrentRuleset()
 
 		// If the ID specifies a different ruleset, try to switch to it
-		if (rulesetId && this.state.rulesets.has(rulesetId) && this.state.currentRuleset !== rulesetId) {
+		if (
+			rulesetId &&
+			this.state.rulesets.has(rulesetId) &&
+			this.state.currentRuleset !== rulesetId
+		) {
 			this.selectRuleset(rulesetId)
 			ruleset = this.state.rulesets.get(rulesetId) ?? null
 		}
@@ -158,8 +167,11 @@ class StateManager {
 			atlas_collection: 'atlas'
 		}
 
-		const categoryKey = categoryMap[type] || type.replace(/_collection$/, '') + 's'
-		const category = (ruleset as unknown as Record<string, unknown>)[categoryKey] as Record<string, unknown> | undefined
+		const categoryKey =
+			categoryMap[type] || `${type.replace(/_collection$/, '')}s`
+		const category = (ruleset as unknown as Record<string, unknown>)[
+			categoryKey
+		] as Record<string, unknown> | undefined
 		if (!category) return false
 
 		// Find the item by traversing the path
@@ -174,7 +186,9 @@ class StateManager {
 				selectedItem: result.item
 			})
 			// Dispatch event for tree to expand path
-			window.dispatchEvent(new CustomEvent('datasworn-navigate', { detail: { path: result.path } }))
+			window.dispatchEvent(
+				new CustomEvent('datasworn-navigate', { detail: { path: result.path } })
+			)
 			return true
 		}
 
@@ -221,8 +235,11 @@ class StateManager {
 			delve_site_domain: 'site_domains'
 		}
 
-		const categoryKey = categoryMap[type] || type.replace(/_collection$/, '') + 's'
-		const category = (ruleset as unknown as Record<string, unknown>)[categoryKey] as Record<string, unknown> | undefined
+		const categoryKey =
+			categoryMap[type] || `${type.replace(/_collection$/, '')}s`
+		const category = (ruleset as unknown as Record<string, unknown>)[
+			categoryKey
+		] as Record<string, unknown> | undefined
 		if (!category) return null
 
 		const result = this.findItemByPath(category, itemPath, [categoryKey])
@@ -252,14 +269,22 @@ class StateManager {
 			// Check contents
 			const contents = item.contents as Record<string, unknown> | undefined
 			if (contents) {
-				const result = this.findItemByPath(contents, pathSegments, [...currentPath, key])
+				const result = this.findItemByPath(contents, pathSegments, [
+					...currentPath,
+					key
+				])
 				if (result) return result
 			}
 
 			// Check collections
-			const collections = item.collections as Record<string, unknown> | undefined
+			const collections = item.collections as
+				| Record<string, unknown>
+				| undefined
 			if (collections) {
-				const result = this.findItemByPath(collections, pathSegments, [...currentPath, key])
+				const result = this.findItemByPath(collections, pathSegments, [
+					...currentPath,
+					key
+				])
 				if (result) return result
 			}
 		}

@@ -11,8 +11,6 @@ import { DefsKey } from '../const.js'
 const keywordKeys = [...Object.keys(Keywords)]
 
 export function isSortableObjectSchema(schema: JSONSchema7) {
-
-
 	switch (true) {
 		// skip non-object schema or dictionary-like object
 
@@ -68,9 +66,14 @@ const schemaKeyOrder = [
 ] as const
 
 export function sortSchemaKeys<T extends JSONSchema7>(schema: T) {
-	const sortedSchema = sortObjectKeys(schema as Record<string, unknown>, schemaKeyOrder) as T
+	const sortedSchema = sortObjectKeys(
+		schema as Record<string, unknown>,
+		schemaKeyOrder
+	) as T
 	if (sortedSchema.properties != null)
-		sortedSchema.properties = sortDataswornKeys(sortedSchema.properties as Record<string, unknown>) as T['properties']
+		sortedSchema.properties = sortDataswornKeys(
+			sortedSchema.properties as Record<string, unknown>
+		) as T['properties']
 	if (Array.isArray(sortedSchema.required)) {
 		sortedSchema.required = sortedSchema.required.sort((a, b) =>
 			compareObjectKeys(a, b, dataswornKeyOrder)

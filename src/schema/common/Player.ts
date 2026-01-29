@@ -1,4 +1,4 @@
-import { Type, type Static } from '@sinclair/typebox'
+import { type Static, Type } from '@sinclair/typebox'
 import { DictKey } from './Id.js'
 
 export const StatKey = Type.Ref(DictKey, {

@@ -1,5 +1,7 @@
 import path from 'node:path'
+import { Glob } from 'bun'
 import { copyDir, copyFile, updateJSON } from 'scripts/utils/readWrite.js'
+import type { Datasworn } from '../../../pkg-core/index.js'
 import type { RulesPackageConfig } from '../../../schema/tools/build/index.js'
 import {
 	PKG_DIR_NODE,
@@ -10,12 +12,10 @@ import {
 } from '../../const.js'
 import Log from '../../utils/Log.js'
 import { emptyDir } from '../../utils/readWrite.js'
-import { Glob } from 'bun'
 import {
-	generateIdConstantsJs,
-	generateIdConstantsDts
+	generateIdConstantsDts,
+	generateIdConstantsJs
 } from './generateIdConstants.js'
-import type { Datasworn } from '../../../pkg-core/index.js'
 
 /** Generate the index.js content for a content package */
 function generateIndexJs(id: string, jsonFileName: string): string {
@@ -40,7 +40,7 @@ export async function buildContentPackage({
 	id,
 	type,
 	pkg,
-	paths,
+	paths
 }: RulesPackageConfig) {
 	const { name, scope, ...packageUpdate } = pkg
 
@@ -112,7 +112,9 @@ export async function buildContentPackage({
 
 	// Generate ID constants from the built JSON data
 	const jsonDataPath = path.join(ROOT_OUTPUT, id, `${id}.json`)
-	const jsonData = await Bun.file(jsonDataPath).json() as Datasworn.Ruleset | Datasworn.Expansion
+	const jsonData = (await Bun.file(jsonDataPath).json()) as
+		| Datasworn.Ruleset
+		| Datasworn.Expansion
 
 	const idsJsPath = path.join(pkgRoot, 'ids.js')
 	const idsDtsPath = path.join(pkgRoot, 'ids.d.ts')
@@ -166,8 +168,4 @@ export async function buildContentPackage({
 	await Promise.all([...jsonOps, ...imgAssetOps])
 
 	return Log.info(`✅ Finished building ${pkgID}`)
-
-
-
 }
-

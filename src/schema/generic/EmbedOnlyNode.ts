@@ -1,8 +1,4 @@
-import {
-	Type,
-	type ObjectOptions,
-	type TObject
-} from '@sinclair/typebox'
+import { type ObjectOptions, type TObject, Type } from '@sinclair/typebox'
 import type TypeId from '../../pkg-core/IdElements/TypeId.js'
 import { pascalCase } from '../utils/string.js'
 import { IdNode } from './IdNode.js'
@@ -18,6 +14,6 @@ export function EmbedOnlyNode<
 	options: ObjectOptions = {}
 ) {
 	const $id = pascalCase(parentType) + pascalCase(typeId)
-	const idSchemaName = $id + 'Id'
+	const idSchemaName = `${$id}Id`
 	return IdNode(base, Type.Ref(idSchemaName), { $id, ...options })
 }

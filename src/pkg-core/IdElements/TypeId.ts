@@ -13,7 +13,7 @@ namespace TypeId {
 		'npc',
 		'oracle_rollable',
 		'asset',
-		'move',
+		'move'
 	] as const
 	export type Collectable = (typeof Collectable)[number]
 
@@ -22,7 +22,7 @@ namespace TypeId {
 		'npc_collection',
 		'oracle_collection',
 		'asset_collection',
-		'move_category',
+		'move_category'
 	] as const
 	export type Collection = (typeof Collection)[number]
 
@@ -32,7 +32,7 @@ namespace TypeId {
 		'delve_site_domain',
 		'delve_site_theme',
 		'rarity',
-		'truth',
+		'truth'
 	] as const
 	export type NonCollectable = (typeof NonCollectable)[number]
 
@@ -42,11 +42,11 @@ namespace TypeId {
 	export const Primary = [
 		...Collectable,
 		...Collection,
-		...NonCollectable,
+		...NonCollectable
 	] satisfies [
 		...typeof Collectable,
 		...typeof Collection,
-		...typeof NonCollectable,
+		...typeof NonCollectable
 	]
 
 	export const CollectedByMap = {
@@ -54,7 +54,7 @@ namespace TypeId {
 		move_category: 'move',
 		atlas_collection: 'atlas_entry',
 		npc_collection: 'npc',
-		oracle_collection: 'oracle_rollable',
+		oracle_collection: 'oracle_rollable'
 	} as const satisfies Record<Collection, Collectable>
 
 	export type CollectableOf<T extends Collection> = (typeof CollectedByMap)[T]
@@ -68,7 +68,7 @@ namespace TypeId {
 		move: 'move_category',
 		atlas_entry: 'atlas_collection',
 		npc: 'npc_collection',
-		oracle_rollable: 'oracle_collection',
+		oracle_rollable: 'oracle_collection'
 	} as const satisfies {
 		[k in keyof typeof CollectedByMap as (typeof CollectedByMap)[k]]: k
 	}
@@ -80,7 +80,7 @@ namespace TypeId {
 
 	export const EmbeddablePrimary = [
 		'oracle_rollable',
-		'move',
+		'move'
 	] as const satisfies [...(Collectable | NonCollectable)[]]
 	export type EmbeddablePrimary = (typeof EmbeddablePrimary)[number]
 	export const EmbedOnly = [
@@ -92,7 +92,7 @@ namespace TypeId {
 		'feature',
 		'danger',
 		'denizen',
-		'variant',
+		'variant'
 	] as const
 	export type EmbedOnly = (typeof EmbedOnly)[number]
 	export const Embeddable = [
@@ -106,7 +106,7 @@ namespace TypeId {
 		'feature',
 		'danger',
 		'denizen',
-		'variant',
+		'variant'
 	] as const satisfies [...typeof EmbeddablePrimary, ...typeof EmbedOnly]
 	export type Embeddable = EmbeddablePrimary | EmbedOnly
 
@@ -120,7 +120,7 @@ namespace TypeId {
 		delve_site: ['denizen'],
 		delve_site_domain: ['feature', 'danger'],
 		delve_site_theme: ['feature', 'danger'],
-		npc: ['variant'],
+		npc: ['variant']
 	} as const satisfies Partial<Record<Primary | EmbedOnly, Embeddable[]>>
 	export type Embedding = keyof typeof EmbedTypeMap
 
@@ -132,7 +132,7 @@ namespace TypeId {
 		ability: ['oracle_rollable', 'move'],
 		move: ['condition', 'outcome'],
 		option: ['oracle_rollable'],
-		oracle_rollable: ['row'],
+		oracle_rollable: ['row']
 	} as const satisfies {
 		[T in Embeddable & Embedding]: (typeof EmbedTypeMap)[T][number][]
 	}
@@ -141,7 +141,7 @@ namespace TypeId {
 		keyof typeof EmbeddableInEmbeddedTypeMap
 
 	export type EmbeddableInEmbeddedType<
-		T extends EmbeddingWhenEmbeddedType = EmbeddingWhenEmbeddedType,
+		T extends EmbeddingWhenEmbeddedType = EmbeddingWhenEmbeddedType
 	> = (typeof EmbeddableInEmbeddedTypeMap)[T][number]
 
 	export function canHaveEmbed(
@@ -166,7 +166,12 @@ namespace TypeId {
 		embeddingType: Any,
 		typeIsEmbedded = false
 	): Embeddable[] {
-		if (typeIsEmbedded) return (EmbeddableInEmbeddedTypeMap as Record<string, Embeddable[]>)[embeddingType] ?? []
+		if (typeIsEmbedded)
+			return (
+				(EmbeddableInEmbeddedTypeMap as Record<string, Embeddable[]>)[
+					embeddingType
+				] ?? []
+			)
 
 		return (EmbedTypeMap as Record<string, Embeddable[]>)[embeddingType] ?? []
 	}
@@ -193,10 +198,15 @@ namespace TypeId {
 		const thisPath = [...path, typeId]
 		if (!isPrimary) EmbeddedTypePath.push(thisPath.join(TypeSep))
 		if (typeId in EmbedTypeMap) {
-			for (const childTypeId of (EmbedTypeMap as Record<string, string[]>)[typeId])
+			for (const childTypeId of (EmbedTypeMap as Record<string, string[]>)[
+				typeId
+			])
 				if (
 					isPrimary ||
-					((EmbeddableInEmbeddedTypeMap as Record<string, string[]>)[typeId] ?? []).includes(childTypeId)
+					(
+						(EmbeddableInEmbeddedTypeMap as Record<string, string[]>)[typeId] ??
+						[]
+					).includes(childTypeId)
 				)
 					expandTypePath(childTypeId as Embedding, thisPath)
 		}
@@ -213,7 +223,7 @@ namespace TypeId {
 		feature: 'features',
 		danger: 'dangers',
 		denizen: 'denizens',
-		variant: 'variants',
+		variant: 'variants'
 	} as const satisfies Record<EmbedOnly, string>
 
 	// TODO
@@ -228,7 +238,7 @@ namespace TypeId {
 		features: 'array',
 		options: 'array',
 		rows: 'array',
-		variants: 'dictionary',
+		variants: 'dictionary'
 	} as const satisfies Record<
 		EmbeddedPropertyKey<EmbedOnly>,
 		'array' | 'dictionary'
@@ -274,7 +284,7 @@ namespace TypeId {
 		'feature',
 		'danger',
 		'denizen',
-		'variant',
+		'variant'
 	] as const satisfies [...typeof Primary, ...typeof EmbedOnly]
 	// | EmbeddedTypePath | EmbedOfEmbedTypePaths
 
@@ -294,7 +304,7 @@ namespace TypeId {
 		truth: 'truths',
 		delve_site_domain: 'site_domains',
 		delve_site_theme: 'site_themes',
-		rarity: 'rarities',
+		rarity: 'rarities'
 	} as const satisfies Record<Primary, keyof Datasworn.RulesPackage>
 
 	export type BranchKey<T extends Primary = Primary> = (typeof BranchKey)[T]
@@ -326,7 +336,7 @@ namespace TypeId {
 
 		try {
 			return getBranchKey(typeId as any)
-		} catch (e) {
+		} catch (_e) {
 			throw new Error(`Expected embeddable TypeId but got ${typeId}`)
 		}
 	}

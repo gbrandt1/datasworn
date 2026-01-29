@@ -1,10 +1,9 @@
 import { TypeCompiler } from '@sinclair/typebox/compiler'
+import * as Metadata from '../../schema/common/Metadata.js'
+import * as Text from '../../schema/common/Text.js'
 import * as Generic from '../../schema/Generic.js'
 import { Dictionary } from '../../schema/Generic.js'
 import * as Utils from '../../schema/Utils.js'
-
-import * as Text from '../../schema/common/Text.js'
-import * as Metadata from '../../schema/common/Metadata.js'
 
 /** Type validators */
 namespace Assert {
@@ -13,7 +12,7 @@ namespace Assert {
 	const sourcedNodeValidatorSchema = Utils.OmitOptional(
 		Generic.SourcedNodeBase,
 		{
-			additionalProperties: true,
+			additionalProperties: true
 		}
 	)
 

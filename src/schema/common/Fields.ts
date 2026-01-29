@@ -1,21 +1,19 @@
 import {
-	Type,
 	type ObjectOptions,
 	type Static,
 	type TLiteral,
 	type TObject,
 	type TRefUnsafe,
-	type TSchema
+	type TSchema,
+	Type
 } from '@sinclair/typebox'
-import { Mapping, Members } from '../Symbols.js'
-import type { TMoveEnhancement } from 'schema/moves/MoveEnhancement.js'
+import { mapValues } from 'lodash-es'
+import { Mapping } from '../Symbols.js'
 import * as Utils from '../Utils.js'
-import type { TAssetEnhancement } from '../assets/Enhancement.js'
+import { Assign } from '../utils/FlatIntersect.js'
 import * as Base from './Inputs.js'
 import * as Metadata from './Metadata.js'
 import { RollableValue } from './RollableValues.js'
-import { mapValues } from 'lodash-es'
-import { Assign } from '../utils/FlatIntersect.js'
 
 export const EnhanceableProperties = Symbol('EnhanceableProperties')
 

@@ -2,7 +2,6 @@ import type { DictKey, ExpansionId, RulesetId } from './Datasworn.js'
 import type { CONST, TypeId } from './IdElements/index.js'
 import type * as PathKeys from './IdElements/PathKeys.js'
 import type { TupleOfLength } from './Utils/Array.js'
-import type { AnyCollectionKeys } from './Utils/Id.js'
 import type { Join, Split } from './Utils/String.js'
 
 export type RulesPackageId = RulesetId | ExpansionId
@@ -73,11 +72,8 @@ export type Collection<
 	Key extends string = string
 > = PrimaryBase<TypeId, RulesPackage, [...CollectionAncestorKeys, Key]>
 
-export type ExtractCollectionType<T extends Collection> = T extends Collection<
-	infer U extends TypeId.Collection
->
-	? U
-	: never
+export type ExtractCollectionType<T extends Collection> =
+	T extends Collection<infer U extends TypeId.Collection> ? U : never
 export type ExtractCollectableType<T extends Collectable> =
 	T extends Collectable<infer U extends TypeId.Collectable> ? U : never
 export type ExtractNonCollectableType<T extends NonCollectable> =
@@ -106,14 +102,15 @@ export type ExtractCollectableKey<T extends Collectable> =
 		? U
 		: never
 
-export type ExtractCollectionKey<T extends Collection> = T extends Collection<
-	TypeId.Collection,
-	string,
-	PathKeys.CollectionAncestorKeys,
-	infer U extends string
->
-	? U
-	: never
+export type ExtractCollectionKey<T extends Collection> =
+	T extends Collection<
+		TypeId.Collection,
+		string,
+		PathKeys.CollectionAncestorKeys,
+		infer U extends string
+	>
+		? U
+		: never
 
 export type ExtractCollectionAncestorsKeys<T extends Collection> =
 	T extends Collection<

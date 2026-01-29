@@ -1,10 +1,9 @@
-import { Type, type Static } from '@sinclair/typebox'
-import * as Generic from './Generic.js'
-import { Namespace } from './Symbols.js'
-
-import * as Text from './common/Text.js'
+import { type Static, Type } from '@sinclair/typebox'
 import * as Progress from './common/Progress.js'
+import * as Text from './common/Text.js'
+import * as Generic from './Generic.js'
 import { EmbedOnlyNode } from './generic/EmbedOnlyNode.js'
+import { Namespace } from './Symbols.js'
 import { FlatIntersect } from './utils/FlatIntersect.js'
 
 const ns = 'Npcs'

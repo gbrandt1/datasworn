@@ -1,10 +1,7 @@
-import { Type, type Static } from '@sinclair/typebox'
-
-import Defs from './Defs.js'
-import { RootObject, SourceRootObject } from './root/Root.js'
-import { RulesPackage, Version } from './RulesPackages.js'
-
+import { type Static, Type } from '@sinclair/typebox'
+import * as CONST from '../scripts/const.js'
 import { RulesetId } from './common/Id.js'
+import Defs from './Defs.js'
 import {
 	Asset,
 	DelveSite,
@@ -15,8 +12,9 @@ import {
 	OracleRollable,
 	Rarity
 } from './index.js'
+import { RulesPackage, Version } from './RulesPackages.js'
+import { RootObject, SourceRootObject } from './root/Root.js'
 import * as Utils from './Utils.js'
-import * as CONST from '../scripts/const.js'
 
 const RootObjectMixin = Type.Object(
 	{

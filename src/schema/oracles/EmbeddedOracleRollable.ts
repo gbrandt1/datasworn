@@ -1,10 +1,10 @@
 import type { Static } from '@sinclair/typebox'
-import { OracleRollable } from './OracleRollable.js'
+import { mapValues } from 'lodash-es'
+import { Mapping } from '../Symbols.js'
 import { DiscriminatedUnion } from '../Utils.js'
 import { EmbeddedPrimaryNode } from '../utils/EmbeddedNode.js'
-import { Mapping } from '../Symbols.js'
-import { mapValues } from 'lodash-es'
 import { pascalCase } from '../utils/string.js'
+import { OracleRollable } from './OracleRollable.js'
 
 const oracleRollableMapping = mapValues(OracleRollable[Mapping], (schema, k) =>
 	EmbeddedPrimaryNode(schema, [], { $id: `EmbeddedOracle${pascalCase(k)}` })

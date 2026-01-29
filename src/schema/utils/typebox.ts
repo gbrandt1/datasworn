@@ -1,8 +1,6 @@
 /** Utilities for manipulating TypeBox schemata. */
 import {
-	Type,
 	CloneType,
-	TypeGuard,
 	type ObjectOptions,
 	type Static,
 	type TInteger,
@@ -16,14 +14,16 @@ import {
 	type TRef,
 	type TRefUnsafe,
 	type TSchema,
-	type TString
+	type TString,
+	Type,
+	TypeGuard
 } from '@sinclair/typebox'
 import { isEmpty, isUndefined } from 'lodash-es'
+import JtdType from '../../scripts/json-typedef/typedef.js'
 import { JsonTypeDef } from '../Symbols.js'
-import type { TUnionEnum } from './UnionEnum.js'
 import type { TDiscriminatedUnion } from './DiscriminatedUnion.js'
 import type { TNullable } from './Nullable.js'
-import JtdType from '../../scripts/json-typedef/typedef.js'
+import type { TUnionEnum } from './UnionEnum.js'
 
 export type ExtractKeysOfValueType<ObjectType, ValueType> = {
 	[P in keyof ObjectType]: ObjectType[P] extends ValueType ? P : never

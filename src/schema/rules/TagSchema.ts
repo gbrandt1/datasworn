@@ -1,10 +1,9 @@
-import { Type, type TRef, type TSchema } from '@sinclair/typebox'
-import { DictKey } from '../common/Id.js'
-import { $schema, DefsKey } from '../../scripts/const.js'
+import { type TSchema, Type } from '@sinclair/typebox'
 import type { JSONSchema7 } from 'json-schema'
-import { Documentation } from '../common/Text.js'
-import { JsonTypeDef, Typescript } from '../Symbols.js'
+import { $schema } from '../../scripts/const.js'
 import JtdType from '../../scripts/json-typedef/typedef.js'
+import { DictKey } from '../common/Id.js'
+import { JsonTypeDef, Typescript } from '../Symbols.js'
 
 const validSchemaTypes = [
 	'boolean',
@@ -76,10 +75,9 @@ const TagSchemaDataswornRef = Type.Object(
 	{ title: 'TagSchemaDataswornRef', additionalProperties: true }
 )
 
-
 // future additions - nested objects?
 
-const schemaKeyBlacklist = [
+const _schemaKeyBlacklist = [
 	'$id',
 	'$defs',
 	'$schema',
@@ -116,7 +114,6 @@ const TagSchemaArray = Type.Object(
 	},
 	{ title: 'TagSchemaArray', additionalProperties: true }
 )
-
 
 export const TagSchema = Type.Intersect(
 	[

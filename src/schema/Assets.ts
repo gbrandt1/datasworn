@@ -1,13 +1,10 @@
-import { Type, type Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
+import { AssetPropertiesEnhanceable } from './assets/common.js'
+import { Label, MarkdownString } from './common/Text.js'
 import { CollectableNode } from './generic/CollectableNode.js'
 import { CollectionNode } from './generic/CollectionNode.js'
 import { Dictionary } from './generic/Dictionary.js'
-import { Label, MarkdownString } from './common/Text.js'
 import { FlatIntersect } from './utils/FlatIntersect.js'
-
-import { AssetPropertiesEnhanceable } from './assets/common.js'
-import type { TAssetAbility } from './assets/Ability.js'
-import type { TAssetControlField, TAssetOptionField } from './assets/Fields.js'
 
 const AssetMixin = Type.Object({
 	category: Type.Ref(Label, {
@@ -43,9 +40,7 @@ const AssetMixin = Type.Object({
 export const Asset = CollectableNode(
 	FlatIntersect([
 		AssetMixin,
-		AssetPropertiesEnhanceable(
-			Type.Ref('AssetControlField')
-		)
+		AssetPropertiesEnhanceable(Type.Ref('AssetControlField'))
 	]),
 	'asset'
 )

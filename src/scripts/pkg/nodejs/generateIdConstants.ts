@@ -16,9 +16,7 @@ import type { Datasworn } from '../../../pkg-core/index.js'
 type IdConstantObject = { [key: string]: string | IdConstantObject }
 
 /** Extract IDs from a move category */
-function extractMoveIds(
-	category: Datasworn.MoveCategory
-): IdConstantObject {
+function extractMoveIds(category: Datasworn.MoveCategory): IdConstantObject {
 	const result: IdConstantObject = {}
 
 	if (category.contents) {
@@ -51,7 +49,9 @@ function extractOracleIds(
 	// Handle collections property (alternative structure)
 	if ('collections' in collection && collection.collections) {
 		for (const [key, subcollection] of Object.entries(collection.collections)) {
-			result[key] = extractOracleIds(subcollection as Datasworn.OracleCollection)
+			result[key] = extractOracleIds(
+				subcollection as Datasworn.OracleCollection
+			)
 		}
 	}
 

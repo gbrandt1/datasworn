@@ -1,33 +1,30 @@
 import {
 	CloneType,
 	type SchemaOptions,
-	type TSchema,
 	type TArray,
 	type TBoolean,
 	type TInteger,
 	type TIntersect,
 	type TLiteral,
+	type TNot,
 	type TNull,
 	type TNumber,
 	type TObject,
 	type TRecord,
 	type TRef,
+	type TRegExp,
+	type TSchema,
 	type TString,
 	type TTuple,
-	type TUnion,
-	type TRegExp,
-	type TNot
+	type TUnion
 } from '@sinclair/typebox'
-import type { TUnionEnum } from '../utils/UnionEnum.js'
-import type { TUnionOneOf } from '../utils/UnionOneOf.js'
+import type { TNullable } from '../Utils.js'
 import type {
 	TDiscriminatedUnion,
 	TDiscriminatorMap
 } from '../utils/DiscriminatedUnion.js'
-import type { TNullable } from '../Utils.js'
-import { omitBy } from 'lodash-es'
-
-
+import type { TUnionEnum } from '../utils/UnionEnum.js'
+import type { TUnionOneOf } from '../utils/UnionOneOf.js'
 
 export const SchemaKind = [
 	'Array',
@@ -51,7 +48,6 @@ export const SchemaKind = [
 	'DiscriminatedUnion',
 	'Nullable'
 ] as const
-
 
 interface SchemaKindMap extends Record<SchemaKind, TSchema> {
 	Array: TArray

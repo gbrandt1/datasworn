@@ -1,8 +1,6 @@
 import {
 	Hint,
-	Kind,
 	KindGuard,
-	type TAny,
 	type TAnySchema,
 	type TArray,
 	type TBoolean,
@@ -20,19 +18,11 @@ import {
 	Type,
 	TypeGuard
 } from '@sinclair/typebox'
+import type { JTDSchemaType } from 'ajv/dist/core.js'
 import type * as JTD from 'jtd'
-
-import JtdType, {
-	type Metadata,
-	type TFields,
-	type TStruct,
-} from './typedef.js'
-
-import { type JTDSchemaType, SomeJTDSchemaType } from 'ajv/dist/core.js'
 import {
 	cloneDeep,
 	isInteger,
-	isNumber,
 	isString,
 	isUndefined,
 	mapValues,
@@ -40,23 +30,19 @@ import {
 	omit,
 	omitBy,
 	pick,
-	pickBy,
-	isEqual,
-	set,
-	isNull,
+	set
 } from 'lodash-es'
 import * as Generic from '../../schema/Generic.js'
-import * as Utils from '../../schema/Utils.js'
 import type { TRoot } from '../../schema/root/Root.js'
-import Log from '../utils/Log.js'
-import {
-	Discriminator,
-	JsonTypeDef,
-	Mapping,
-	Members,
-} from '../../schema/Symbols.js'
-import * as Assets from '../../schema/Assets.js'
+import { Discriminator, JsonTypeDef, Mapping } from '../../schema/Symbols.js'
+import * as Utils from '../../schema/Utils.js'
 import { DefsKey, rootSchemaName } from '../const.js'
+import Log from '../utils/Log.js'
+import JtdType, {
+	type Metadata,
+	type TFields,
+	type TStruct
+} from './typedef.js'
 
 /** Extract metadata from a JSON schema for use in a JTD schema's `metadata` property */
 export function extractMetadata<T extends TAnySchema>(jsonSchema: T) {
@@ -76,7 +62,7 @@ export function extractMetadata<T extends TAnySchema>(jsonSchema: T) {
 		// array
 		'uniqueItems',
 		'minItems',
-		'maxItems',
+		'maxItems'
 	]
 
 	let metadata = pick(cloneDeep(jsonSchema), ...metadataKeys) as Metadata
@@ -84,12 +70,12 @@ export function extractMetadata<T extends TAnySchema>(jsonSchema: T) {
 	if (jsonSchema[JsonTypeDef]?.metadata)
 		metadata = merge(metadata, omit(jsonSchema[JsonTypeDef].metadata))
 
-	// @ts-ignore
+	// @ts-expect-error
 	if (jsonSchema[Utils.EnumDescription]) {
 		// console.log(jsonSchema)
-		// @ts-ignore
+		// @ts-expect-error
 		metadata.enumDescription = jsonSchema[Utils.EnumDescription]
-		// @ts-ignore
+		// @ts-expect-error
 		metadata.description = jsonSchema[Utils.Description]
 	}
 
@@ -103,9 +89,8 @@ export function setIdRef<T extends { _id: string }, R extends string>(
 	ref: R
 ) {
 	type NewRef = { [P in R]: string }
-	type RefRecord = typeof schema extends JTDSchemaType<T, infer U>
-		? U & NewRef
-		: NewRef
+	type RefRecord =
+		typeof schema extends JTDSchemaType<T, infer U> ? U & NewRef : NewRef
 	return set(schema, 'properties._id.ref', ref) as unknown as JTDSchemaType<
 		T & { _id: R },
 		RefRecord
@@ -114,7 +99,7 @@ export function setIdRef<T extends { _id: string }, R extends string>(
 
 export function toJtdEnum<
 	U extends string[] | number[],
-	T extends Utils.TUnionEnum<U>,
+	T extends Utils.TUnionEnum<U>
 >(schema: T) {
 	if (schema.enum.every(isString)) return JtdType.Enum(schema.enum)
 	if (schema.enum.every(isInteger)) return JtdType.Uint8()
@@ -188,7 +173,7 @@ export function toJtdSingleEnum(schema: TLiteral<string>) {
 
 export function toJtdDiscriminator<
 	M extends Utils.TDiscriminatorMap<Utils.TDiscriminableish>,
-	D extends string,
+	D extends string
 >(schema: Utils.TDiscriminatedUnion<M, D>) {
 	const discriminator = schema[Discriminator] as string
 
@@ -199,11 +184,11 @@ export function toJtdDiscriminator<
 	const jtdMapping: Record<string, TStruct<TFields>> = {}
 
 	for (const k in oldMapping)
-		if (Object.prototype.hasOwnProperty.call(oldMapping, k)) {
+		if (Object.hasOwn(oldMapping, k)) {
 			const subschema = oldMapping[k] as TObject
 			jtdMapping[k] = {
 				...omit(toJtdProperties(subschema), `properties.${discriminator}`),
-				metadata: extractMetadata(subschema as TAnySchema),
+				metadata: extractMetadata(subschema as TAnySchema)
 			} as unknown as TStruct<TFields>
 		}
 
@@ -230,7 +215,6 @@ type TConvertible =
 	| TNumber
 	| Utils.TUnionEnum
 	| TArray
-
 
 function toJtdForm(
 	schema: TConvertible | Utils.TNullable<TConvertible> | TOptional<TConvertible>
@@ -292,14 +276,19 @@ function toJtdForm(schema: TSchema): JTD.Schema | null {
 			result = toJtdProperties(schema as TObject)
 			break
 		case Utils.TDiscriminatedUnion(schema):
-			result = toJtdDiscriminator(schema as Utils.TDiscriminatedUnion) as JTD.Schema
+			result = toJtdDiscriminator(
+				schema as Utils.TDiscriminatedUnion
+			) as JTD.Schema
 			break
 		case KindGuard.IsUnion(schema) && schema[Hint] === 'Enum':
 			result = JtdType.Enum(
 				(schema.anyOf as TLiteral[]).map((item) => item.const as string),
 				{
 					enumDescription: Object.fromEntries(
-						(schema.anyOf as TLiteral[]).map((item) => [item.const, item.description ?? ''])
+						(schema.anyOf as TLiteral[]).map((item) => [
+							item.const,
+							item.description ?? ''
+						])
 					) as Record<string, string>
 				}
 			)
@@ -327,12 +316,11 @@ export function toJtdRoot<T extends TRoot>(schemaRoot: T) {
 	for (const k in schemaRoot[DefsKey]) {
 		if (k === rootSchemaName) continue
 		try {
-
 			defs[k] = toJtdForm(schemaRoot[DefsKey][k] as TConvertible)
 		} catch (err: any) {
-      console.log(`${k}:`, schemaRoot[DefsKey][k])
+			console.log(`${k}:`, schemaRoot[DefsKey][k])
 
-						throw new Error(`Couldn't convert ${k}. ${err?.message ?? err}`)
+			throw new Error(`Couldn't convert ${k}. ${err?.message ?? err}`)
 		}
 	}
 	// HACK: not sure why this is getting omitted, there's a few places it could happen and i havent tracked it down yet
@@ -361,7 +349,7 @@ export function toJtdRoot<T extends TRoot>(schemaRoot: T) {
 			// }
 
 			return false
-		}),
+		})
 	}
 }
 

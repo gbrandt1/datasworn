@@ -58,7 +58,9 @@ export function isAsset(item: unknown): item is Datasworn.Asset {
 }
 
 /** Type guard for OracleRollable */
-export function isOracleRollable(item: unknown): item is Datasworn.OracleRollable {
+export function isOracleRollable(
+	item: unknown
+): item is Datasworn.OracleRollable {
 	return hasType(item, 'oracle_rollable')
 }
 
@@ -96,11 +98,15 @@ export function isDelveSite(item: unknown): item is Datasworn.DelveSite {
 }
 
 /** Type guard for DelveSiteTheme */
-export function isDelveSiteTheme(item: unknown): item is Datasworn.DelveSiteTheme {
+export function isDelveSiteTheme(
+	item: unknown
+): item is Datasworn.DelveSiteTheme {
 	return hasType(item, 'delve_site_theme')
 }
 
 /** Type guard for DelveSiteDomain */
-export function isDelveSiteDomain(item: unknown): item is Datasworn.DelveSiteDomain {
+export function isDelveSiteDomain(
+	item: unknown
+): item is Datasworn.DelveSiteDomain {
 	return hasType(item, 'delve_site_domain')
 }

@@ -1,4 +1,4 @@
-import { Type, type TObject, type TOmit } from '@sinclair/typebox'
+import { type TObject, type TOmit, Type } from '@sinclair/typebox'
 import { IdKey, SourceInfoKey } from '../../scripts/const.js'
 
 const MetaKeys = [

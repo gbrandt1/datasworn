@@ -1,4 +1,4 @@
-import { state, type RollHistoryEntry } from '../state'
+import { type RollHistoryEntry, state } from '../state'
 import { escapeHtml } from '../utils/html'
 
 export function createRollHistoryPanel(container: HTMLElement): void {
@@ -15,8 +15,12 @@ export function createRollHistoryPanel(container: HTMLElement): void {
 	container.appendChild(panel)
 
 	const content = panel.querySelector('.roll-history-content') as HTMLElement
-	const clearBtn = panel.querySelector('.roll-history-clear') as HTMLButtonElement
-	const toggleBtn = panel.querySelector('.roll-history-toggle') as HTMLButtonElement
+	const clearBtn = panel.querySelector(
+		'.roll-history-clear'
+	) as HTMLButtonElement
+	const toggleBtn = panel.querySelector(
+		'.roll-history-toggle'
+	) as HTMLButtonElement
 
 	// Toggle panel collapse
 	let collapsed = localStorage.getItem('rollHistoryCollapsed') === 'true'
@@ -50,8 +54,13 @@ function renderRollHistory(history: RollHistoryEntry[]): string {
 
 	let html = ''
 	for (const entry of history) {
-		const time = entry.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-		const oracleName = entry.oracleName ? escapeHtml(entry.oracleName) : 'Oracle'
+		const time = entry.timestamp.toLocaleTimeString([], {
+			hour: '2-digit',
+			minute: '2-digit'
+		})
+		const oracleName = entry.oracleName
+			? escapeHtml(entry.oracleName)
+			: 'Oracle'
 
 		html += `
 			<div class="roll-history-entry">

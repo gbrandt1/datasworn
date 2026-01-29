@@ -1,10 +1,10 @@
 import {
-	Kind,
-	type TNull,
 	CloneType,
+	Kind,
 	type SchemaOptions,
 	type TArray,
 	type TIntersect,
+	type TNull,
 	type TObject,
 	type TRecord,
 	type TSchema,
@@ -20,10 +20,10 @@ import {
 } from '../utils/Computed.js'
 import type { TDiscriminatedUnion } from '../utils/DiscriminatedUnion.js'
 import { SetOptional } from '../utils/SetOptional.js'
-import type { TUnionOneOf } from '../utils/UnionOneOf.js'
 import { keysWithDefaults } from '../utils/typebox.js'
+import type { TUnionOneOf } from '../utils/UnionOneOf.js'
 import { NiceSchema } from './NiceSchema.js'
-import { SchemaTransforms, type SchemaKind } from './SchemaTransform.js'
+import { type SchemaKind, SchemaTransforms } from './SchemaTransform.js'
 
 /**
  * Transform a schema into the more lenient format used for Datasworn source data.

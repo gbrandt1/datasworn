@@ -1,4 +1,4 @@
-import { Type, type Static } from '@sinclair/typebox'
+import { type Static, Type } from '@sinclair/typebox'
 import { Meter } from '../common/Inputs.js'
 import { MarkdownString } from '../common/Text.js'
 import { Assign } from '../utils/FlatIntersect.js'

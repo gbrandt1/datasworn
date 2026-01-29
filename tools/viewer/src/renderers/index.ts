@@ -2,12 +2,22 @@
  * Renderer module exports
  */
 
-export { renderMove } from './MoveRenderer'
 export { renderAsset } from './AssetRenderer'
-export { renderOracle, renderEmbeddedOracle, renderOracleColumns, ROLL_DATA_ATTR, encodeRollInfo } from './OracleRenderer'
-export { renderNpc } from './NpcRenderer'
 export { renderAtlasEntry } from './AtlasRenderer'
-export { renderTruth } from './TruthRenderer'
 export { renderCollection } from './CollectionRenderer'
+export {
+	renderDelveSite,
+	renderDelveSiteDomain,
+	renderDelveSiteTheme
+} from './DelveRenderer'
 export { renderGeneric } from './GenericRenderer'
-export { renderDelveSite, renderDelveSiteTheme, renderDelveSiteDomain } from './DelveRenderer'
+export { renderMove } from './MoveRenderer'
+export { renderNpc } from './NpcRenderer'
+export {
+	encodeRollInfo,
+	ROLL_DATA_ATTR,
+	renderEmbeddedOracle,
+	renderOracle,
+	renderOracleColumns
+} from './OracleRenderer'
+export { renderTruth } from './TruthRenderer'

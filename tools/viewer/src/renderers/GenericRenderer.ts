@@ -2,8 +2,8 @@
  * Generic/fallback rendering for unknown item types
  */
 
-import { escapeHtml } from '../utils/html'
 import { formatLabel } from '../utils/formatting'
+import { escapeHtml } from '../utils/html'
 import { renderMarkdown } from '../utils/markdown'
 
 /** Render a generic item (fallback for unknown types) */
@@ -74,7 +74,10 @@ function renderChildItems(obj: Record<string, unknown>): string {
 }
 
 /** Get display name for an item */
-function getItemName(item: Record<string, unknown>, fallbackKey: string): string {
+function getItemName(
+	item: Record<string, unknown>,
+	fallbackKey: string
+): string {
 	if (typeof item.name === 'string') return item.name
 	if (typeof item.label === 'string') return item.label
 	if (typeof item._id === 'string') return item._id

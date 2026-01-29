@@ -20,7 +20,7 @@ export type Head<T extends any[]> = T extends [...infer Head, LastElementOf<T>]
 
 export type LastElementOf<T extends unknown[]> = T extends [
 	...unknown[],
-	infer Last,
+	infer Last
 ]
 	? Last
 	: never
@@ -45,7 +45,7 @@ export type TupleOfLength<Length extends number, T> = T[] & { length: Length }
 
 export type OmitItemsOfType<T extends any[], O> = T extends [
 	infer Head,
-	...infer Tail extends any[],
+	...infer Tail extends any[]
 ]
 	? [...(Head extends O ? [] : [Head]), ...OmitItemsOfType<Tail, O>]
 	: []

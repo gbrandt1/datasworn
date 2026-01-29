@@ -90,7 +90,7 @@ function createKeyRenamersForType(typeId: TypeId.Primary) {
 
 				renamers.push({
 					oldId: RegExp(
-						`^${pkgId}/${oldType}/${oldKey}((?:\\/[a-z_\*\\d]+){${minLeadingKeys},${maxLeadingKeys}})$`
+						`^${pkgId}/${oldType}/${oldKey}((?:\\/[a-z_*\\d]+){${minLeadingKeys},${maxLeadingKeys}})$`
 					),
 					newId: `${typeId}${CONST.PrefixSep}${pkgId}${CONST.PathKeySep}${newKey}$1`
 				})
@@ -103,7 +103,9 @@ function createKeyRenamersForType(typeId: TypeId.Primary) {
 
 		// generate renames for Collectable descendents of renamed collections
 		if (collectionTypeId != null && collectionTypeId in pkgRenames) {
-			const collectionTypeRenames = (pkgRenames as Record<string, Record<string, string>>)[collectionTypeId]
+			const collectionTypeRenames = (
+				pkgRenames as Record<string, Record<string, string>>
+			)[collectionTypeId]
 
 			for (const newKey in collectionTypeRenames) {
 				const oldKey = collectionTypeRenames[newKey]
@@ -178,14 +180,12 @@ function getPathKeyCount(typeId: TypeId.Any): { min: number; max: number } {
 	return { min, max }
 }
 
-function getAncestorKeyCount(typeId: TypeId.Any) {
+function _getAncestorKeyCount(typeId: TypeId.Any) {
 	let { min, max } = getPathKeyCount(typeId)
 	min--
 	max--
 	return { min, max }
 }
-
-
 
 function createIdMappers(typeId: TypeId.Primary) {
 	const oldType = legacyTypeMap[typeId] as string
@@ -250,7 +250,7 @@ export type IdReplacementMap = Record<
  * Provides an array of {@link IdReplacer} objects for each Datasworn ID type.
  */
 
-const f = []
+const _f = []
 
 function simpleReplacer(oldId: string, newId: string | null): IdReplacer {
 	return { oldId: new RegExp(`^${escapeRegExp(oldId)}$`), newId }
@@ -406,10 +406,10 @@ for (const typeId in legacyTypeMap) {
 	const mappers = createIdMappers(typeId as TypeId.Primary)
 	;(idReplacers as Record<string, IdReplacer[]>)[typeId] ||= []
 	;(idReplacers as Record<string, IdReplacer[]>)[typeId].push(...mappers)
-		for (const { oldId, newId } of mappers) {
-			if (newId?.includes('starforged')) continue
-			genericIdReplacers.set(oldId, newId)
-		}
+	for (const { oldId, newId } of mappers) {
+		if (newId?.includes('starforged')) continue
+		genericIdReplacers.set(oldId, newId)
+	}
 }
 
 console.log(genericIdReplacers)

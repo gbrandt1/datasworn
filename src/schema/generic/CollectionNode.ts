@@ -1,30 +1,26 @@
 import {
-	Type,
 	type ObjectOptions,
 	type Static,
 	type TObject,
 	type TRef,
 	type TRefUnsafe,
 	type TSchema,
-	type TUnion
+	type TUnion,
+	Type
 } from '@sinclair/typebox'
-import {
-	EnhancesKey,
-	ContentsKey,
-	CollectionsKey
-} from '../../scripts/const.js'
+import type { SetRequired } from 'type-fest'
 import TypeId from '../../pkg-core/IdElements/TypeId.js'
+import {
+	CollectionsKey,
+	ContentsKey,
+	EnhancesKey
+} from '../../scripts/const.js'
 import * as Text from '../common/Text.js'
-import { Assign, FlatIntersect, type TAssign } from '../utils/FlatIntersect.js'
+import { setSourceOptional } from '../Utils.js'
+import { Assign } from '../utils/FlatIntersect.js'
 import { pascalCase } from '../utils/string.js'
 import { Dictionary, type TDictionary } from './Dictionary.js'
-import {
-	PrimarySubtypeNode,
-	PrimaryTypeNode,
-	type TPrimaryTypeNode
-} from './PrimaryTypeNode.js'
-import type { SetRequired } from 'type-fest'
-import { setSourceOptional } from '../Utils.js'
+import { PrimarySubtypeNode, PrimaryTypeNode } from './PrimaryTypeNode.js'
 
 export const CollectionBrand = Symbol('Collection')
 
@@ -58,11 +54,9 @@ export function getCollectionNodeMetadata(
 		)
 	}
 
-	if (contentChild != null)
-		props[ContentsKey] = contentChild
+	if (contentChild != null) props[ContentsKey] = contentChild
 
-	if (collectionChild != null)
-		props[CollectionsKey] = collectionChild
+	if (collectionChild != null) props[CollectionsKey] = collectionChild
 
 	return Type.Object(props)
 }
@@ -74,10 +68,10 @@ export function CollectionNode<
 	const collectableTypeId = TypeId.getCollectableOf(type)
 	const collectableSchemaRef = Type.Ref(pascalCase(collectableTypeId))
 	const thisSchemaId = pascalCase(type)
-	const thisIdSchemaId = thisSchemaId + 'Id'
+	const thisIdSchemaId = `${thisSchemaId}Id`
 
-	const thisWildcardIdRef = Type.Ref(thisIdSchemaId + 'Wildcard')
-	const thisIdRef = Type.Ref(thisIdSchemaId)
+	const thisWildcardIdRef = Type.Ref(`${thisIdSchemaId}Wildcard`)
+	const _thisIdRef = Type.Ref(thisIdSchemaId)
 	const thisSchemaRef = Type.Ref(thisSchemaId)
 
 	// Use explicit TObject casts to avoid deep type instantiation
@@ -86,7 +80,10 @@ export function CollectionNode<
 		setSourceOptional(Dictionary(collectableSchemaRef)),
 		setSourceOptional(Dictionary(thisSchemaRef))
 	)
-	const enhancedBase: TObject = Assign(metadata as TObject, base as TObject) as TObject
+	const enhancedBase: TObject = Assign(
+		metadata as TObject,
+		base as TObject
+	) as TObject
 
 	return PrimaryTypeNode(enhancedBase, type, {
 		...options,
@@ -129,13 +126,20 @@ export function CollectionSubtypeNode<
 	options: SetRequired<ObjectOptions, '$id'>
 ) {
 	const baseSchemaName = pascalCase(type)
-	const thisSchemaName = baseSchemaName + pascalCase(subtype)
+	const _thisSchemaName = baseSchemaName + pascalCase(subtype)
 
-	const thisIdWildcardRef = Type.Ref(baseSchemaName + 'IdWildcard')
+	const thisIdWildcardRef = Type.Ref(`${baseSchemaName}IdWildcard`)
 
 	// Use explicit TObject casts to avoid deep type instantiation
-	const metadata = getCollectionNodeMetadata(thisIdWildcardRef, contents, collections)
-	const enhancedBase: TObject = Assign(metadata as TObject, base as TObject) as TObject
+	const metadata = getCollectionNodeMetadata(
+		thisIdWildcardRef,
+		contents,
+		collections
+	)
+	const enhancedBase: TObject = Assign(
+		metadata as TObject,
+		base as TObject
+	) as TObject
 
 	return PrimarySubtypeNode(enhancedBase, type, subtypeKey, subtype, options)
 }

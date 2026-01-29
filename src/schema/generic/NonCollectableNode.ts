@@ -1,12 +1,8 @@
-import {
-	type ObjectOptions,
-	type TObject
-} from '@sinclair/typebox'
+import type { ObjectOptions, TObject } from '@sinclair/typebox'
 import type TypeId from '../../pkg-core/IdElements/TypeId.js'
-import { PrimaryTypeNode, type TPrimaryTypeNode } from './PrimaryTypeNode.js'
-import { SourcedNode } from './SourcedNode.js'
-import { pascalCase } from '../utils/string.js'
 import { setSourceDataSchema } from '../Utils.js'
+import { pascalCase } from '../utils/string.js'
+import { PrimaryTypeNode } from './PrimaryTypeNode.js'
 
 export const NonCollectableBrand = Symbol('NonCollectable')
 
@@ -30,7 +26,11 @@ export function NonCollectableNode<
 export type TNonCollectableNode<
 	TBase extends TObject = TObject,
 	TType extends TypeId.NonCollectable = TypeId.NonCollectable
-> = TObject & { [NonCollectableBrand]: 'NonCollectable'; _type: TType; _base: TBase }
+> = TObject & {
+	[NonCollectableBrand]: 'NonCollectable'
+	_type: TType
+	_base: TBase
+}
 
 export type NonCollectableNode<
 	TBase extends object,

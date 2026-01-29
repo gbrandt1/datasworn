@@ -1,23 +1,17 @@
 import {
-	CloneType,
-	Type,
 	type ObjectOptions,
-	type Static,
-	type TArray,
 	type TObject,
-	type TOptional,
 	type TRef,
-	type TString
+	type TString,
+	Type
 } from '@sinclair/typebox'
 import type { SetRequired } from 'type-fest'
 import type TypeId from '../../pkg-core/IdElements/TypeId.js'
-import { Discriminable, type TDiscriminable } from '../Utils.js'
-import { Label } from '../common/Text.js'
-import { CssColor, WebpImageUrl, SvgImageUrl } from '../common/Metadata.js'
-import { Assign, FlatIntersect, type TAssign } from '../utils/FlatIntersect.js'
+import { CssColor, SvgImageUrl, WebpImageUrl } from '../common/Metadata.js'
+import { SourcedNode } from '../generic/SourcedNode.js'
+import { Discriminable } from '../Utils.js'
+import { Assign } from '../utils/FlatIntersect.js'
 import { pascalCase } from '../utils/string.js'
-
-import { SourcedNode, type TSourcedNode } from '../generic/SourcedNode.js'
 
 const replacesDescription =
 	'This node replaces all nodes that match these wildcards. References to the replaced nodes can be considered equivalent to this node.'
@@ -50,9 +44,9 @@ export function PrimaryTypeNode<
 	TBase extends TObject,
 	TType extends TypeId.Primary
 >(base: TBase, type: TType, options: ObjectOptions = {}) {
-	const _id = Type.Ref(pascalCase(type) + 'Id')
+	const _id = Type.Ref(`${pascalCase(type)}Id`)
 
-	const replaces = Type.Ref(pascalCase(type) + 'IdWildcard')
+	const replaces = Type.Ref(`${pascalCase(type)}IdWildcard`)
 
 	// Explicit TObject type to avoid deep type chain
 	const replacesObj = Type.Object({
@@ -114,4 +108,7 @@ export type TPrimarySubtypeNode<
 	TType extends TypeId.Primary = TypeId.Primary,
 	TSubtypeKey extends string = string,
 	TSubtype extends string = string
-> = TPrimaryTypeNode<TBase, TType> & { _subtypeKey: TSubtypeKey; _subtype: TSubtype }
+> = TPrimaryTypeNode<TBase, TType> & {
+	_subtypeKey: TSubtypeKey
+	_subtype: TSubtype
+}

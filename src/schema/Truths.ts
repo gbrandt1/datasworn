@@ -1,9 +1,9 @@
-import { Type, type Static } from '@sinclair/typebox'
-import * as Generic from './Generic.js'
+import { type Static, Type } from '@sinclair/typebox'
 import { DiceRange } from './common/Range.js'
 import { DiceExpression } from './common/Rolls.js'
 import * as Text from './common/Text.js'
 import { EntityPrompt } from './entities/EntityPrompt.js'
+import * as Generic from './Generic.js'
 import { EmbeddedOracleRollable } from './oracles/EmbeddedOracleRollable.js'
 
 export type TruthOption = Static<typeof TruthOption>

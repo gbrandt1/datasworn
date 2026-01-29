@@ -1,30 +1,29 @@
+import { ParseError } from './Errors.js'
 import {
+	COLLECTION_DEPTH_MAX,
+	COLLECTION_DEPTH_MIN,
+	CollectionsKey,
+	ContentsKey,
+	GlobstarString,
 	IdKey,
 	PathKeySep,
-	TypeSep,
-	WildcardString,
 	PrefixSep,
-	COLLECTION_DEPTH_MIN,
-	COLLECTION_DEPTH_MAX,
-	GlobstarString,
-	ContentsKey,
-	CollectionsKey
+	TypeSep,
+	WildcardString
 } from './IdElements/CONST.js'
-import TypeGuard from './IdElements/TypeGuard.js'
-import TypeId from './IdElements/TypeId.js'
-import type * as StringId from './StringId.js'
-import type { ExtractTypeId } from './Utils/Id.js'
-import type { Datasworn, DataswornSource } from './index.js'
-
-import { ParseError } from './Errors.js'
+import { type PathKeys, Pattern } from './IdElements/index.js'
 import type {
 	CollectableAncestorKeys,
 	CollectionAncestorKeys
 } from './IdElements/PathKeys.js'
-import { Pattern, type PathKeys } from './IdElements/index.js'
+import TypeGuard from './IdElements/TypeGuard.js'
+import TypeId from './IdElements/TypeId.js'
+import type { Datasworn, DataswornSource } from './index.js'
+import type * as StringId from './StringId.js'
 import type { Tree } from './Tree.js'
 import type TypeNode from './TypeNode.js'
 import type { DropFirst, Head, LastElementOf } from './Utils/Array.js'
+import type { ExtractTypeId } from './Utils/Id.js'
 import type { Join, Split } from './Utils/String.js'
 
 type DictionaryLike<T> = Record<string, T> | Map<string, T>
@@ -221,7 +220,7 @@ abstract class IdParser<
 
 		try {
 			return this._getUnsafe(tree)
-		} catch (e) {
+		} catch (_e) {
 			return undefined
 		}
 	}
@@ -233,7 +232,7 @@ abstract class IdParser<
 	 * @returns A {@link Map}
 	 */
 	getMatches(
-		tree = IdParser['tree'],
+		tree = IdParser.tree,
 		forEach?: (id: string, node: unknown) => boolean
 	): Map<string, Node> {
 		tree ||= IdParser.tree
@@ -316,7 +315,7 @@ abstract class IdParser<
 
 	get pathRegExp(): RegExp {
 		if (this.#pathRegExp == null)
-			this.#pathRegExp = RegExp('^' + this._getPathRegExpSource() + '$')
+			this.#pathRegExp = RegExp(`^${this._getPathRegExpSource()}$`)
 		return this.#pathRegExp
 	}
 
@@ -343,7 +342,7 @@ abstract class IdParser<
 	/** @internal */
 	_getPathRegExpSource(): string {
 		let pathPattern = ''
-		const keySep = '\\' + PathKeySep
+		const keySep = `\\${PathKeySep}`
 
 		const { min, max } = IdParser._getPathKeyCount(this.primaryTypeId)
 		/** The minimum number of path keys a single globstar ("**") may stand in for */
@@ -485,7 +484,7 @@ abstract class IdParser<
 		id: string
 	): CollectionId | CollectableId | NonCollectableId | EmbeddedId
 	static parse(id: string): IdParser {
-		const { typeIds, pathSegments } = this.#parseOptions(id)
+		const { typeIds, pathSegments } = IdParser.#parseOptions(id)
 		const [primaryTypeId, ...embeddedTypeIds] = typeIds as [
 			TypeId.Primary,
 			...TypeId.Embeddable[]
@@ -625,7 +624,7 @@ abstract class IdParser<
 				`The length of typeIds (${typeIds.length}) and pathSegments (${pathSegments.length}) does't match.`
 			)
 
-		const [primaryTypeId, ...embeddedTypeIds] = typeIds
+		const [primaryTypeId, ..._embeddedTypeIds] = typeIds
 
 		const errors = []
 
@@ -673,7 +672,7 @@ abstract class IdParser<
 		typeIds: [TypeId.Primary, ...string[]],
 		path: string
 	) {
-		const embeddedTypeId = typeIds.at(-1)
+		const _embeddedTypeId = typeIds.at(-1)
 
 		const pathParts = path.split(PathKeySep)
 		for (const part of pathParts)
@@ -768,7 +767,7 @@ abstract class IdParser<
 				`Expected a primary TypeId, but got ${JSON.stringify(typeId)}. Valid TypeIds are: ${JSON.stringify(TypeId.Primary)}`
 			)
 
-		const { min, max } = this._getPathKeyCount(typeId)
+		const { min, max } = IdParser._getPathKeyCount(typeId)
 
 		const [rulesPackageId, ...tail] = path.split(PathKeySep)
 
@@ -864,11 +863,11 @@ abstract class IdParser<
 	): Map<string | number, V> {
 		switch (true) {
 			case Array.isArray(obj):
-				return this.#getMatchesFromArray(obj, matchKey)
+				return IdParser.#getMatchesFromArray(obj, matchKey)
 			case obj instanceof Map:
-				return this.#getMatchesFromMap(obj, matchKey)
+				return IdParser.#getMatchesFromMap(obj, matchKey)
 			case typeof obj === 'object':
-				return this.#getMatchesFromRecord(obj, matchKey.toString())
+				return IdParser.#getMatchesFromRecord(obj, matchKey.toString())
 			default:
 				throw new Error(
 					`Expected an Array, Map, or Record, but got ${String(obj)}`
@@ -1673,7 +1672,7 @@ class CollectionId<
 		// no further traversal needed
 		if (nextPath.length === 0) {
 			// from.type is fine here since collections can't be embedded.
-			const positionId = this.#getPositionId(currentPath, from)
+			const positionId = CollectionId.#getPositionId(currentPath, from)
 
 			if (typeof forEach === 'function') forEach(positionId, from)
 			return matches.set(positionId, from)
@@ -1681,16 +1680,16 @@ class CollectionId<
 
 		if (depth > COLLECTION_DEPTH_MAX) {
 			console.warn(
-				`Exceeded max collection depth (${COLLECTION_DEPTH_MAX}) @ <${this.#getPositionId(currentPath, from)}>`
+				`Exceeded max collection depth (${COLLECTION_DEPTH_MAX}) @ <${CollectionId.#getPositionId(currentPath, from)}>`
 			)
 			return matches
 		}
 
 		const [keyToMatch, ...tailKeys] = nextPath
 
-		const childCollections = (from as unknown as Record<string, unknown>)[CollectionsKey] as
-			| Record<string, T>
-			| Map<string, T>
+		const childCollections = (from as unknown as Record<string, unknown>)[
+			CollectionsKey
+		] as Record<string, T> | Map<string, T>
 
 		if (childCollections == null) return matches
 
@@ -1910,13 +1909,17 @@ class EmbeddedId<
 		return this.#parent
 	}
 
-	override _getUnsafe(tree: (typeof IdParser)['tree']): TypeNode.Embedded<TTypeId> {
+	override _getUnsafe(
+		tree: (typeof IdParser)['tree']
+	): TypeNode.Embedded<TTypeId> {
 		const parentNode = this.#parent.get(tree)
 		const propertyPath = TypeId.getEmbeddedPropertyKey(this.typeId)
 		// Support nested property paths like 'trigger.conditions'
 		const obj = getNestedProperty(parentNode, propertyPath)
 
-		return (obj as Record<string, unknown>)?.[this.pathSegments.at(-1)!] as TypeNode.Embedded<TTypeId>
+		return (obj as Record<string, unknown>)?.[
+			this.pathSegments.at(-1)!
+		] as TypeNode.Embedded<TTypeId>
 	}
 
 	override _getPathRegExpSource(): string {
@@ -1924,7 +1927,7 @@ class EmbeddedId<
 		const [_primaryPathSegment, ...secondaryPathSegments] = this.pathSegments
 
 		for (const segment of secondaryPathSegments) {
-			basePath += '\\' + TypeSep
+			basePath += `\\${TypeSep}`
 			const keys = segment.split(PathKeySep)
 			for (const key of keys) {
 				switch (true) {

@@ -1,27 +1,11 @@
-import { Type, type Static, type TUnsafe } from '@sinclair/typebox'
-import * as Generic from './Generic.js'
-
-import type Id from './common/Id.js'
-import * as Text from './common/Text.js'
-
+import { type Static, Type } from '@sinclair/typebox'
 import { mapValues } from 'lodash-es'
-import { VERSION, rootSchemaName } from '../scripts/const.js'
-import type { TAssetCollection } from './Assets.js'
-import type { TAtlasCollection } from './Atlas.js'
-import type {
-	TDelveSite,
-	TDelveSiteDomain,
-	TDelveSiteTheme
-} from './DelveSites.js'
-import type { TNpcCollection } from './Npcs.js'
-import type { TRarity } from './Rarities.js'
-import * as Rules from './Rules.js'
-import type { TRules } from './Rules.js'
-import type { TTruth } from './Truths.js'
-import * as Utils from './Utils.js'
+import { rootSchemaName, VERSION } from '../scripts/const.js'
 import { SourceInfo } from './common/Metadata.js'
-import type { MoveCategory } from './moves/MoveCategory.js'
-import type { TOracleTablesCollection } from './oracles/OracleCollection.js'
+import * as Text from './common/Text.js'
+import * as Generic from './Generic.js'
+import * as Rules from './Rules.js'
+import * as Utils from './Utils.js'
 import { Assign } from './utils/FlatIntersect.js'
 
 export const Version = Type.Literal(VERSION, {
@@ -41,13 +25,10 @@ const RulesPackageBase = Type.Object({
 		Utils.setSourceOptional(v)
 	),
 	oracles: Utils.setSourceOptional(
-		Generic.Dictionary(
-			Type.Ref('OracleTablesCollection'),
-			{
-				description:
-					'A dictionary object containing oracle collections, which may contain oracle tables and/or oracle collections.'
-			}
-		)
+		Generic.Dictionary(Type.Ref('OracleTablesCollection'), {
+			description:
+				'A dictionary object containing oracle collections, which may contain oracle tables and/or oracle collections.'
+		})
 	),
 	moves: Utils.setSourceOptional(
 		Generic.Dictionary(Type.Ref('MoveCategory'), {

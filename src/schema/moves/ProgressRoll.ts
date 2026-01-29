@@ -1,18 +1,13 @@
 import { type Static, Type } from '@sinclair/typebox'
 import * as Progress from '../common/Progress.js'
+import { Assign } from '../utils/FlatIntersect.js'
 import {
 	Trigger,
 	TriggerCondition,
 	TriggerConditionEnhancement,
 	TriggerEnhancement
 } from './Trigger.js'
-import type {
-	MoveOutcomes,
-	ProgressRollMethod,
-	SpecialTrackRollMethod
-} from './common.js'
 import { Move, MoveEnhancement } from './utils.js'
-import { Assign } from '../utils/FlatIntersect.js'
 
 export const ProgressRollOption = Type.Object(
 	{
@@ -83,9 +78,7 @@ export type TriggerProgressRollConditionEnhancement = Static<
 >
 
 export const TriggerProgressRollEnhancement = TriggerEnhancement(
-	Type.Array(
-		Type.Ref('TriggerProgressRollConditionEnhancement')
-	),
+	Type.Array(Type.Ref('TriggerProgressRollConditionEnhancement')),
 	{
 		$id: 'TriggerProgressRollEnhancement',
 		title: 'TriggerProgressRollEnhancement'
@@ -123,9 +116,7 @@ export type TriggerSpecialTrackConditionOption = Static<
 
 export const TriggerSpecialTrackCondition = TriggerCondition(
 	Type.Ref('SpecialTrackRollMethod'),
-	Type.Array(
-		Type.Ref('TriggerSpecialTrackConditionOption')
-	),
+	Type.Array(Type.Ref('TriggerSpecialTrackConditionOption')),
 	{
 		$id: 'TriggerSpecialTrackCondition',
 		title: 'TriggerSpecialTrackCondition'
@@ -173,9 +164,7 @@ export type TriggerSpecialTrackConditionEnhancement = Static<
 >
 
 export const TriggerSpecialTrackEnhancement = TriggerEnhancement(
-	Type.Array(
-		Type.Ref('TriggerSpecialTrackConditionEnhancement')
-	),
+	Type.Array(Type.Ref('TriggerSpecialTrackConditionEnhancement')),
 	{
 		$id: 'TriggerSpecialTrackEnhancement',
 		title: 'TriggerSpecialTrackEnhancement'

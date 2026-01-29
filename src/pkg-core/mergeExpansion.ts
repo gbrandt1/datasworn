@@ -1,14 +1,14 @@
 import {
-	EnhancesKey,
-	ContentsKey,
 	CollectionsKey,
+	ContentsKey,
+	EnhancesKey,
 	ReplacesKey
 } from './IdElements/CONST.js'
-import type TypeNode from './TypeNode.js'
-import { IdParser } from './index.js'
+import TypeId from './IdElements/TypeId.js'
 // import fs from 'fs-extra'
 import type { Datasworn } from './index.js'
-import TypeId from './IdElements/TypeId.js'
+import { IdParser } from './index.js'
+import type TypeNode from './TypeNode.js'
 
 // const classic = fs.readJSONSync(
 // 	'./pkg/nodejs/@datasworn/ironsworn-classic/json/classic.json'
@@ -96,10 +96,17 @@ function enhanceCollection<T extends TypeNode.Collection>(
 		source[ContentsKey]
 	)
 
-	;(target as unknown as Record<string, unknown>)[CollectionsKey] = applyDictionaryEnhancements(
-		(target as unknown as Record<string, unknown>)[CollectionsKey] as Record<string, T>,
-		(source as unknown as Record<string, unknown>)[CollectionsKey] as Record<string, T>
-	)
+	;(target as unknown as Record<string, unknown>)[CollectionsKey] =
+		applyDictionaryEnhancements(
+			(target as unknown as Record<string, unknown>)[CollectionsKey] as Record<
+				string,
+				T
+			>,
+			(source as unknown as Record<string, unknown>)[CollectionsKey] as Record<
+				string,
+				T
+			>
+		)
 
 	return target
 }
@@ -219,13 +226,21 @@ export function mergeExpansion(
 
 	for (const branchKey of collections) {
 		if (!(branchKey in expansion)) continue
-		const expansionBranch = (expansion as unknown as Record<string, unknown>)[branchKey]
+		const expansionBranch = (expansion as unknown as Record<string, unknown>)[
+			branchKey
+		]
 		if (!(branchKey in ruleset))
 			// @ts-expect-error
 			ruleset[branchKey] = expansionBranch
 		else {
-			const rulesetBranch = (ruleset as unknown as Record<string, unknown>)[branchKey]
-			if (expansionBranch && typeof expansionBranch === 'object' && ReplacesKey in expansionBranch) {
+			const rulesetBranch = (ruleset as unknown as Record<string, unknown>)[
+				branchKey
+			]
+			if (
+				expansionBranch &&
+				typeof expansionBranch === 'object' &&
+				ReplacesKey in expansionBranch
+			) {
 				// @ts-expect-error
 				ruleset[branchKey] = applyDictionaryReplacements(
 					rulesetBranch as Record<string, TypeNode.Collection>,

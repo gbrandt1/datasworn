@@ -2,9 +2,9 @@
  * Tests for Asset rendering functions
  */
 
-import { describe, it, expect } from 'vitest'
-import { renderAsset } from './AssetRenderer'
 import type { Datasworn } from '@datasworn/core'
+import { describe, expect, it } from 'vitest'
+import { renderAsset } from './AssetRenderer'
 
 describe('AssetRenderer', () => {
 	describe('renderAsset', () => {
@@ -15,7 +15,13 @@ describe('AssetRenderer', () => {
 				name: 'Alchemist',
 				category: 'Path',
 				abilities: [],
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Asset
 
 			const html = renderAsset(asset)
@@ -32,7 +38,13 @@ describe('AssetRenderer', () => {
 				name: 'Test Asset',
 				requirement: 'Must have the Alchemist path.',
 				abilities: [],
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Asset
 
 			const html = renderAsset(asset)
@@ -48,10 +60,20 @@ describe('AssetRenderer', () => {
 				name: 'Test Asset',
 				abilities: [
 					{ name: 'First Ability', text: 'Do something cool.', enabled: true },
-					{ name: 'Second Ability', text: 'Do something cooler.', enabled: false },
+					{
+						name: 'Second Ability',
+						text: 'Do something cooler.',
+						enabled: false
+					},
 					{ text: 'Third ability without name.', enabled: false }
 				],
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Asset
 
 			const html = renderAsset(asset)
@@ -75,7 +97,13 @@ describe('AssetRenderer', () => {
 					species: { label: null } // will use formatted key
 				},
 				abilities: [],
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Asset
 
 			const html = renderAsset(asset)
@@ -102,7 +130,13 @@ describe('AssetRenderer', () => {
 						}
 					}
 				},
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Asset
 
 			const html = renderAsset(asset)
@@ -127,7 +161,13 @@ describe('AssetRenderer', () => {
 						supernatural: true
 					}
 				},
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Asset
 
 			const html = renderAsset(asset)
@@ -148,7 +188,13 @@ describe('AssetRenderer', () => {
 						recommended: true
 					}
 				},
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Asset
 
 			const html = renderAsset(asset)
@@ -163,7 +209,13 @@ describe('AssetRenderer', () => {
 				type: 'asset',
 				name: 'Minimal Asset',
 				abilities: [],
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Asset
 
 			const html = renderAsset(asset)
@@ -182,7 +234,13 @@ describe('AssetRenderer', () => {
 				name: 'Test Asset',
 				category: '<script>alert("xss")</script>',
 				abilities: [],
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.Asset
 
 			const html = renderAsset(asset)

@@ -1,9 +1,9 @@
 import {
-	ContentsKey,
 	CollectionsKey,
+	ContentsKey,
+	EnhancesKey,
 	IdKey,
-	ReplacesKey,
-	EnhancesKey
+	ReplacesKey
 } from '../IdElements/CONST.js'
 import Pattern from '../IdElements/Pattern.js'
 import type { Datasworn } from '../index.js'

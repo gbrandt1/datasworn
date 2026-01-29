@@ -1,9 +1,9 @@
 import { IdKey, PrefixSep } from '../IdElements/CONST.js'
 import type TypeId from '../IdElements/TypeId.js'
+import { type Datasworn, type DataswornSource, IdParser } from '../index.js'
 import type TypeNode from '../TypeNode.js'
-import { forEachIdRef } from '../Validators/Text.js'
 import Validators from '../Validators/index.js'
-import { IdParser, type Datasworn, type DataswornSource } from '../index.js'
+import { forEachIdRef } from '../Validators/Text.js'
 
 export type SchemaValidator<TTarget> = (data: unknown) => data is TTarget
 export type Logger = Record<
@@ -23,17 +23,17 @@ export type IdRefTracker = {
  * */
 export class RulesPackageBuilder<
 	TSource extends DataswornSource.RulesPackage = DataswornSource.RulesPackage,
-	TTarget extends Datasworn.RulesPackage = Datasworn.RulesPackage,
+	TTarget extends Datasworn.RulesPackage = Datasworn.RulesPackage
 > {
 	id: string
 
 	static readonly postSchemaValidators = Validators
 
 	static get schemaValidator(): SchemaValidator<Datasworn.RulesPackage> {
-		return this.#schemaValidator
+		return RulesPackageBuilder.#schemaValidator
 	}
 	static get sourceSchemaValidator(): SchemaValidator<DataswornSource.RulesPackage> {
-		return this.#sourceSchemaValidator
+		return RulesPackageBuilder.#sourceSchemaValidator
 	}
 
 	get packageType(): Datasworn.RulesPackage['type'] | undefined {
@@ -47,20 +47,20 @@ export class RulesPackageBuilder<
 
 	static init({
 		validator,
-		sourceValidator,
+		sourceValidator
 	}: {
 		validator: SchemaValidator<Datasworn.RulesPackage>
 		sourceValidator: SchemaValidator<DataswornSource.RulesPackage>
 	}) {
-		this.#schemaValidator = validator
-		this.#sourceSchemaValidator = sourceValidator
-		return this
+		RulesPackageBuilder.#schemaValidator = validator
+		RulesPackageBuilder.#sourceSchemaValidator = sourceValidator
+		return RulesPackageBuilder
 	}
 
 	static get isInitialized() {
 		return (
-			typeof this.schemaValidator === 'function' &&
-			typeof this.sourceSchemaValidator === 'function'
+			typeof RulesPackageBuilder.schemaValidator === 'function' &&
+			typeof RulesPackageBuilder.sourceSchemaValidator === 'function'
 		)
 	}
 
@@ -73,18 +73,6 @@ export class RulesPackageBuilder<
 
 	#isMergeComplete = false
 	#isValidated = false
-
-	#countTypes() {
-		const ct = {} as Record<string, number>
-
-		for (const [k, _] of this.index) {
-			const [prefix] = k.split(':')
-			ct[prefix] ||= 0
-			ct[prefix]++
-		}
-
-		return ct
-	}
 
 	countType(typeId: TypeId.Any) {
 		let ct = 0
@@ -119,8 +107,6 @@ export class RulesPackageBuilder<
 		this.mergeFiles(force)
 		this.#isValidated = false
 
-
-
 		return this.#result
 	}
 
@@ -136,7 +122,7 @@ export class RulesPackageBuilder<
 
 		try {
 			parsedId = IdParser.parse(id as any)
-		} catch (e) {
+		} catch (_e) {
 			idTracker.invalid.add(id)
 			return false
 		}
@@ -171,8 +157,9 @@ export class RulesPackageBuilder<
 			if (!RulesPackageBuilder.#isObject(typeNode)) continue
 			if (!('type' in typeNode)) continue
 			if (typeNode.type == null || typeof typeNode.type !== 'string') continue
-			const typeValidation =
-				(RulesPackageBuilder.postSchemaValidators as Record<string, Function>)[typeNode.type]
+			const typeValidation = (
+				RulesPackageBuilder.postSchemaValidators as Record<string, Function>
+			)[typeNode.type]
 			if (typeof typeValidation !== 'function') continue
 			try {
 				typeValidation(typeNode)
@@ -215,7 +202,7 @@ export class RulesPackageBuilder<
 
 	/** Top-level RulesPackage properties to omit from key sorting. */
 	static readonly topLevelKeysBlackList = [
-		'rules',
+		'rules'
 	] as const satisfies (keyof Datasworn.RulesPackage)[]
 
 	/** Separator character used for JSON pointers. */
@@ -323,14 +310,14 @@ export class RulesPackageBuilder<
 }
 
 interface RulesPackagePartData<
-	TSource extends DataswornSource.RulesPackage = DataswornSource.RulesPackage,
+	TSource extends DataswornSource.RulesPackage = DataswornSource.RulesPackage
 > {
 	name: string
 	data: TSource
 }
 
 class RulesPackagePart<
-	TSource extends DataswornSource.RulesPackage = DataswornSource.RulesPackage,
+	TSource extends DataswornSource.RulesPackage = DataswornSource.RulesPackage
 > implements RulesPackagePartData<TSource>
 {
 	readonly logger: Logger

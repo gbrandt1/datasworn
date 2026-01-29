@@ -1,5 +1,5 @@
-import { isEqual, mapValues } from 'lodash-es'
 import path from 'node:path'
+import { isEqual, mapValues } from 'lodash-es'
 import { formatPath } from '../../../utils.js'
 import { PKG_DIR_NODE, VERSION } from '../../const.js'
 import Log from '../../utils/Log.js'
@@ -9,13 +9,13 @@ export async function updatePackageVersions(
 	dir = PKG_DIR_NODE,
 	newVersion = VERSION
 ) {
-	const pkgs = new Bun.Glob('**/package.json').scan({
+	const _pkgs = new Bun.Glob('**/package.json').scan({
 		cwd: dir,
-		absolute: true,
+		absolute: true
 	})
 	const readmes = new Bun.Glob('**/README.md').scan({
 		cwd: dir,
-		absolute: true,
+		absolute: true
 	})
 
 	const writeOps: Promise<unknown>[] = [
@@ -48,7 +48,7 @@ async function updateReadme(filePath: string, newVersion: string) {
 
 	return await Bun.write(file, newMarkdown)
 }
-async function updatePackageVersion(filePath: string, newVersion: string) {
+async function _updatePackageVersion(filePath: string, newVersion: string) {
 	return updateJSON<{
 		version: string
 		dependencies?: Record<string, unknown>

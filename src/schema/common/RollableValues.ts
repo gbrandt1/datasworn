@@ -1,14 +1,14 @@
 import {
-	Type,
 	type ObjectOptions,
 	type Static,
-	type TObject
+	type TObject,
+	Type
 } from '@sinclair/typebox'
 import * as Utils from '../Utils.js'
-import Id from './Id.js'
-import * as Text from './Text.js'
-import * as Player from './Player.js'
 import { Assign } from '../utils/FlatIntersect.js'
+import Id from './Id.js'
+import * as Player from './Player.js'
+import * as Text from './Text.js'
 
 const RollableValueType = Utils.UnionEnumFromRecord(
 	{

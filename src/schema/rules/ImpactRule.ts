@@ -1,8 +1,8 @@
-import { Type, type Static } from '@sinclair/typebox'
-import { Label, MarkdownString } from '../common/Text.js'
+import { type Static, Type } from '@sinclair/typebox'
 import { ConditionMeterKey } from '../common/Player.js'
-import { Tags } from './TagRule.js'
+import { Label, MarkdownString } from '../common/Text.js'
 import { Dictionary } from '../generic/Dictionary.js'
+import { Tags } from './TagRule.js'
 
 export const ImpactRule = Type.Object(
 	{

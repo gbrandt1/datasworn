@@ -1,8 +1,6 @@
 import {
 	CloneType,
 	Kind,
-	Type,
-	TypeRegistry,
 	type ObjectOptions,
 	type SchemaOptions,
 	type Static,
@@ -10,14 +8,16 @@ import {
 	type TObject,
 	type TRefUnsafe,
 	type TSchema,
-	type TUnion
+	type TUnion,
+	Type,
+	TypeRegistry
 } from '@sinclair/typebox'
 import { omit } from 'lodash-es'
 import { Discriminator, Mapping, Members } from '../Symbols.js'
 import { Assign, type TAssign } from './FlatIntersect.js'
 import { IfThenElse, type TIfThenElse } from './IfThen.js'
-import { UnionEnum, type TUnionEnum } from './UnionEnum.js'
 import type { PickByType } from './typebox.js'
+import { type TUnionEnum, UnionEnum } from './UnionEnum.js'
 
 type DiscriminableKeyOf<T> = keyof T & keyof PickByType<T, string> & string
 type DiscriminatorValueOf<T, D extends DiscriminableKeyOf<T>> = T[D] & string
@@ -25,19 +25,19 @@ export type DiscriminatorMap<T, D extends DiscriminableKeyOf<T>> = {
 	[K in T as DiscriminatorValueOf<T, D>]: K
 }
 
-type ValueIn<T extends Record<any, TSchema>> = T extends Record<
-	any,
-	infer U extends TSchema
->
-	? U
-	: never
+type ValueIn<T extends Record<any, TSchema>> =
+	T extends Record<any, infer U extends TSchema> ? U : never
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type TDiscriminableish<
 	K extends string = string,
 	D extends string = string,
 	TBase extends TObject = TObject
-> = TDiscriminable<K, D, TBase> | TRefUnsafe<TDiscriminable<K, D, TBase>> | TObject<any> | TRefUnsafe<TObject<any>>
+> =
+	| TDiscriminable<K, D, TBase>
+	| TRefUnsafe<TDiscriminable<K, D, TBase>>
+	| TObject<any>
+	| TRefUnsafe<TObject<any>>
 
 export function Discriminable<
 	K extends string,
@@ -96,7 +96,8 @@ export type TDiscriminatorMap<
 // }
 
 export interface TDiscriminatedUnion<
-	M extends TDiscriminatorMap<TDiscriminableish> = TDiscriminatorMap<TDiscriminableish>,
+	M extends
+		TDiscriminatorMap<TDiscriminableish> = TDiscriminatorMap<TDiscriminableish>,
 	D extends string = string
 > extends TSchema {
 	type: 'object'
@@ -207,10 +208,7 @@ function DiscriminatedUnionCheck(
 }
 
 export function TDiscriminatedUnion<
-	T extends TDiscriminatedUnion<any, string> = TDiscriminatedUnion<
-		any,
-		string
-	>
+	T extends TDiscriminatedUnion<any, string> = TDiscriminatedUnion<any, string>
 >(schema: unknown): schema is T {
 	return (schema as T)[Kind] === 'DiscriminatedUnion'
 }

@@ -1,26 +1,21 @@
 import {
 	CloneType,
-	Type,
 	type Static,
 	type TObject,
 	type TRefUnsafe,
-	type TSchema
+	type TSchema,
+	Type
 } from '@sinclair/typebox'
-import type { Tags } from '../Rules.js'
+import Id from '../common/Id.js'
+import * as Metadata from '../common/Metadata.js'
+import { DiceRange, StaticDiceRange } from '../common/Range.js'
+import * as Rolls from '../common/Rolls.js'
+import * as Text from '../common/Text.js'
 import { JsonTypeDef } from '../Symbols.js'
 import * as Utils from '../Utils.js'
-import { DiceRange, StaticDiceRange } from '../common/Range.js'
-
-import Id from '../common/Id.js'
-
-import * as Text from '../common/Text.js'
-
-import * as Metadata from '../common/Metadata.js'
-
-import * as Rolls from '../common/Rolls.js'
 import { Assign } from '../utils/FlatIntersect.js'
 import type { ObjectProperties } from '../utils/ObjectProperties.js'
-import { setDescriptions, type PickByType } from '../utils/typebox.js'
+import { type PickByType, setDescriptions } from '../utils/typebox.js'
 
 const TableRowBase = Type.Object({
 	text: Type.Ref(Text.MarkdownString, {
@@ -128,7 +123,8 @@ type StringDefaultsFor<T extends TObject> = {
 	[K in
 		| keyof PickByType<
 				T['properties'],
-				TRefUnsafe<typeof Text.Label> | Utils.TNullable<TRefUnsafe<typeof Text.Label>>
+				| TRefUnsafe<typeof Text.Label>
+				| Utils.TNullable<TRefUnsafe<typeof Text.Label>>
 		  >
 		| 'roll']: string | null
 }

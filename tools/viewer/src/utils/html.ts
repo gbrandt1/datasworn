@@ -4,10 +4,7 @@
 
 /** Escape HTML special characters to prevent XSS */
 export function escapeHtml(text: string): string {
-	return text
-		.replace(/&/g, '&amp;')
-		.replace(/</g, '&lt;')
-		.replace(/>/g, '&gt;')
+	return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
 
 /** Generate a unique ID for DOM elements */
@@ -26,5 +23,5 @@ export function createElement(
 		.map(([k, v]) => (v === true ? k : `${k}="${escapeHtml(String(v))}"`))
 		.join(' ')
 
-	return `<${tag}${attrStr ? ' ' + attrStr : ''}>${content}</${tag}>`
+	return `<${tag}${attrStr ? ` ${attrStr}` : ''}>${content}</${tag}>`
 }

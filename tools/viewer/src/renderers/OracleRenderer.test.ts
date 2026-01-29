@@ -2,15 +2,25 @@
  * Tests for Oracle rendering functions
  */
 
-import { describe, it, expect } from 'vitest'
-import { encodeRollInfo, renderOracle, renderEmbeddedOracle, renderOracleColumns, ROLL_DATA_ATTR } from './OracleRenderer'
 import type { Datasworn } from '@datasworn/core'
+import { describe, expect, it } from 'vitest'
 import type { EmbeddedOracle } from '../types'
+import {
+	encodeRollInfo,
+	ROLL_DATA_ATTR,
+	renderEmbeddedOracle,
+	renderOracle,
+	renderOracleColumns
+} from './OracleRenderer'
 
 describe('OracleRenderer', () => {
 	describe('encodeRollInfo', () => {
 		it('encodes roll info as URL-safe string', () => {
-			const info = { type: 'oracle' as const, tableId: 'test-123', dice: '1d100' }
+			const info = {
+				type: 'oracle' as const,
+				tableId: 'test-123',
+				dice: '1d100'
+			}
 			const encoded = encodeRollInfo(info)
 
 			// Should be URL encoded JSON
@@ -19,7 +29,11 @@ describe('OracleRenderer', () => {
 		})
 
 		it('handles special characters', () => {
-			const info = { type: 'oracle' as const, tableId: 'test/with:special', dice: '1d6' }
+			const info = {
+				type: 'oracle' as const,
+				tableId: 'test/with:special',
+				dice: '1d6'
+			}
 			const encoded = encodeRollInfo(info)
 
 			const decoded = JSON.parse(decodeURIComponent(encoded))
@@ -38,7 +52,13 @@ describe('OracleRenderer', () => {
 					{ _id: 'row1', roll: { min: 1, max: 3 }, text: 'Result A' },
 					{ _id: 'row2', roll: { min: 4, max: 6 }, text: 'Result B' }
 				],
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.OracleRollable
 
 			const html = renderOracle(oracle)
@@ -58,10 +78,14 @@ describe('OracleRenderer', () => {
 				type: 'oracle_rollable',
 				name: 'Test Oracle',
 				summary: 'This is a test oracle.',
-				rows: [
-					{ _id: 'row1', roll: { min: 1, max: 100 }, text: 'Result' }
-				],
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				rows: [{ _id: 'row1', roll: { min: 1, max: 100 }, text: 'Result' }],
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.OracleRollable
 
 			const html = renderOracle(oracle)
@@ -75,10 +99,14 @@ describe('OracleRenderer', () => {
 				_id: 'oracle_rollable:test/oracle',
 				type: 'oracle_rollable',
 				name: 'Test Oracle',
-				rows: [
-					{ _id: 'row1', roll: { min: 1, max: 100 }, text: 'Result' }
-				],
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				rows: [{ _id: 'row1', roll: { min: 1, max: 100 }, text: 'Result' }],
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.OracleRollable
 
 			const html = renderOracle(oracle)
@@ -92,7 +120,13 @@ describe('OracleRenderer', () => {
 				type: 'oracle_rollable',
 				name: 'Test Oracle',
 				rows: [],
-				_source: { title: 'Test', authors: [], date: '2024-01-01', license: 'MIT', url: '' }
+				_source: {
+					title: 'Test',
+					authors: [],
+					date: '2024-01-01',
+					license: 'MIT',
+					url: ''
+				}
 			} as unknown as Datasworn.OracleRollable
 
 			const html = renderOracle(oracle)

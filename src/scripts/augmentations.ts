@@ -1,14 +1,14 @@
-import { Type, type Static, type TSchema, type Kind } from '@sinclair/typebox'
-import { UnionEnum } from '../schema/Utils.js'
+import { type Kind, type Static, type TSchema, Type } from '@sinclair/typebox'
+import { DiceExpression } from '../schema/common/Rolls.js'
 import type {
-	Simplify,
-	JsonTypeDef,
 	Inherits,
+	JsonTypeDef,
 	Namespace,
+	Simplify,
 	Typescript
 } from '../schema/Symbols.js'
+import { UnionEnum } from '../schema/Utils.js'
 import type { Metadata } from './json-typedef/typedef.js'
-import { DiceExpression } from '../schema/common/Rolls.js'
 
 export namespace Keywords {
 	export const releaseStage = UnionEnum(['experimental', 'release'], {

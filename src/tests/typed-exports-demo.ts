@@ -11,24 +11,22 @@
  *   // delve is already typed as Datasworn.Expansion - no assertion needed!
  */
 
-import type { Datasworn } from '../pkg-core/index.js'
-
 // Import the typed exports - these come pre-typed from the packages
 import { classic } from '../../pkg/nodejs/@datasworn/ironsworn-classic/index.js'
 import { delve } from '../../pkg/nodejs/@datasworn/ironsworn-classic-delve/index.js'
 import { lodestar } from '../../pkg/nodejs/@datasworn/ironsworn-classic-lodestar/index.js'
+// Import ID constants for type-safe ID references
+import {
+	AssetIds,
+	MoveIds,
+	OracleIds
+} from '../../pkg/nodejs/@datasworn/starforged/ids.js'
 import { starforged } from '../../pkg/nodejs/@datasworn/starforged/index.js'
 import { sundered_isles } from '../../pkg/nodejs/@datasworn/sundered-isles/index.js'
 import { ancient_wonders } from '../../pkg/nodejs/@datasworn-community-content/ancient-wonders/index.js'
 import { fe_runners } from '../../pkg/nodejs/@datasworn-community-content/fe-runners/index.js'
 import { starsmith } from '../../pkg/nodejs/@datasworn-community-content/starsmith/index.js'
-
-// Import ID constants for type-safe ID references
-import {
-	MoveIds,
-	OracleIds,
-	AssetIds
-} from '../../pkg/nodejs/@datasworn/starforged/ids.js'
+import type { Datasworn } from '../pkg-core/index.js'
 
 // Type-safe usage - no assertions needed!
 // TypeScript knows the exact types from the .d.ts files
@@ -58,7 +56,7 @@ const BUILTIN_SOURCES: DatastoreEntry[] = [
 	[sunderedIslesExpansion, 1],
 	[ancientWondersExpansion, 2],
 	[feRunnersExpansion, 2],
-	[starsmithExpansion, 2],
+	[starsmithExpansion, 2]
 ]
 
 // Access type-specific properties safely
@@ -68,11 +66,21 @@ console.log(`- ${starforged._id}: ${starforged.title}`)
 
 console.log('\nExpansions:')
 console.log(`- ${delve._id}: ${delve.title} (ruleset: ${delve.ruleset})`)
-console.log(`- ${lodestar._id}: ${lodestar.title} (ruleset: ${lodestar.ruleset})`)
-console.log(`- ${sundered_isles._id}: ${sundered_isles.title} (ruleset: ${sundered_isles.ruleset})`)
-console.log(`- ${ancient_wonders._id}: ${ancient_wonders.title} (ruleset: ${ancient_wonders.ruleset})`)
-console.log(`- ${fe_runners._id}: ${fe_runners.title} (ruleset: ${fe_runners.ruleset})`)
-console.log(`- ${starsmith._id}: ${starsmith.title} (ruleset: ${starsmith.ruleset})`)
+console.log(
+	`- ${lodestar._id}: ${lodestar.title} (ruleset: ${lodestar.ruleset})`
+)
+console.log(
+	`- ${sundered_isles._id}: ${sundered_isles.title} (ruleset: ${sundered_isles.ruleset})`
+)
+console.log(
+	`- ${ancient_wonders._id}: ${ancient_wonders.title} (ruleset: ${ancient_wonders.ruleset})`
+)
+console.log(
+	`- ${fe_runners._id}: ${fe_runners.title} (ruleset: ${fe_runners.ruleset})`
+)
+console.log(
+	`- ${starsmith._id}: ${starsmith.title} (ruleset: ${starsmith.ruleset})`
+)
 
 console.log(`\nTotal sources: ${BUILTIN_SOURCES.length}`)
 
@@ -99,7 +107,8 @@ console.log(`Starship Asset ID: ${starshipId}`)
 
 // The types are literal strings, so this works with IdParser.get()
 // and any function that expects specific ID types
-type StarforgedMoveId = typeof MoveIds[keyof typeof MoveIds][keyof typeof MoveIds[keyof typeof MoveIds]]
+type StarforgedMoveId =
+	(typeof MoveIds)[keyof typeof MoveIds][keyof (typeof MoveIds)[keyof typeof MoveIds]]
 // This creates a union type of all move IDs
 
 export { BUILTIN_SOURCES, MoveIds, OracleIds, AssetIds }

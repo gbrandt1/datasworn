@@ -23,7 +23,9 @@ export async function loadRuleset(id: string): Promise<Datasworn.RulesPackage> {
 	return response.json()
 }
 
-export async function loadAllRulesets(): Promise<Map<string, Datasworn.RulesPackage>> {
+export async function loadAllRulesets(): Promise<
+	Map<string, Datasworn.RulesPackage>
+> {
 	const results = new Map<string, Datasworn.RulesPackage>()
 
 	const promises = RULESETS.map(async (id) => {

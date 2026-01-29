@@ -4,7 +4,7 @@ import { readJSON } from './utils/readWrite.js'
 const usedSchemas = new Set<string>()
 const schemaIds = new Set<string>()
 
-const data = await readJSON(
+const _data = await readJSON(
 	'datasworn/datasworn.schema.json',
 	function reviver(key, value) {
 		if (key === DefsKey && typeof value === 'object')

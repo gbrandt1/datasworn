@@ -1,14 +1,11 @@
-import Codegen from '@sinclair/typebox-codegen'
-import Defs from '../schema/Defs.js'
+import { CloneType, type TSchema, Type, TypeGuard } from '@sinclair/typebox'
 import { isInteger, mapValues, omit, pick } from 'lodash-es'
 import {
 	TDiscriminatedUnion,
-	TUnionEnum,
 	ToEnum,
-	ToUnion
+	ToUnion,
+	TUnionEnum
 } from '../schema/Utils.js'
-import { type TSchema, Type, CloneType, TypeGuard } from '@sinclair/typebox'
-import Log from './utils/Log.js'
 // import { CompilerOptions, ScriptTarget } from 'typescript'
 // import { shellify } from '../shellify.js'
 
@@ -58,7 +55,9 @@ export function simplifyRecursive(schema: TSchema, allowNumberEnums = false) {
 		}
 		case TDiscriminatedUnion(base): {
 			base = ToUnion(base as any)
-			base.anyOf = base.anyOf?.map((s: TSchema) => simplifyRecursive(s)) as TSchema[]
+			base.anyOf = base.anyOf?.map((s: TSchema) =>
+				simplifyRecursive(s)
+			) as TSchema[]
 			break
 		}
 		case TUnionEnum(base):
@@ -66,7 +65,9 @@ export function simplifyRecursive(schema: TSchema, allowNumberEnums = false) {
 				return Type.Integer(pick(base, 'description', 'title'))
 			return ToEnum(base as any)
 		case TypeGuard.IsObject(base): {
-			base.properties = mapValues(base.properties, (s) => simplifyRecursive(s)) as typeof base.properties
+			base.properties = mapValues(base.properties, (s) =>
+				simplifyRecursive(s)
+			) as typeof base.properties
 			base.additionalProperties ||= false
 			break
 		}

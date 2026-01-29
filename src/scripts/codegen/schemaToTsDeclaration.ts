@@ -1,10 +1,10 @@
 import {
 	Kind,
 	type TArray,
-	TypeGuard,
 	type TObject,
 	type TSchema,
 	type TTuple,
+	TypeGuard
 } from '@sinclair/typebox'
 import {
 	isEqual,
@@ -14,16 +14,16 @@ import {
 	mapValues,
 	pick,
 	repeat,
-	uniq,
+	uniq
 } from 'lodash-es'
+import { Typescript } from '../../schema/Symbols.js'
 import {
 	TDiscriminatedUnion,
 	TNullable,
-	TUnionEnum,
+	TUnionEnum
 } from '../../schema/Utils.js'
-import Log from '../utils/Log.js'
 import { $schema } from '../const.js'
-import { Typescript } from '../../schema/Symbols.js'
+import Log from '../utils/Log.js'
 
 export function extractDefs(defs: Record<string, TSchema>) {
 	return mapValues(defs, (v, k) => renderDefinition(k, v))
@@ -34,7 +34,7 @@ const extractableKeywords: string[] = [
 	'minimum',
 	'maximum',
 	'i18n',
-	'deprecated',
+	'deprecated'
 ]
 
 // keywords where a string value is expected, and the string value is the keyword
@@ -68,7 +68,7 @@ function extractKeywords(schema: TSchema) {
 		if (!isEqual(schema.default, schema.const)) {
 			let tagContent = renderJsValue(schema.default)
 			if (tagContent.includes('\n'))
-				tagContent = '\n' + formatSourceCode(tagContent)
+				tagContent = `\n${formatSourceCode(tagContent)}`
 			jsDoc.push(tag('default', tagContent))
 		}
 	}
@@ -97,8 +97,8 @@ function renderJsDoc(lines: string[]) {
 		...lines
 			.join('\n')
 			.split('\n')
-			.map((line) => ' * ' + line),
-		' */',
+			.map((line) => ` * ${line}`),
+		' */'
 	].join('\n')
 }
 
@@ -107,7 +107,7 @@ function extractType(schema: TSchema): string {
 	switch (true) {
 		case TypeGuard.IsIntersect(schema):
 			return uniq(schema.allOf.map(extractType))
-				.map((type) => (type.includes('|') ? '(' + type + ')' : type))
+				.map((type) => (type.includes('|') ? `(${type})` : type))
 				.join(' & ')
 
 		case TypeGuard.IsThis(schema):
@@ -167,14 +167,14 @@ function extractArrayType(schema: TArray<TSchema>): string {
 function parseType(schema: TSchema): ParsedType {
 	return {
 		type: extractType(schema),
-		jsDoc: extractKeywords(schema),
+		jsDoc: extractKeywords(schema)
 	}
 }
 
 function indent(text: string, levels = 1) {
 	const indentString = repeat('\t', levels)
 	return text
-		.replaceAll(/\n/g, '\n' + indentString)
+		.replaceAll(/\n/g, `\n${indentString}`)
 		.replaceAll(/^/g, indentString)
 }
 
@@ -210,7 +210,7 @@ function renderInterface(identifier: string, schema: TObject) {
 
 	if (data.jsDoc.length > 0) lines.push(renderJsDoc(data.jsDoc))
 
-	lines.push(`export interface ${identifier} ` + data.type)
+	lines.push(`export interface ${identifier} ${data.type}`)
 
 	return lines.join('\n')
 }
@@ -286,7 +286,7 @@ function renderJsValue(value: unknown): string {
 }
 
 function wrapCodeBlock(code: string) {
-	return '```javascript\n' + code + '\n```'
+	return `\`\`\`javascript\n${code}\n\`\`\``
 }
 
 function formatSourceCode(code: string) {

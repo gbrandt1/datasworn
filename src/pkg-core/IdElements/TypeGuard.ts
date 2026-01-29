@@ -3,10 +3,10 @@
  * @module
  */
 
-import Pattern from './Pattern.js'
-import { WildcardString, GlobstarString } from './CONST.js'
-import type * as Id from '../StringId.js'
 import type { DictKey } from '../Datasworn.js'
+import type * as Id from '../StringId.js'
+import { GlobstarString, WildcardString } from './CONST.js'
+import Pattern from './Pattern.js'
 import TypeId from './TypeId.js'
 
 namespace TypeGuard {

@@ -4,8 +4,8 @@
 
 import type { Datasworn } from '@datasworn/core'
 import type { EmbeddedOracle, OracleRow } from '../types'
-import { escapeHtml, generateId } from '../utils/html'
 import { formatRollRange } from '../utils/dice'
+import { escapeHtml, generateId } from '../utils/html'
 import { renderMarkdown } from '../utils/markdown'
 
 /** Data attributes for roll functionality */
@@ -66,7 +66,9 @@ export function renderEmbeddedOracle(oracle: EmbeddedOracle): string {
 }
 
 /** Render oracle columns (Ask the Oracle style) */
-export function renderOracleColumns(oracles: Record<string, EmbeddedOracle>): string {
+export function renderOracleColumns(
+	oracles: Record<string, EmbeddedOracle>
+): string {
 	const oracleEntries = Object.entries(oracles)
 	if (oracleEntries.length === 0) return ''
 
@@ -78,7 +80,11 @@ export function renderOracleColumns(oracles: Record<string, EmbeddedOracle>): st
 		const name = oracle.name || key
 		const rows = oracle.rows || []
 		const thresholdDisplay = getOddsThreshold(rows)
-		const rollInfo: RollInfo = { type: 'odds', tableId: generateId('odds'), rows }
+		const rollInfo: RollInfo = {
+			type: 'odds',
+			tableId: generateId('odds'),
+			rows
+		}
 
 		html += `<button class="odds-button" ${ROLL_DATA_ATTR}="${encodeRollInfo(rollInfo)}">`
 		html += `<span class="odds-name">${escapeHtml(name)}</span>`
@@ -111,7 +117,10 @@ function getOddsThreshold(rows: OracleRow[]): string {
 }
 
 /** Render the table portion of an oracle */
-function renderOracleTable(tableId: string, rows: OracleRow[] | Datasworn.OracleRollableRow[]): string {
+function renderOracleTable(
+	tableId: string,
+	rows: OracleRow[] | Datasworn.OracleRollableRow[]
+): string {
 	let html = `<table id="${tableId}"><thead><tr><th class="roll-col">Roll</th><th>Result</th></tr></thead><tbody>`
 
 	for (const row of rows) {
@@ -123,7 +132,9 @@ function renderOracleTable(tableId: string, rows: OracleRow[] | Datasworn.Oracle
 		const text = 'text' in row ? row.text : undefined
 		const text2 = 'text2' in row ? (row as { text2?: string }).text2 : undefined
 		const renderedText = text ? renderMarkdown(text) : ''
-		const renderedText2 = text2 ? `<div class="oracle-text2">${renderMarkdown(text2)}</div>` : ''
+		const renderedText2 = text2
+			? `<div class="oracle-text2">${renderMarkdown(text2)}</div>`
+			: ''
 
 		html += `<tr data-min="${minRoll}" data-max="${maxRoll}">`
 		html += `<td class="roll-cell">${rollStr}</td>`

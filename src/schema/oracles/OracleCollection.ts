@@ -1,4 +1,4 @@
-import { Type, type Static } from '@sinclair/typebox'
+import { type Static, Type } from '@sinclair/typebox'
 import * as Generic from '../Generic.js'
 import * as Utils from '../Utils.js'
 import {
@@ -86,7 +86,6 @@ export const OracleTableSharedText = Generic.CollectionSubtypeNode(
 			'An OracleCollection representing a single table with multiple roll columns and one text column.'
 	}
 )
-
 
 export type TOracleTableSharedText = typeof OracleTableSharedText
 export type OracleTableSharedText = Static<TOracleTableSharedText>

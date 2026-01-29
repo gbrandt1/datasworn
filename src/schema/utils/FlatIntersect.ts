@@ -1,10 +1,10 @@
 import {
-	Type,
+	CloneType,
+	Kind,
 	type ObjectOptions,
 	type TObject,
 	type TSchema,
-	CloneType,
-	Kind
+	Type
 } from '@sinclair/typebox'
 import { isEqual } from 'lodash-es'
 
@@ -62,7 +62,9 @@ export function Assign<TTarget extends TObject, TSource extends TObject>(
 	options: ObjectOptions = {}
 ) {
 	// Use Record<string, TSchema> to allow mutation, then cast result
-	const mergedProps: Record<string, TSchema> = { ...CloneType(target).properties }
+	const mergedProps: Record<string, TSchema> = {
+		...CloneType(target).properties
+	}
 
 	const props = CloneType(source).properties
 	for (const k in props) {

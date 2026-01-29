@@ -3,8 +3,8 @@
  */
 
 import { state } from '../state'
-import { escapeHtml } from '../utils/html'
 import { formatType } from '../utils/formatting'
+import { escapeHtml } from '../utils/html'
 
 let tooltip: HTMLElement | null = null
 let hideTimeout: number | null = null
@@ -34,7 +34,7 @@ function getPreviewContent(item: unknown): string {
 	// Get a short preview text
 	let preview = summary || description || text || ''
 	if (preview.length > 200) {
-		preview = preview.slice(0, 200) + '...'
+		preview = `${preview.slice(0, 200)}...`
 	}
 
 	// For oracles, show dice and row count
@@ -57,7 +57,7 @@ function getPreviewContent(item: unknown): string {
 		if (triggerText) {
 			preview = triggerText
 			if (preview.length > 200) {
-				preview = preview.slice(0, 200) + '...'
+				preview = `${preview.slice(0, 200)}...`
 			}
 		}
 	}
@@ -145,26 +145,34 @@ function hideTooltip(): void {
 /** Set up hover preview event listeners on a container */
 export function setupHoverPreview(container: HTMLElement): void {
 	// Use event delegation for efficiency
-	container.addEventListener('mouseenter', (e) => {
-		const target = e.target as HTMLElement
-		if (target.tagName !== 'A') return
+	container.addEventListener(
+		'mouseenter',
+		(e) => {
+			const target = e.target as HTMLElement
+			if (target.tagName !== 'A') return
 
-		const href = target.getAttribute('href')
-		if (!href?.startsWith('datasworn:')) return
+			const href = target.getAttribute('href')
+			if (!href?.startsWith('datasworn:')) return
 
-		const id = href.slice('datasworn:'.length)
-		showTooltip(target, id)
-	}, true)
+			const id = href.slice('datasworn:'.length)
+			showTooltip(target, id)
+		},
+		true
+	)
 
-	container.addEventListener('mouseleave', (e) => {
-		const target = e.target as HTMLElement
-		if (target.tagName !== 'A') return
+	container.addEventListener(
+		'mouseleave',
+		(e) => {
+			const target = e.target as HTMLElement
+			if (target.tagName !== 'A') return
 
-		const href = target.getAttribute('href')
-		if (!href?.startsWith('datasworn:')) return
+			const href = target.getAttribute('href')
+			if (!href?.startsWith('datasworn:')) return
 
-		hideTooltip()
-	}, true)
+			hideTooltip()
+		},
+		true
+	)
 
 	// Also keep tooltip visible when hovering the tooltip itself
 	const tip = getTooltip()

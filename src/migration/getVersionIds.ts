@@ -1,28 +1,28 @@
-import { readJSON, writeJSON } from '../scripts/utils/readWrite.js'
 import path from 'node:path'
-import {
-	WildcardString,
-	PrefixSep,
-	TypeSep,
-	PathKeySep,
-	GlobstarString,
-	VERSION,
-  IdKey
-} from '../scripts/const.js'
 import { escapeRegExp } from 'lodash-es'
 import Pattern from '../pkg-core/IdElements/Pattern.js'
-import { ROOT_HISTORY } from '../scripts/const.js'
+import {
+	GlobstarString,
+	IdKey,
+	PathKeySep,
+	PrefixSep,
+	ROOT_HISTORY,
+	TypeSep,
+	VERSION,
+	WildcardString
+} from '../scripts/const.js'
+import { readJSON, writeJSON } from '../scripts/utils/readWrite.js'
 import { loadDatasworn } from '../tests/loadJson.js'
 
 const { index, tree } = await loadDatasworn()
-import { idReplacers } from './migrations.js'
-import { CONST, TypeGuard } from '../pkg-core/IdElements/index.js'
+
+import { TypeGuard } from '../pkg-core/IdElements/index.js'
 import { IdParser } from '../pkg-core/IdParser.js'
-import type { Datasworn } from '../pkg-core/index.js'
+import { idReplacers } from './migrations.js'
 import { idKeyBlacklist, mightBeId, Version } from './utils/0_0_10.js'
 import { sortByIdDepth } from './utils/common.js'
 
-const oldVersion = '0.0.10'
+const _oldVersion = '0.0.10'
 
 const idKeys = new Set([IdKey, '$id'])
 
@@ -50,13 +50,13 @@ export async function forEachIdInVersion(
 	await Promise.all(readOps)
 }
 
-function getWildcardRegex(wildcardId: string) {
+function _getWildcardRegex(wildcardId: string) {
 	if (!wildcardId.includes(WildcardString))
 		// without any wildcards, there's not much to worry about. just escape it for use in the regex.
 		return new RegExp(`^${escapeRegExp(wildcardId)}$`)
 
 	const [fullTypeId, fullPath] = wildcardId.split(PrefixSep)
-	const [primaryPath, ...embeddedKeys] = fullPath.split(TypeSep)
+	const [_primaryPath, ...embeddedKeys] = fullPath.split(TypeSep)
 	const [rulesPackage, ...primaryPathKeys] = wildcardId.split(PathKeySep)
 
 	const typePattern = fullTypeId.replaceAll(TypeSep, `\\${TypeSep}`)

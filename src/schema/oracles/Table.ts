@@ -1,15 +1,15 @@
 import {
-	Type,
 	type ObjectOptions,
 	type Static,
 	type TObject,
 	type TRefUnsafe,
-	type TString
+	type TString,
+	Type
 } from '@sinclair/typebox'
+import { omit } from 'lodash-es'
 import { Label, MarkdownString } from '../common/Text.js'
 import { FlatIntersect } from '../utils/FlatIntersect.js'
 import type { OracleRollableRowText3 } from './TableRow.js'
-import { omit } from 'lodash-es'
 
 // metadata relevant to presenting a table
 export const TableMeta = Type.Object({
@@ -34,7 +34,7 @@ export const TableMeta = Type.Object({
 	)
 })
 
-export function TableMixin<OracleRow extends TObject>(
+export function TableMixin<_OracleRow extends TObject>(
 	column_labels: ReturnType<typeof ColumnLabels>
 ) {
 	return FlatIntersect([

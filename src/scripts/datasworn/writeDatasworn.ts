@@ -1,26 +1,26 @@
 import path from 'node:path'
 import {
-	RulesPackageBuilder,
 	type IdRefTracker,
+	RulesPackageBuilder
 } from '../../pkg-core/Builders/RulesPackageBuilder.js'
 import {
-	IdParser,
 	type Datasworn,
 	type DataswornSource,
+	IdParser
 } from '../../pkg-core/index.js'
+import { sortJson } from '../../pkg-core/Utils/Sort.js'
+import { idLike, needsIdValidation } from '../../pkg-core/Validators/Text.js'
 import type { RulesPackageConfig } from '../../schema/tools/build/index.js'
 import { formatPath } from '../../utils.js'
 import { DIR_HISTORY_CURRENT, ROOT_OUTPUT } from '../const.js'
 import * as PkgConfig from '../pkg/pkgConfig.js'
 import {
 	loadDataswornSchema,
-	loadDataswornSourceSchema,
+	loadDataswornSourceSchema
 } from '../schema/loadSchema.js'
 import Log from '../utils/Log.js'
 import { readJSON, readYAML, writeJSON } from '../utils/readWrite.js'
 import AJV from '../validation/ajv.js'
-import { idLike, needsIdValidation } from '../../pkg-core/Validators/Text.js'
-import { sortJson } from '../../pkg-core/Utils/Sort.js'
 
 Log.info('📖 Reading schema...')
 // flush any old schema...
@@ -29,7 +29,7 @@ AJV.removeSchema()
 
 const validators = Promise.all([
 	loadDataswornSourceSchema(),
-	loadDataswornSchema(),
+	loadDataswornSchema()
 ])
 
 await buildRulesPackages(PkgConfig)
@@ -75,7 +75,6 @@ async function buildRulesPackages(pkgs: Record<string, RulesPackageConfig>) {
 		builders.set(builder.id, builder)
 	}
 
-
 	IdParser.tree = tree
 
 	if (IdParser.tree == null)
@@ -87,7 +86,7 @@ async function buildRulesPackages(pkgs: Record<string, RulesPackageConfig>) {
 		// any static ID that's been indexed must be a valid node
 		valid: new Set(index.keys()),
 		unreachable: new Set<string>(),
-		invalid: new Set<string>(),
+		invalid: new Set<string>()
 	}
 
 	for (const ref of unvalidatedRefs)
@@ -101,17 +100,17 @@ async function buildRulesPackages(pkgs: Record<string, RulesPackageConfig>) {
 
 			const writeDestinations = [
 				path.join(ROOT_OUTPUT, pkgId, fileName),
-				path.join(DIR_HISTORY_CURRENT, pkgId, fileName),
+				path.join(DIR_HISTORY_CURRENT, pkgId, fileName)
 			]
 
 			const json = builder.toJSON()
 
 			writeOps.push(
-				writeJSON(writeDestinations, json, {replacer: sortJson}).then(() => {
+				writeJSON(writeDestinations, json, { replacer: sortJson }).then(() => {
 					Log.info(
 						[
 							`✏️  Wrote JSON for ${builder.packageType} "${builder.id}" to:`,
-							...writeDestinations.map(formatPath),
+							...writeDestinations.map(formatPath)
 						].join('\n  📝 ')
 					)
 				})
@@ -138,7 +137,7 @@ async function buildRulesPackages(pkgs: Record<string, RulesPackageConfig>) {
 	await Promise.all(writeOps)
 
 	profiler.done({
-		message: `Finished building ${buildOps.length} rules package(s) in ${Date.now() - profiler.start.valueOf()}ms`,
+		message: `Finished building ${buildOps.length} rules package(s) in ${Date.now() - profiler.start.valueOf()}ms`
 	})
 }
 
@@ -223,7 +222,7 @@ async function _loadBuilderFile<T extends DataswornSource.RulesPackage>(
 
 	return builder.addFiles({
 		name: path.relative(process.cwd(), filePath),
-		data,
+		data
 	})
 }
 
@@ -234,12 +233,12 @@ function getSourceFiles(path: string) {
 	return files
 }
 
-function getOldJsonFiles(path: string) {
+function _getOldJsonFiles(path: string) {
 	const glob = new Bun.Glob('*.json')
 	return glob.scan({ cwd: path, absolute: true })
 }
 
-function getOldErrorFiles(path: string) {
+function _getOldErrorFiles(path: string) {
 	const glob = new Bun.Glob('**/*.error.json')
 	return glob.scan({ cwd: path, absolute: true })
 }

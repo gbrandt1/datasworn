@@ -4,7 +4,6 @@
 
 import type { CollectionType } from '../types'
 import { escapeHtml } from '../utils/html'
-import { formatLabel } from '../utils/formatting'
 import { renderMarkdown } from '../utils/markdown'
 
 /** Render a collection (move category, asset collection, etc.) */

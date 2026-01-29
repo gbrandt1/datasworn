@@ -2,34 +2,34 @@
  * Detail panel component - displays selected item details
  */
 
-import { state } from '../state'
-import { escapeHtml, generateId } from '../utils/html'
-import { formatType, formatLabel } from '../utils/formatting'
 import {
-	isMove,
+	renderAsset,
+	renderAtlasEntry,
+	renderCollection,
+	renderDelveSite,
+	renderDelveSiteDomain,
+	renderDelveSiteTheme,
+	renderGeneric,
+	renderMove,
+	renderNpc,
+	renderOracle,
+	renderTruth
+} from '../renderers'
+import { state } from '../state'
+import {
 	isAsset,
-	isOracleRollable,
-	isNpc,
 	isAtlasEntry,
-	isTruth,
 	isCollection,
 	isDelveSite,
+	isDelveSiteDomain,
 	isDelveSiteTheme,
-	isDelveSiteDomain
+	isMove,
+	isNpc,
+	isOracleRollable,
+	isTruth
 } from '../types'
-import {
-	renderMove,
-	renderAsset,
-	renderOracle,
-	renderNpc,
-	renderAtlasEntry,
-	renderTruth,
-	renderCollection,
-	renderGeneric,
-	renderDelveSite,
-	renderDelveSiteTheme,
-	renderDelveSiteDomain
-} from '../renderers'
+import { formatLabel, formatType } from '../utils/formatting'
+import { escapeHtml, generateId } from '../utils/html'
 import { setupHoverPreview } from './HoverPreview'
 
 export function createDetailPanel(container: HTMLElement): void {
@@ -140,7 +140,10 @@ function renderDetail(item: unknown, path: string[]): string {
 	}
 
 	const obj = item as Record<string, unknown>
-	const name = (typeof obj.name === 'string' ? obj.name : null) || path[path.length - 1] || 'Item'
+	const name =
+		(typeof obj.name === 'string' ? obj.name : null) ||
+		path[path.length - 1] ||
+		'Item'
 	const type = typeof obj.type === 'string' ? obj.type : undefined
 	const id = typeof obj._id === 'string' ? obj._id : undefined
 

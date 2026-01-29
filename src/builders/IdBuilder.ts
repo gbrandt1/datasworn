@@ -1,32 +1,30 @@
 import {
-	CloneType,
-	Type,
 	type StringOptions,
 	type TRef,
-	type TSchema,
 	type TString,
-	type TUnion
+	type TUnion,
+	Type
 } from '@sinclair/typebox'
-import type TypeNode from '../pkg-core/TypeNode.js'
-import {
-	WildcardString,
-	PathKeySep,
-	COLLECTION_DEPTH_MIN,
-	COLLECTION_DEPTH_MAX,
-	TypeSep,
-	PrefixSep,
-	CollectionsKey,
-	ContentsKey
-} from '../scripts/const.js'
-import TypeId from '../pkg-core/IdElements/TypeId.js'
-import Pattern from '../pkg-core/IdElements/Pattern.js'
-import type { Datasworn } from '../pkg-core/index.js'
-import { pascalCase } from '../schema/utils/string.js'
-import type { Join, PascalCase, Split } from 'type-fest'
-import { JsonTypeDef } from '../schema/Symbols.js'
-import JtdType from '../scripts/json-typedef/typedef.js'
-import { TypeGuard } from '../pkg-core/IdElements/index.js'
 import { escapeRegExp, snakeCase } from 'lodash-es'
+import type { PascalCase } from 'type-fest'
+import { TypeGuard } from '../pkg-core/IdElements/index.js'
+import Pattern from '../pkg-core/IdElements/Pattern.js'
+import TypeId from '../pkg-core/IdElements/TypeId.js'
+import type { Datasworn } from '../pkg-core/index.js'
+import type TypeNode from '../pkg-core/TypeNode.js'
+import { JsonTypeDef } from '../schema/Symbols.js'
+import { pascalCase } from '../schema/utils/string.js'
+import {
+	COLLECTION_DEPTH_MAX,
+	COLLECTION_DEPTH_MIN,
+	CollectionsKey,
+	ContentsKey,
+	PathKeySep,
+	PrefixSep,
+	TypeSep,
+	WildcardString
+} from '../scripts/const.js'
+import JtdType from '../scripts/json-typedef/typedef.js'
 
 type RegexGroupType =
 	| 'none'
@@ -233,13 +231,13 @@ namespace PathSymbol {
 class IdPattern<
 	CurrentNode = Datasworn.RulesPackage
 > extends Array<PathFormat> {
-	static readonly TypeSep = '\\' + TypeSep
+	static readonly TypeSep = `\\${TypeSep}`
 
 	static readonly PrefixSep = PrefixSep
 
-	static readonly PathSep = '\\' + PathKeySep
+	static readonly PathSep = `\\${PathKeySep}`
 
-	static readonly WILDCARD = '\\' + WildcardString
+	static readonly WILDCARD = `\\${WildcardString}`
 	static readonly GLOBSTAR = IdPattern.WILDCARD + IdPattern.WILDCARD
 
 	/**
@@ -362,13 +360,13 @@ class IdPattern<
 			this.getLeftSide().source +
 			IdPattern.PrefixSep +
 			this.getRightSide(groups, wildcard).source
-		if (lineDelimiters) return new RegExp('^' + base + '$')
+		if (lineDelimiters) return new RegExp(`^${base}$`)
 		return new RegExp(base)
 	}
 
 	toWildcardSchema(options: StringOptions = {}) {
 		const typeName = this.fullTypeId.split(TypeSep).map(pascalCase).join('')
-		const $id = typeName + 'IdWildcard'
+		const $id = `${typeName}IdWildcard`
 		const description = `A wildcarded ${typeName}Id that can be used to match multiple ${typeName} objects.`
 		// named capture groups aren't universally available, so JSON schema docs recommend against using them
 		const pattern = this.toRegex(true, 'capture_group', true).source
@@ -384,7 +382,7 @@ class IdPattern<
 	toSchema(options: StringOptions = {}) {
 		const typeName = this.fullTypeId.split(TypeSep).map(pascalCase).join('')
 		const indefiniteArticle = typeName.match(/^[aeiou]/i) ? 'an' : 'a'
-		const $id = typeName + 'Id'
+		const $id = `${typeName}Id`
 		const description = `A unique ID representing ${indefiniteArticle} ${typeName} object.`
 		// named capture groups aren't universally available, so JSON schema docs recommend against using them
 		const pattern = this.toRegex(true, 'capture_group').source
@@ -452,10 +450,6 @@ class PathFormat<Origin = Datasworn.RulesPackage> extends Array<
 > {
 	typeId: string
 
-	get #patterns() {
-		return this.map(({ pattern }) => pattern.source)
-	}
-
 	toRegexSource(group?: RegexGroupType, wildcard = false) {
 		let base = ''
 		let dictKeys: PathSymbol.DictKey<any, any>[] = []
@@ -472,7 +466,7 @@ class PathFormat<Origin = Datasworn.RulesPackage> extends Array<
 				case isOnlyPart &&
 					part instanceof PathSymbol.DictKey &&
 					!(part instanceof PathSymbol.RecursiveDictKeys):
-					base += part.pattern.source + '|' + IdPattern.WILDCARD // single-symbol paths can't be globstarred
+					base += `${part.pattern.source}|${IdPattern.WILDCARD}` // single-symbol paths can't be globstarred
 					break
 				case part instanceof PathSymbol.DictKey &&
 					nextPart instanceof PathSymbol.DictKey:
@@ -534,7 +528,6 @@ class PathFormat<Origin = Datasworn.RulesPackage> extends Array<
 			case 'named_capture_group':
 				base = `(?<${this.typeId}>${base})`
 				break
-			case 'none':
 			default:
 				// if (canBeGlobstar) base = `(?:${base})`
 				break
@@ -673,7 +666,7 @@ const permutations = {} as Record<string, Set<string>>
 
 function permutate(typeId: TypeId.Any, parentTypeComposite: string) {
 	if (TypeId.isPrimary(typeId) && !TypeId.isEmbedOnly(parentTypeComposite)) {
-		const typeSchema = pascalCase(typeId) + 'Id'
+		const typeSchema = `${pascalCase(typeId)}Id`
 
 		const parentTypePrefix = parentTypeComposite
 			.split(TypeSep)
@@ -681,17 +674,17 @@ function permutate(typeId: TypeId.Any, parentTypeComposite: string) {
 			.join('')
 
 		const thisSchema = parentTypePrefix + typeSchema
-		const thisWildcardSchema = thisSchema + 'Wildcard'
+		const thisWildcardSchema = `${thisSchema}Wildcard`
 
-		const anySchema = `Any` + typeSchema
-		const anyWildcardSchema = anySchema + 'Wildcard'
-		const embeddedSchema = `Embedded` + typeSchema
-		const embeddedWildcardSchema = embeddedSchema + 'Wildcard'
+		const anySchema = `Any${typeSchema}`
+		const anyWildcardSchema = `${anySchema}Wildcard`
+		const embeddedSchema = `Embedded${typeSchema}`
+		const embeddedWildcardSchema = `${embeddedSchema}Wildcard`
 
 		permutations[anySchema] ||= new Set([typeSchema])
 		permutations[embeddedWildcardSchema] ||= new Set()
 		permutations[embeddedSchema] ||= new Set()
-		permutations[anyWildcardSchema] ||= new Set([typeSchema + 'Wildcard'])
+		permutations[anyWildcardSchema] ||= new Set([`${typeSchema}Wildcard`])
 
 		permutations[anySchema].add(thisSchema)
 		permutations[anyWildcardSchema].add(thisWildcardSchema)
@@ -717,9 +710,7 @@ const anyIdSchemata: TRef<string>[] = []
 const anyIdWildcardSchemata: TRef<string>[] = []
 
 for (const $id in permutations) {
-	const schemaIds = Array.from(permutations[$id]).map((id) =>
-		Type.Ref(id)
-	)
+	const schemaIds = Array.from(permutations[$id]).map((id) => Type.Ref(id))
 	ids[$id as IdSchemaName] = Type.Union(schemaIds, {
 		$id,
 		[JsonTypeDef]: { schema: JtdType.String() }
@@ -754,7 +745,11 @@ ids.AnyOracleRollableRowIdWildcard = Type.Union(
 
 ids.AnyMoveConditionId = Type.Union(
 	Object.values(ids)
-		.filter((schema) => schema.$id?.endsWith('ConditionId') && !schema.$id?.endsWith('IdWildcard'))
+		.filter(
+			(schema) =>
+				schema.$id?.endsWith('ConditionId') &&
+				!schema.$id?.endsWith('IdWildcard')
+		)
 		.map((schema) => Type.Ref(schema.$id as string)),
 	{
 		$id: 'AnyMoveConditionId',
@@ -777,7 +772,10 @@ ids.AnyMoveConditionIdWildcard = Type.Union(
 
 ids.AnyMoveOutcomeId = Type.Union(
 	Object.values(ids)
-		.filter((schema) => schema.$id?.endsWith('OutcomeId') && !schema.$id?.endsWith('IdWildcard'))
+		.filter(
+			(schema) =>
+				schema.$id?.endsWith('OutcomeId') && !schema.$id?.endsWith('IdWildcard')
+		)
 		.map((schema) => Type.Ref(schema.$id as string)),
 	{
 		$id: 'AnyMoveOutcomeId',

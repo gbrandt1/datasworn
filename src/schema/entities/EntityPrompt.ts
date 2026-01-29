@@ -1,4 +1,4 @@
-import { Type, type Static } from '@sinclair/typebox'
+import { type Static, Type } from '@sinclair/typebox'
 import * as Text from '../common/Text.js'
 
 export const EntityPrompt = Type.Object(

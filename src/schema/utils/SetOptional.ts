@@ -1,13 +1,10 @@
 import {
-	Type,
 	CloneType,
-	TypeGuard,
 	type ObjectOptions,
 	type Static,
 	type TObject,
-	type TOmit,
-	type TPartial,
-	type TPick
+	Type,
+	TypeGuard
 } from '@sinclair/typebox'
 import { omit } from 'lodash-es'
 import type * as TypeFest from 'type-fest'
@@ -20,7 +17,7 @@ export type SetOptional<
 
 export type TSetOptional<
 	T extends TObject,
-	K extends (keyof Static<T>)[]
+	_K extends (keyof Static<T>)[]
 > = TAssign<TObject, TObject> // Simplified due to TComputed type issues
 /** Make the provided keys optional */
 export function SetOptional<
