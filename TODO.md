@@ -181,6 +181,59 @@ Proposed backwards-compatible enhancement:
 
 ---
 
+## Inline Code TODOs
+
+Items extracted from `TODO`/`FIXME`/`HACK` comments in source files.
+
+### Schema
+
+- [ ] **OracleCollection color description**: Add "An optional thematic color for this column" (see Starforged p. 337)
+  — `src/schema/oracles/OracleCollection.ts`
+- [ ] **DelveSiteDomain defaults**: Disabled because defaults make TypeCompiler upset — investigate
+  — `src/schema/delve/DelveSiteDomain.ts`
+- [ ] **TagRule type safety**: Update TagRule type to match expected shape (2 locations)
+  — `src/schema/utils/generateRulesetSchemas.ts`
+- [ ] **Generate dummy schemas**: Generate placeholder schemas so overrides can be inserted later
+  — `src/schema/utils/generateRulesetSchemas.ts`
+- [ ] **Computed properties**: Support function-based computed properties
+  — `src/schema/utils/Computed.ts`
+- [ ] **canonicalTags enums**: Convert `curse_behavior` and `region` from `Type.String()` to enums
+  — `src/schema/tags/canonicalTags.ts`
+- [ ] **Dice rolls**: Support arbitrary dice expressions (e.g. 1d6); consider `recommended_rolls`
+  — `src/schema/common/Rolls.ts`
+- [ ] **Fields enhance_player**: Complete the `enhance_player` field implementation
+  — `src/schema/common/Fields.ts`
+- [ ] **TagRule automation**: Generate node types by iterating objects with 'tags' properties
+  — `src/schema/rules/TagRule.ts`
+- [ ] **TagSchema JTD**: Add JSON schema type stub library as dependency
+  — `src/schema/rules/TagSchema.ts`
+- [ ] **Package construction config**: Configure more of package construction from build config
+  — `src/schema/tools/build/index.ts`
+
+### Scripts
+
+- [ ] **Validation stubs**: Implement actual validation in `jsl.ts` format validators
+  — `src/scripts/validation/jsl.ts`
+- [ ] **ID error reporting**: Report specific files where bad IDs exist
+  — `src/scripts/datasworn/writeDatasworn.ts`
+- [ ] **ID ref optimization**: Grab all ID refs when deserializing to avoid redundant crawls
+  — `src/scripts/datasworn/writeDatasworn.ts`
+- [ ] **JTD patternProperties**: Verify handling is safe beyond Dictionary-style usage
+  — `src/scripts/json-typedef/utils.ts`
+- [ ] **JTD metadata omission**: Track down why some metadata gets omitted
+  — `src/scripts/json-typedef/utils.ts`
+- [ ] **i18n extraction**: Complete implementation — requires `loadDataswornNamespace` or refactoring
+  — `src/scripts/i18n/extractLocaleStrings.ts`, `src/scripts/i18n/index.ts`
+- [ ] **i18n tags**: Use tags to distinguish sense/part of speech
+  — `src/scripts/i18n/extractLocaleStrings.ts`
+
+### Known Limitations
+
+- JSON Schema draft migration to `2020-12/meta/core` blocked by VSCode support
+  — `src/scripts/const.ts`
+
+---
+
 ## Dependencies (Resolved)
 
 - [x] Evaluate `jtd` - Official RFC 8927 implementation, stable spec

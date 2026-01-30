@@ -53,7 +53,6 @@ export const ProgressTrackTypeInfo = Type.Object(
 				'Delve'
 			]
 		}),
-		// TODO
 		controls: Type.Optional(Generic.Dictionary(Type.Object({})))
 	},
 	{
