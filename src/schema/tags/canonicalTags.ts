@@ -11,7 +11,6 @@ type _TagParams = {
 	schema: TSchema
 	node_types: []
 }
-// TODO:
 const _TagsSunderedIsles = {
 	recommended: Type.Boolean({
 		description: 'This object is ideal for use in Sundered Isles.'
