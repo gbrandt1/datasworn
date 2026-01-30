@@ -1,4 +1,5 @@
 import { type TSchema, Type } from '@sinclair/typebox'
+import { UnionEnum } from '../Utils.js'
 
 const _TagsClassic = {}
 const _TagsStarforged = {
@@ -17,9 +18,9 @@ const _TagsSunderedIsles = {
 	}),
 	cursed_version_of: Type.Array(Type.Ref('OracleRollableIdWildcard')),
 	// wrap these into their own objects: "cursed" and "curses"?
-	curse_behavior: Type.Array(Type.String()), // TODO: enum
+	curse_behavior: Type.Array(UnionEnum(['replace_result', 'add_result'])),
 	cursed_by: Type.Array(Type.String()),
-	region: Type.String() // TODO: enum
+	region: UnionEnum(['myriads', 'margins', 'reaches'])
 	// overland_region
 	// location
 	// faction_type
