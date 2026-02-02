@@ -212,15 +212,15 @@ Items extracted from `TODO`/`FIXME`/`HACK` comments in source files.
 
 ### Scripts
 
-- [ ] **Validation stubs**: Implement actual validation in `jsl.ts` format validators
+- [x] **Validation stubs**: Dead code — `jsl.ts` is not imported anywhere; no action needed
   — `src/scripts/validation/jsl.ts`
 - [x] **ID error reporting**: Report specific files where bad IDs exist
   — `src/scripts/datasworn/writeDatasworn.ts`
 - [x] **ID ref optimization**: Grab all ID refs when deserializing to avoid redundant crawls
   — `src/scripts/datasworn/writeDatasworn.ts`
-- [ ] **JTD patternProperties**: Verify handling is safe beyond Dictionary-style usage
+- [x] **JTD patternProperties**: Verified safe — only called with Dictionary-style `TRecord` schemas; FIXME removed
   — `src/scripts/json-typedef/utils.ts`
-- [ ] **JTD metadata omission**: Track down why some metadata gets omitted
+- [x] **JTD metadata omission**: Resolved — `SelectEnhancementFieldChoice` now present in JTD output; stale HACK removed
   — `src/scripts/json-typedef/utils.ts`
 - [ ] **i18n extraction**: Complete implementation — requires `loadDataswornNamespace` or refactoring
   — `src/scripts/i18n/extractLocaleStrings.ts`, `src/scripts/i18n/index.ts`

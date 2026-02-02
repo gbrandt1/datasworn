@@ -160,8 +160,6 @@ export function toJtdValues<T extends TRecord<TString, U>, U extends TSchema>(
 		)
 
 	return JtdType.Record(unwrap, { propertyPattern })
-
-	// FIXME: This is probably only safe for Dictionary-style patternProperties
 }
 
 export function toJtdSingleEnum(schema: TLiteral<string>) {
@@ -323,11 +321,6 @@ export function toJtdRoot<T extends TRoot>(schemaRoot: T) {
 			throw new Error(`Couldn't convert ${k}. ${err?.message ?? err}`)
 		}
 	}
-	// HACK: not sure why this is getting omitted, there's a few places it could happen and i havent tracked it down yet
-
-	// defs.SelectEnhancementFieldChoice = toJtdForm(
-	// 	omit(Assets.SelectEnhancementFieldChoice, JsonTypeDef)
-	// )
 
 	const base = toJtdForm(schemaRoot[DefsKey][rootSchemaName] as TConvertible)
 
