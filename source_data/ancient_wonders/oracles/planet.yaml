@@ -125,7 +125,7 @@ oracles:
         oracle_type: table_text
         type: oracle_rollable
         summary: |-
-          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results. 
+          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results.
 
           Once you roll for the moon size, cross-reference it with the planetary body size to determine the moon base gravity. Then, roll the density to determine the gravity modifier.
         _source:
@@ -163,7 +163,7 @@ oracles:
         oracle_type: table_text
         type: oracle_rollable
         summary: |-
-          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results. 
+          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results.
 
           Once you roll for the moon size, cross-reference it with the planetary body size to determine the moon base gravity. Then, roll the density to determine the gravity modifier.
         _source:
@@ -244,7 +244,7 @@ oracles:
         oracle_type: table_text
         type: oracle_rollable
         summary: |-
-          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results. 
+          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results.
 
           Once you roll for the moon size, cross-reference it with the planetary body size to determine the moon base gravity. Then, roll the density to determine the gravity modifier.
         _source:
@@ -334,7 +334,7 @@ oracles:
         oracle_type: table_text
         type: oracle_rollable
         summary: |-
-          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results. 
+          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results.
 
           Once you roll for the moon size, cross-reference it with the planetary body size to determine the moon base gravity. Then, roll the density to determine the gravity modifier.
         _source:
@@ -403,7 +403,7 @@ oracles:
         oracle_type: table_text
         type: oracle_rollable
         summary: |-
-          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results. 
+          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results.
 
           Once you roll for the moon size, cross-reference it with the planetary body size to determine the moon base gravity. Then, roll the density to determine the gravity modifier.
         _source:
@@ -559,7 +559,7 @@ oracles:
         oracle_type: table_text
         type: oracle_rollable
         summary: |-
-          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results. 
+          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results.
 
           Once you roll for the moon size, cross-reference it with the planetary body size to determine the moon base gravity. Then, roll the density to determine the gravity modifier.
         _source:
@@ -1063,7 +1063,7 @@ oracles:
         oracle_type: table_text
         type: oracle_rollable
         summary: |-
-          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results. 
+          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results.
 
           Once you roll for the moon size, cross-reference it with the planetary body size to determine the moon base gravity. Then, roll the density to determine the gravity modifier.
         _source:
@@ -1196,7 +1196,7 @@ oracles:
         oracle_type: table_text
         type: oracle_rollable
         summary: |-
-          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results. 
+          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results.
 
           Once you roll for the moon size, cross-reference it with the planetary body size to determine the moon base gravity. Then, roll the density to determine the gravity modifier.
         _source:
@@ -1468,7 +1468,7 @@ oracles:
         oracle_type: table_text
         type: oracle_rollable
         summary: |-
-          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results. 
+          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results.
 
           Once you roll for the moon size, cross-reference it with the planetary body size to determine the moon base gravity. Then, roll the density to determine the gravity modifier.
         _source:
@@ -1541,9 +1541,9 @@ oracles:
         oracle_type: table_text
         type: oracle_rollable
         summary: |-
-          Use this oracle to define the main attributes of a moon. 
+          Use this oracle to define the main attributes of a moon.
 
-          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results. 
+          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results.
 
           Once you roll for the moon size, cross-reference it with the planetary body size to determine the moon base gravity. Then, roll the density to determine the gravity modifier.
         _source:
@@ -1814,7 +1814,7 @@ oracles:
         oracle_type: table_text
         type: oracle_rollable
         summary: |-
-          When you reach a waypoint while exploring a planet, use the table below to provide an event, encounter, or moment of character focus. 
+          When you reach a waypoint while exploring a planet, use the table below to provide an event, encounter, or moment of character focus.
 
           If you get the "Planetside community" result but have previously determined there are no settlements in the world, reroll or envision how this contradiction adds an unexpected revelation.
         _source:
@@ -1915,7 +1915,7 @@ oracles:
         oracle_type: table_text
         type: oracle_rollable
         summary: |-
-          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results. 
+          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results.
 
           Once you roll for the moon size, cross-reference it with the planetary body size to determine the moon base gravity. Then, roll the density to determine the gravity modifier.
         _source:
@@ -2255,7 +2255,7 @@ oracles:
         oracle_type: table_text
         type: oracle_rollable
         summary: |-
-          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results. 
+          A moon is always smaller than the planetary body it orbits, so the moon size results are not equivalent of the planet size results.
 
           Once you roll for the moon size, cross-reference it with the planetary body size to determine the moon base gravity. Then, roll the density to determine the gravity modifier.
         _source:
